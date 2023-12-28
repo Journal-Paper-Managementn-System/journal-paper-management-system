@@ -1,6 +1,5 @@
 let addAuthorRow = document.getElementById('add-author-row');
 let authorBody = document.getElementById('author-body');
-// disable button if the number of authors is 1
 
 let removeAuthorRow = document.getElementsByClassName('remove-author-row');
 removeAuthorRow[0].disabled = true;
