@@ -1,0 +1,25 @@
+.theme-container {
+    width: 100%;
+    min-height: 40vh;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 .5rem;
+    flex-wrap: wrap;
+    /* background: #712cf9; */
+}
+.theme-container .card {
+    margin: .25rem;
+    overflow: hidden;
+    flex-shrink: 1;
+    border-width: 1px;
+    border-color: #1de078;
+    background: transparent;
+}
+.theme-container .card > img {
+    object-fit: cover;
+    cursor: pointer;
+    transition: all .1s linear;
+}
+.theme-container .card > img:hover{
+    transform: scale(1.1);
+}
