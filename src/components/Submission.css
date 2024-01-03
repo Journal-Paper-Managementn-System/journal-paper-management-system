@@ -1,0 +1,64 @@
+/* @import url('https://fonts.googleapis.com/css2?family=Fira+Sans:wght@300&family=Josefin+Sans:wght@300&family=Mulish:wght@200&family=Nanum+Gothic&family=Roboto+Slab:wght@300&display=swap'); */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: sans-serif;
+}
+
+:root {
+    --primary-color: rgba(1, 110, 241, 0.35);
+    --secondary-color: #24292F;
+    --white-color: #ffffff;
+    --dark-color: #000;
+    --light-white: #f4eaea;
+    --btn-primary-color: #F58914;
+    --btn-secondary-color: #DA003C;
+}
+
+::-webkit-input-placeholder {
+    color: var(--white-color) !important;
+    opacity: 0.5 !important;
+}
+
+body>div>div {
+    min-height: 100vh;
+    min-width: 100vw;
+    padding: 1rem;
+    /* background-image: url("../images/32638111_7894007.jpg");
+    background-size: cover; */
+    background: linear-gradient(45deg, var(--secondary-color), rgb(119, 119, 20), var(--secondary-color));
+}
+
+form {
+    width: 100%;
+    min-height: 90vh;
+    padding: 2rem;
+    border-radius: 15px;
+    backdrop-filter: blur(35px);
+    box-shadow: var(--dark-color) 0px 0px 20px 0px;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="file"]::-webkit-file-upload-button,
+textarea,
+th, td, td input[type="text"],
+input[type="file"] {
+    background: transparent !important;
+    color: var(--white-color) !important;
+}
+
+label {
+    font-size: 1.2rem !important;
+    font-weight: 500;
+    color: var(--white-color);
+}
+
+#keywords-warning {
+    color: var(--btn-primary-color);
+    font-size: 12px;
+    margin: 5px 0;
+    display: none;
+}
