@@ -95,11 +95,11 @@ function SignUp() {
             </div>
             <span className="gender-title">Gender</span>
             <div className="gender_category">
-              <input type="radio" name="male" id="male" />
+              <input type="radio" name="gender" id="male" />
               <label htmlFor="male">Male</label>
-              <input type="radio" name="female" id="female" />
+              <input type="radio" name="gender" id="female" />
               <label htmlFor="female">Female</label>
-              <input type="radio" name="other" id="other" />
+              <input type="radio" name="gender" id="other" />
               <label htmlFor="other">Other</label>
             </div>
           </div>
@@ -109,17 +109,17 @@ function SignUp() {
               <input type="checkbox" name="alert-policy" id="policy-btn" /> By
               clicking sign up, you agree to our{" "}
               <Link to="/sign-up">Terms,</Link>{" "}
-              <Link to="/sign-up">Privacy Policy</Link>. You may receive sms
+              <Link to="/sign-up">Privacy & Policy</Link>. You may receive sms
               notifications from us and can opt out at any time.
-            </p>
-            <p className="text-center">
-              already have an account, please <Link to="/login">Login</Link>.
             </p>
           </div>
           {/* signup button */}
           <div className="button-container">
             <button type="submit">Sign up</button>
           </div>
+          <p className="text-center mt-lg-3 is-account">
+            Already have an account, please <Link to="/login">Login</Link>.
+          </p>
         </form>
       </div>
     </section>
