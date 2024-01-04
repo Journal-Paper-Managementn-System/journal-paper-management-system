@@ -34,7 +34,7 @@ body {
 
 }
 /* Main container */
-.container {
+body #container {
     max-width: 650px;
     padding: 28px;
     margin: 0 28px;
@@ -47,7 +47,7 @@ body {
 }
 
 /* Main heading (Registration) */
-h2 {
+form h2 {
     font-size: 26px;
     text-transform: capitalize;
     font-weight: 600;
@@ -57,25 +57,25 @@ h2 {
     border-bottom: 1px solid silver;
 }
 /* input box style */
-.content {
+#container .content {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
     padding: 20px 0;
 }
 
-.input-box {
+#container .content .input-box {
     display: flex;
     flex-wrap: wrap;
     width: 50%;
     padding-bottom: 15px;
 }
 
-.input-box:nth-child(2n) {
+/* .input-box:nth-child(2n) {
     justify-content: end;
-}
+} */
 
-.input-box label,
+#container .content .input-box label,
 .gender-title {
     width: 95%;
     color: var(--secondary-color);   
@@ -83,11 +83,11 @@ h2 {
     margin: 5px 0;
 }
 
-.gender-title {
+#container .content .gender-title {
     font-size: 16px;
 }
 
-.input-box input {
+#container .content .input-box input {
     height: 40px;
     width: 95%;
     padding: 0 10px;
@@ -96,26 +96,26 @@ h2 {
     outline: none;
 }
 
-.input-box input:is(:focus) {
+#container .content .input-box input:is(:focus) {
     box-shadow: 0 3px 6px var(--input-box-shadow);
 }
 
-.gender_category {
+#container .content .gender_category {
     color: var(--radio-color);
 }
 
-.gender_category label {
+#container .content .gender_category label {
 
     padding: 0 20px 0 5px;
     font-size: 14px;
 }
 
-.gender_category label,
+#container .content .gender_category label,
 .gender_category input {
     cursor: pointer;
 }
 /*Privacy Policy style */
-.policy {
+#container .policy {
 
     font-size: 14px;
     font-style: italic;
@@ -124,17 +124,17 @@ h2 {
     padding: 5px;
 }
 /*Policy ancher tag */
-.policy a {
+#container .policy a {
     text-decoration: none;
     font-weight: bold;
     
 }
 
-.policy a:hover {
+#container .policy a:hover {
     text-decoration: underline;
 }
 /*Sign Up button */
-.button-container button {
+#container .button-container button {
     width: 100%;
     margin-top: 10px;
     padding: 10px;
@@ -147,39 +147,43 @@ h2 {
     background-image: linear-gradient(to left, #4f1ef3, #a63f87, #e21e1e);
 }
 
-.button-container button:hover {
+#container .button-container button:hover {
     background-image: linear-gradient(to right, #4f1ef3, #e21e1e);
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.4);
 
 }
+::placeholder{
+    font-style: italic;
+}
 
 /* Responsive for Mobile screen using meadia quary */
 @media(max-width:600px) {
-    .container {
+    body #container {
         min-width: 200px;
     }
 
-    .content {
+    #container .content {
         max-height: 380px;
         overflow: auto;
     }
 
-    .input-box {
+    #container .content .input-box {
         margin-bottom: 12px;
         width: 100%;
     }
 
-    .input-box:nth-child(2n) {
+    /* .input-box:nth-child(2n) {
         justify-content: space-between;
-    }
+    } */
 
-    .gender_category {
+    #container .content .gender_category {
         display: flex;
         justify-content: space-between;
         width: 50%;
     }
 
-    .content::-webkit-scrollbar {
+    #container .content::-webkit-scrollbar {
         width: 0;
     }
 }
+
