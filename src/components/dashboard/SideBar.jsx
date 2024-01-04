@@ -1,10 +1,7 @@
 import React from "react";
 import { RxDashboard } from "react-icons/rx";
-import { GrView } from "react-icons/gr";
-import { BiMessageSquareAdd } from "react-icons/bi";
-import { MdOutlineAnalytics } from "react-icons/md";
 import styles from "./sidebarStyle.module.css";
-import { Link } from "react-router-dom";
+import SidebarMenu from "./SidebarMenu";
 
 function SideBar() {
   return (
@@ -15,29 +12,12 @@ function SideBar() {
           <span>Dashboard</span>
         </h4>
       </div>
+      {/* sideBar Menu items */}
       <div
-        className={`${styles.leftSidebarMenu} d-flex justify-content-center align-items-center`}
-      >
-        <ul>
-          <li>
-            <Link to="/" className="active btn btn-primary">
-              <GrView className={`${styles.dashboardIconView} text-light`} />
-              View Submission
-            </Link>
-          </li>
-          <li>
-            <Link to="/" className="text-white text-center">
-              <BiMessageSquareAdd className={`${styles.dashboardIconView}`} />
-              Add Submission
-            </Link>
-          </li>
-          <li>
-            <Link to="/" className="text-white text-center">
-              <MdOutlineAnalytics className={`${styles.dashboardIconView}`} />
-               Analytical Report
-            </Link>
-          </li>
-        </ul>
+        className={`${styles.leftSidebarMenu} 
+        d-flex justify-content-center 
+        align-items-center`}>
+          <SidebarMenu/>
       </div>
     </div>
   );

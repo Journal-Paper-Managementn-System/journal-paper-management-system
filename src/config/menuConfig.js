@@ -11,8 +11,8 @@ const menuList = [
   },
   {
     id: Math.floor(Math.random() * 100000),
-    navList: "Themes",
-    href: "/themes",
+    navList: "Login",
+    href: "/login",
   },
 ];
 

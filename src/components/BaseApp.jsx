@@ -1,11 +1,14 @@
-import React, { Children } from "react";
-import SideBar from "./dashboard/SideBar";
-import DashBoard from "./dashboard/DashBoard";
-import BgThemeChanger from "./BgThemeChanger";
-import "../App.css";
+import React from "react";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import "../App.css";
 import Layout from "../Layout";
+import DashBoard from "./dashboard/DashBoard";
+import ViewSubmission from "./dashboard/ViewSubmission";
+import AddSubmission from "./dashboard/AddSubmission";
+import AnalyticReport from "./dashboard/AnalyticReport";
+import Login from "./login/Login";
 
+//
 const router = createBrowserRouter([
   {
     path: "/",
@@ -13,26 +16,34 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/dashboard",
-        element: (
-          <>
-            <DashBoard>
-              <SideBar />
-            </DashBoard>
-          </>
-        ),
+        element: <DashBoard />,
+        children: [
+          {
+            path: "view-submission",
+            element: <ViewSubmission />,
+          },
+          {
+            path: "add-submission",
+            element: <AddSubmission />,
+          },
+          {
+            path: "analytical-report",
+            element: <AnalyticReport />,
+          },
+        ],
       },
-      {
-        path: '/themes',
-        element: <BgThemeChanger/>
-      }
     ],
+  },
+  {
+    path: "/login",
+    element: <Login />,
   },
 ]);
 
 function BaseApp() {
   return (
     <>
-        <RouterProvider router={router} />
+      <RouterProvider router={router} />
     </>
   );
 }

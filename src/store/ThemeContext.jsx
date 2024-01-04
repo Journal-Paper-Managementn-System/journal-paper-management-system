@@ -38,10 +38,10 @@ export const ThemeProvider = ({ children }) => {
     const { theme, isSetTheme } =
       JSON.parse?.(localStorage.getItem("setBgTheme")) || {};
 
-    if (isSetTheme) {
+    if (isSetTheme === true) {
       const body = document.querySelector("body");
       Object.assign(body.style, {
-        backgroundImage: `url(${theme})`,
+        backgroundImage: `url(./${theme})`,
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
       });
@@ -50,8 +50,7 @@ export const ThemeProvider = ({ children }) => {
 
   return (
     <ThemeContext.Provider
-      value={{ themeData, setTheme, applyTheme }}
-    >
+      value={{ themeData, setTheme, applyTheme }}>
       {children}
     </ThemeContext.Provider>
   );

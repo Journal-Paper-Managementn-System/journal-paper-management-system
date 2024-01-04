@@ -1,8 +1,8 @@
 .leftSideBar {
-    max-width: 220px;
-    min-width: 150px;
+    max-width: 280px;
+    min-width: 220px;
     height: 90vh;
-    background: #060312;
+    background: var(--navy-blue);
     border-radius: 5px;
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
@@ -11,10 +11,11 @@
     border-top: 5px solid var(--border-color);
     transition: all .1s linear;
     z-index: 9999;
-    box-shadow: 2px 0px 7px -3px rgba(10, 6, 10, 1);
+    box-shadow: var(--bx-sidebar-shadow);
+    box-sizing: border-box;
 }
 .dashboardTitle > h4 {
-        border-bottom: .1px solid #433b8f;
+        border-bottom: .1px solid var(--border-color);
         padding: .5rem 0;
         font-weight: 400;
         margin-top: 0;
@@ -26,7 +27,7 @@
 }
 .dashboardIcon{
     margin-bottom: .25rem;
-    color: #433b8f;
+    color: var(--icon-color);
     cursor: pointer;
 }
 .leftSidebarMenu{
@@ -38,3 +39,6 @@
     margin-bottom: .25rem;
     font-size: 1.45rem;
 }
+
+
+

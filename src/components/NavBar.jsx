@@ -6,6 +6,7 @@ function NavBar() {
   /* it save the current selected or active nav-item until we changes the pathname & also get actual instance after reloads the page.
    */
   const { pathname } = useLocation();
+  
   return (
     <>
       <div className="text-bg-dark">
