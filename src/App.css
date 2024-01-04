@@ -73,10 +73,15 @@
   position: absolute;
   top: 75%;
   right: 5%;
-  font-size: 22px;
-  color: #d2d2d4 !important;
+  font-size: 20px;
+  color: #10101d !important;
+  transition: color .2s ease;
 }
-
+.input-box .input-icon:hover .pswd-icon,
+.input-box .input-icon:hover .user-icon {
+  color: var(--btn-secondary-color);
+  cursor: pointer;
+}
 .wrapper .remember-forgot {
   display: flex;
   justify-content: space-between;
