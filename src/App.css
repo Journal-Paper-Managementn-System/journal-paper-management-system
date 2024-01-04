@@ -1,151 +1,159 @@
 /* helper classes */
-#sidebar-link > a.active {
-  color: var(--btn-secondary-color) !important;
+#sidebar-link>a.active {
+    color: var(--btn-secondary-color) !important;
 }
+
 /* adding dashboard contents */
-.dashboard-content-body{
-  width: calc(100% - 220px);
-  padding: .5rem .5rem;
+.dashboard-content-body {
+    width: calc(100% - 220px);
+    padding: .5rem .5rem;
 }
 
 
 /* login page styles */
 .wrapper {
-  min-width: 100%;
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: url('./peakpx.jpg');
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-attachment: fixed;
-  background-blend-mode: difference;
+    min-width: 100%;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: url('./peakpx.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    background-blend-mode: difference;
 }
+
 .center-wrapper {
-  min-width: 420px;
-  background: transparent;
-  border: 2px solid rgb(125, 38, 38);
-  backdrop-filter: blur(9px);
-  color: #000000;
-  border-radius: 12px;
-  padding: 30px 40px;
+    min-width: 420px;
+    background: transparent;
+    border: 2px solid rgb(125, 38, 38);
+    backdrop-filter: blur(9px);
+    color: #000000;
+    border-radius: 12px;
+    padding: 30px 40px;
 }
 
 .wrapper h1 {
-  font-size: 36px;
-  text-align: center;
+    font-size: 36px;
+    text-align: center;
 }
 
 .wrapper .input-box {
-  position: relative;
-  width: 100%;
-  height: 50px;
-  margin: 40px 0;
+    position: relative;
+    width: 100%;
+    height: 50px;
+    margin: 40px 0;
 }
 
 .input-box label {
-  color: var(--nevy-blue);
-  font-weight: 600;
-  margin-bottom: .5rem;
+    color: var(--nevy-blue);
+    font-weight: 600;
+    margin-bottom: .5rem;
 }
 
 .input-box input {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  background: transparent;
-  border: none;
-  outline: none;
-  border: 2px solid rgb(56, 20, 201);
-  border-radius: 40px;
-  font-size: 16px;
-  color: #1c0202;
-  padding: 20px 45px 20px 20px;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    border: none;
+    outline: none;
+    border: 2px solid rgb(56, 20, 201);
+    border-radius: 40px;
+    font-size: 16px;
+    color: #1c0202;
+    padding: 20px 45px 20px 20px;
 }
 
 .input-box input::placeholder {
-  color: var(--navy-blue);
-  font-weight: 500;
+    color: var(--navy-blue);
+    font-weight: 500;
 }
 
-.input-box > .input-icon {
-  position: absolute;
-  top: 75%;
-  right: 5%;
-  font-size: 20px;
-  color: #10101d !important;
-  transition: color .2s ease;
+.input-box>.input-icon {
+    position: absolute;
+    top: 75%;
+    right: 5%;
+    font-size: 20px;
+    color: #10101d !important;
+    transition: color .2s ease;
 }
+
 .input-box .input-icon:hover .pswd-icon,
 .input-box .input-icon:hover .user-icon {
-  color: var(--navy-blue);
-  cursor: pointer;
+    color: var(--navy-blue);
+    cursor: pointer;
 }
+
 .wrapper .remember-forgot {
-  display: flex;
-  justify-content: space-between;
-  font-size: 14.5px;
-  margin-bottom: 0.5rem;
-  color: var(--light-white);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    font-size: 14.5px;
+    margin-bottom: 0.5rem;
+    color: var(--light-white);
 }
 
 .remember-forgot label input {
-  accent-color: #000000;
-  margin-right: 3px;
+    accent-color: #000000;
+    margin-right: 3px;
 }
 
 .remember-forgot a {
-  color: #d7d8ea;
-  text-decoration: none;
+    color: #d7d8ea;
+    text-decoration: none;
 }
 
 .remember-forgot a:hover {
-  text-decoration: underline;
+    text-decoration: underline;
 }
 
 .wrapper .login-btn {
-  width: 100%;
-  height: 45px;
-  background-color: #4649a6;
-  border: none;
-  outline: none;
-  border-radius: 40px;
-  box-shadow: 0 0 10px rgb(0, 0, 0);
-  cursor: pointer;
-  font-size: 16px;
-  color: var(--light-white);
-  font-weight: 600;
-  transition: border .3s cubic-bezier(0.165, 0.84, 0.44, 1);
-  transition-delay: .2s;
+    width: 100%;
+    height: 45px;
+    background-color: #4649a6;
+    border: none;
+    outline: none;
+    border-radius: 40px;
+    box-shadow: 0 0 10px rgb(0, 0, 0);
+    cursor: pointer;
+    font-size: 16px;
+    color: var(--light-white);
+    font-weight: 600;
+    transition: border .3s cubic-bezier(0.165, 0.84, 0.44, 1);
+    transition-delay: .2s;
 }
 
 .wrapper .login-btn:hover {
- background-color: var(--btn-secondary-color);
- color: var(--light-white);
+    background-color: var(--btn-secondary-color);
+    color: var(--light-white);
 }
-.wrapper .login-btn:active{
-  background: var(--btn-primary-color);
+
+.wrapper .login-btn:active {
+    background: var(--btn-primary-color);
 }
 
 .wrapper .sign-up-link {
-  font-size: 14.5px;
-  text-align: center;
-  margin: 20px 0 15px;
+    font-size: 14.5px;
+    text-align: center;
+    margin: 20px 0 15px;
 }
 
-.sign-up-link > p {
-  color: #ccc;
+.sign-up-link>p {
+    color: #ccc;
 }
 
-.sign-up-link > p:hover a {
-  text-decoration: underline;
+.sign-up-link>p:hover a {
+    text-decoration: underline;
 }
+
 @media screen and (max-width: 486px) {
-  .center-wrapper {
-    min-width: 100%;
-  }
-    .wrapper .remember-forgot {
-      flex-direction: column;
+    .center-wrapper {
+        min-width: 100%;
+    }
+
+    .wrapper {
+        flex-direction: column;
     }
 }
