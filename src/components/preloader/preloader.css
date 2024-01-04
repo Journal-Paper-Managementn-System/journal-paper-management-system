@@ -1,0 +1,14 @@
+.preloader-section {
+    width: 65%;
+    margin: 0 auto;
+    min-height: 50vh;
+    background-color: var(--light-grey);
+    border-radius: .25rem;
+    box-shadow: var(--bx-shadow);
+}
+.journal-title {
+    font-size: 1.85rem;
+}
+.journal-title ~ .bottom-rule {
+    margin-top: 0;
+}

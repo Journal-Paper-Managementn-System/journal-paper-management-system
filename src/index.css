@@ -62,7 +62,7 @@ main {
   justify-content: center;
   align-items: center;
 }
-section {
+main section {
   min-width: 100%;
   min-height: 75vh;
   display: flex;

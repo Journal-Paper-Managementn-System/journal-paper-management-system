@@ -1,5 +1,5 @@
 .signup-section {
-    width: 50%;
+    min-width: 50%;
     min-height: 100vh;
     background: transparent;
     border-radius: 0;

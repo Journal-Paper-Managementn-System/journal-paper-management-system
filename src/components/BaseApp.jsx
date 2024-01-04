@@ -9,6 +9,7 @@ import AddSubmission from "./dashboard/AddSubmission";
 import AnalyticReport from "./dashboard/AnalyticReport";
 import Login from "./login/Login";
 import SignUp from "./signup/SignUp";
+import Preloader from "./preloader/Preloader";
 
 //
 const router = createBrowserRouter([
@@ -16,6 +17,10 @@ const router = createBrowserRouter([
     path: "/",
     element: <Layout />,
     children: [
+      {
+        path:'/',
+        element: <Preloader/>
+      },
       {
         path: "/dashboard",
         element: <DashBoard />,
