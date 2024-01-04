@@ -1,0 +1,176 @@
+.signup-section {
+    width: 50%;
+    min-height: 100vh;
+    background: transparent;
+    border-radius: 0;
+}
+.signup-wrapper {
+    /* max-width: 650px; */
+    width: 50%;
+    padding: 28px;
+    margin: 0 28px;
+    /* border-radius: 20px; */
+    box-shadow: var(--bx-shadow);
+    border-top: .5rem solid rgb(229, 145, 28);
+    background-image: linear-gradient(to top, #a18cd1 0%, #e9d2e2 100%);
+}
+.signup-wrapper h5.main_heading {
+    font-size: 1.85rem;
+    font-weight: 400 !important;
+}
+
+.signup-wrapper hr.bottom-rule {
+    width: 100%;
+    margin-top: 0;
+    border: .1px solid var(--navy-blue);
+}
+/* Main heading (Registration) */
+.signup-wrapper > form h5 {
+    font-size: 26px;
+    text-transform: capitalize;
+    font-weight: 600;
+    text-align: center;
+    color: #2f4f4f;
+    padding-bottom: 8px;
+    border-bottom: 1px solid silver;
+}
+
+/* input box style */
+.signup-wrapper .content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 20px 0;
+}
+
+.signup-wrapper .content .input-control {
+    display: flex;
+    flex-wrap: wrap;
+    width: 50%;
+    padding-bottom: 15px;
+}
+
+/* .input-control:nth-child(2n) {
+    justify-content: end;
+} */
+
+.signup-wrapper .content .input-control label,
+.gender-title {
+    width: 95%;
+    color: var(--secondary-color);
+    font-weight: bold;
+    margin: 5px 0;
+}
+
+.signup-wrapper .content .gender-title {
+    font-size: 16px;
+}
+
+.signup-wrapper .content .input-control input {
+    height: 40px;
+    width: 95%;
+    padding: 0 10px;
+    border-radius: 5px;
+    border: 1px solid var(--input-box-border);
+    outline: none;
+}
+
+.signup-wrapper .content .input-control input:is(:focus) {
+    box-shadow: 0 3px 6px var(--input-box-shadow);
+}
+
+.signup-wrapper .content .gender_category {
+    color: var(--radio-color);
+}
+
+.signup-wrapper .content .gender_category label {
+    padding: 0 20px 0 5px;
+    font-size: 15px;
+    font-weight: 500;
+}
+
+.signup-wrapper .content .gender_category label,
+.gender_category input {
+    cursor: pointer;
+}
+
+/*Privacy Policy style */
+.signup-wrapper .policy {
+    font-size: 15px;
+    font-weight: 500;
+    font-style: italic;
+    color: var(--policy-color);
+    margin: 5px 0;
+    padding: 5px;
+}
+.policy .policy-text {
+    text-align: justify;
+}
+
+/*Policy ancher tag */
+.signup-wrapper .policy a {
+    text-decoration: none;
+    font-weight: bold;
+
+}
+
+.signup-wrapper .policy a:hover {
+    text-decoration: underline;
+}
+
+/*Sign Up button */
+.signup-wrapper .button-container button {
+    width: 100%;
+    margin-top: 10px;
+    padding: 10px;
+    display: block;
+    font-size: 20px;
+    font-weight: bold;
+    color: #fff;
+    border: none;
+    border-radius: 20px;
+    background-image: linear-gradient(to left, #4f1ef3, #a63f87, #e21e1e);
+}
+
+.signup-wrapper .button-container button:hover {
+    background-image: linear-gradient(to right, #4f1ef3, #e21e1e);
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.4);
+
+}
+
+::placeholder {
+    font-style: italic;
+    color: #5d7a7a;
+}
+
+/* Responsive for Mobile screen using meadia quary */
+@media(max-width:600px) {
+    .signup-wrapper {
+        width: 80%;
+        border-radius: 0;
+    }
+
+    .signup-wrapper .content {
+        max-height: 380px;
+        overflow: auto;
+    }
+
+    .signup-wrapper .content .input-control {
+        margin-bottom: 12px;
+        width: 100%;
+    }
+
+    /* .input-control:nth-child(2n) {
+        justify-content: space-between;
+    } */
+
+    .signup-wrapper .content .gender_category {
+        display: flex;
+        justify-content: space-between;
+        width: 50%;
+    }
+
+    .signup-wrapper .content::-webkit-scrollbar {
+        width: 0;
+    }
+}
