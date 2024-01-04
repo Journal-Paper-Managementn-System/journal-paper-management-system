@@ -1,1 +1,0 @@
-# journal-paper-management-system
