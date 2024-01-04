@@ -1,5 +1,5 @@
 import React  from 'react';
-import AuthorRow from './AuthorRow';
+import AuthorTable from './AuthorTable';
 import KeyWords from './KeyWords';
 
 const JournalSubmissionForm = () => {
@@ -7,28 +7,29 @@ const JournalSubmissionForm = () => {
     return (
         <div className="d-flex justify-content-center align-items-center">
             <form className="" action="" method="">
-                {/* Title of the Journal Paper */}
+                <h2>Journal Submission</h2>
+                {/* Title of the Journal */}
                 <div className="row mb-3">
-                    <label htmlFor="input-title" className="col-sm-2 col-form-label fw-bold text-white">Title</label>
+                    <label htmlFor="input-title" className="col-sm-2 col-form-label fw-bold text-white fs-5">Title</label>
                     <div className="col-sm-10">
                         <input type="text" name="journal-title" className="form-control" id="input-title"
-                            placeholder="Title of the Journal Paper..." required />
+                            placeholder="Title of the Journal..." required />
                     </div>
                 </div>
-                {/* Abstract of the Journal Paper */}
+                {/* Abstract of the Journal */}
                 <div className="row mb-3">
-                    <label htmlFor="input-abstract" className="col-sm-2 col-form-label fw-bold text-white">Abstract</label>
+                    <label htmlFor="input-abstract" className="col-sm-2 col-form-label fw-bold text-white fs-5">Abstract</label>
                     <div className="col-sm-10">
                         <textarea name="journal-abstract" id="input-abstract" cols="" rows="10" spellCheck="true"
-                            className="form-control" placeholder="Describe something about your journal paper..."
+                            className="form-control" placeholder="Describe something about your journal..."
                             required></textarea>
                     </div>
                 </div>
-                {/* Keywords of the Journal Paper */}
+                {/* Keywords of the Journal */}
                 <KeyWords />
                 {/* File Upload */}
                 <div className="row mb-3">
-                    <label htmlFor="input-attachment" className="col-sm-2 col-form-label fw-bold text-white">Upload File
+                    <label htmlFor="input-attachment" className="col-sm-2 col-form-label fw-bold text-white fs-5">Upload File
                         <span>&#40;.pdf,
                             .docx&#41;</span></label>
                     <div className="col-sm-10">
@@ -37,7 +38,7 @@ const JournalSubmissionForm = () => {
                     </div>
                 </div>
                 {/* Author */}
-                <AuthorRow />
+                <AuthorTable />
                 {/* Submit button */}
                 <div className="d-flex justify-content-end">
                     <button type="submit" className="btn btn-warning pe-5 ps-5 fw-bold">Submit</button>

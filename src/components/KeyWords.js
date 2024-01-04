@@ -24,7 +24,7 @@ const KeyWords = () => {
 
     return (
         <div className="row mb-3">
-            <label htmlFor="input-keywords" className="col-sm-2 col-form-label fw-bold text-white">Keywords</label>
+            <label htmlFor="input-keywords" className="col-sm-2 col-form-label fw-bold text-white fs-5">Keywords</label>
             <div className="col-sm-8">
                 <input type="text" name="journal-keywords" className="form-control" value={keyValue} onChange={keyChange}
                     spellCheck="false" placeholder="Add a comma after each keywords..." required id="input-keywords" />
