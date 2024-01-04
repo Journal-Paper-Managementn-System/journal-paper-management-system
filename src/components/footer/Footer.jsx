@@ -7,9 +7,9 @@ function Footer() {
         <h4>Journal Submission</h4>
         <ul>
           <li>
-            Vidyasagar University, department of Computer Science.
+            Vidyasagar University, Department of Computer Science.
             <p className="text-center mt-1">
-              All &#169; CopyRigths are reserved.
+              All &#169; Copyrigths are reserved.
             </p>
           </li>
         </ul>
