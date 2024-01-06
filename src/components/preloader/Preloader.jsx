@@ -27,7 +27,7 @@ function Preloader() {
                 <td>1</td>
                 <td>
                   <p>
-                    <Link>The A.I evalution</Link>
+                    <Link to="/login">The A.I evalution</Link>
                   </p>
                 </td>
                 <td>

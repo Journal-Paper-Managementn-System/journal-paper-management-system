@@ -1,14 +1,9 @@
 import React, { lazy, Suspense } from "react";
-// const MyComponent = React.lazy(() => import('./MyComponent'));
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import "../App.css";
+// reduce page loading ....
 lazy(() => import("./submission.css"));
-// import Layout from "../Layout";
 const Layout = lazy(() => import("../Layout"));
-// import DashBoard from "./dashboard/DashBoard";
-// import ViewSubmission from "./dashboard/ViewSubmission";
-// import AddSubmission from "./dashboard/AddSubmission";
-// import AnalyticReport from "./dashboard/AnalyticReport";
 const DashBoard = lazy(() => import("./dashboard/DashBoard"));
 const ViewSubmission = lazy(() => import("./dashboard/ViewSubmission"));
 const AddSubmission = lazy(() => import("./dashboard/AddSubmission"));
@@ -22,7 +17,7 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: (
-      <Suspense>
+      <Suspense fallback={<div><h1>Loading ....</h1></div>}>
         <Layout />
       </Suspense>
     ),
