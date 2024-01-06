@@ -1,41 +1,71 @@
-import React from "react";
+import React, { lazy, Suspense } from "react";
+// const MyComponent = React.lazy(() => import('./MyComponent'));
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import "../App.css";
-import './submission.css';
-import Layout from "../Layout";
-import DashBoard from "./dashboard/DashBoard";
-import ViewSubmission from "./dashboard/ViewSubmission";
-import AddSubmission from "./dashboard/AddSubmission";
-import AnalyticReport from "./dashboard/AnalyticReport";
-import Login from "./login/Login";
-import SignUp from "./signup/SignUp";
-import Preloader from "./preloader/Preloader";
+lazy(() => import("./submission.css"));
+// import Layout from "../Layout";
+const Layout = lazy(() => import("../Layout"));
+// import DashBoard from "./dashboard/DashBoard";
+// import ViewSubmission from "./dashboard/ViewSubmission";
+// import AddSubmission from "./dashboard/AddSubmission";
+// import AnalyticReport from "./dashboard/AnalyticReport";
+const DashBoard = lazy(() => import("./dashboard/DashBoard"));
+const ViewSubmission = lazy(() => import("./dashboard/ViewSubmission"));
+const AddSubmission = lazy(() => import("./dashboard/AddSubmission"));
+const AnalyticReport = lazy(() => import("./dashboard/AnalyticReport"));
+const Login = lazy(() => import("./login/Login"));
+const SignUp = lazy(() => import("./signup/SignUp"));
+const Preloader = lazy(() => import("./preloader/Preloader"));
 
-//
+// routes
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Layout />,
+    element: (
+      <Suspense>
+        <Layout />
+      </Suspense>
+    ),
     children: [
       {
-        path:'/',
-        element: <Preloader/>
+        path: "/",
+        element: (
+          <Suspense>
+            <Preloader />
+          </Suspense>
+        ),
       },
       {
         path: "/dashboard",
-        element: <DashBoard />,
+        element: (
+          <Suspense>
+            <DashBoard />,
+          </Suspense>
+        ),
         children: [
           {
             path: "view-submission",
-            element: <ViewSubmission />,
+            element: (
+              <Suspense>
+                <ViewSubmission />
+              </Suspense>
+            ),
           },
           {
             path: "add-submission",
-            element: <AddSubmission />,
+            element: (
+              <Suspense>
+                <AddSubmission />
+              </Suspense>
+            ),
           },
           {
             path: "analytical-report",
-            element: <AnalyticReport />,
+            element: (
+              <Suspense>
+                <AnalyticReport />
+              </Suspense>
+            ),
           },
         ],
       },
@@ -43,11 +73,19 @@ const router = createBrowserRouter([
   },
   {
     path: "/login",
-    element: <Login />,
+    element: (
+      <Suspense>
+        <Login />
+      </Suspense>
+    ),
   },
   {
     path: "/sign-up",
-    element: <SignUp />,
+    element: (
+      <Suspense>
+        <SignUp />
+      </Suspense>
+    ),
   },
 ]);
 

@@ -17,7 +17,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background: url('./peakpx.jpg');
+    background: url('./assets/peakpx.jpg');
     background-repeat: no-repeat;
     background-size: cover;
     background-attachment: fixed;

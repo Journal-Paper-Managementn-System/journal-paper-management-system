@@ -28,7 +28,7 @@
 body {
   width: 100%;
   min-height: 100vh;
-  background-image: url("./bg-3d-gradient.png");
+  background-image: url("./assets/bg-3d-gradient.png");
   background-repeat: no-repeat;
   background-size: cover;
   background-attachment: fixed;
