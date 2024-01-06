@@ -1,15 +1,78 @@
 import React from "react";
 import "./signup-style.css";
 import { Link } from "react-router-dom";
+import { useState } from "react";
 
 function SignUp() {
+  // Need to fix the no value return issue of radio button
+  const [firstName,setFirstName] = useState("");
+  const [middleName,setMiddleName] = useState("");
+  const [lastName,setLastName] = useState("");
+  const [username,setUsername] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+  // Next work would be to fix there number of handler
+  const submit = (submitEvent) => {
+    // Add some form handling in here
+    alert("Form submitted")
+  }
+  // Some repetitive boaring bullshit
+  const handlePhoneNumberInput = (evt0) =>{
+    let numberData = evt0.target.value;
+    let pervInp = phoneNumber;
+    let matcher = numberData.match(/[^0-9-]/g);
+    if(matcher===null){
+      setPhoneNumber(numberData);
+    }else {
+      setPhoneNumber(pervInp);
+    }
+  }
+  const handleFirstName = (evt1) =>{
+    let data = evt1.target.value;
+    let prevInp = firstName;
+    let matcher = data.match(/[^a-zA-Z]/g);
+    if(matcher===null){
+      setFirstName(data);
+    }else {
+      setFirstName(prevInp);
+    }
+  }
+  const handleMiddleName = (evt2) =>{
+    let data = evt2.target.value;
+    let prevInp = middleName;
+    let matcher = data.match(/[^a-zA-Z]/g);
+    if(matcher===null){
+      setMiddleName(data);
+    }else {
+      setMiddleName(prevInp);
+    }
+  }
+  const handleLastName = (evt3) =>{
+    let data = evt3.target.value;
+    let prevInp = lastName;
+    let matcher = data.match(/[^a-zA-Z]/g);
+    if(matcher===null){
+      setLastName(data);
+    }else {
+      setLastName(prevInp);
+    }
+  }
+  const handleUsername = (evt4) =>{
+    let data = evt4.target.value;
+    let prevInp = username;
+    let matcher = data.match(/[^a-zA-Z]/g);
+    if(matcher===null){
+      setUsername(data);
+    }else {
+      setUsername(prevInp);
+    }
+  }
   return (
     <section className="signup-section d-flex justify-content-center align-items-center">
       <div className="signup-wrapper">
         <h5 className="main_heading text-center">REGISTRATION</h5>
         <hr className="bottom-rule" />
         {/* form elements */}
-        <form action="/" method="post">
+        <form action="/" method="post" onSubmit={submit}>
           <div className="content">
             <div className="input-control">
               <label htmlFor="first_name">First Name</label>
@@ -19,6 +82,8 @@ function SignUp() {
                 name="first_name"
                 id="first_name"
                 autoComplete="on"
+                value={firstName}
+                onChange={handleFirstName}
                 required
               />
             </div>
@@ -29,6 +94,8 @@ function SignUp() {
                 placeholder="Enter Middle name"
                 name="middle_name"
                 id="middle_name"
+                value={middleName}
+                onChange={handleMiddleName}
               />
             </div>
             <div className="input-control">
@@ -38,6 +105,8 @@ function SignUp() {
                 placeholder="Enter Last name"
                 name="last_name"
                 id="last_name"
+                value={lastName}
+                onChange={handleLastName}
                 required
               />
             </div>
@@ -49,6 +118,8 @@ function SignUp() {
                 name="username"
                 id="username"
                 autoComplete="on"
+                value={username}
+                onChange={handleUsername}
                 required
               />
             </div>
@@ -70,6 +141,9 @@ function SignUp() {
                 placeholder="Enter phone number"
                 name="phone_number"
                 id="phone_number"
+                pattern="[0-9]{10}"
+                value={phoneNumber}
+                onChange={handlePhoneNumberInput}
                 required
               />
             </div>
