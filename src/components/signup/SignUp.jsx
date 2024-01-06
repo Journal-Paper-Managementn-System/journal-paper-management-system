@@ -180,7 +180,7 @@ function SignUp() {
           {/* term & condition */}
           <div className="policy">
             <p className="policy-text">
-              <input type="checkbox" name="alert-policy" id="policy-btn" /> By
+              <input type="checkbox" name="alert-policy" id="policy-btn" required /> By
               clicking sign up, you agree to our{" "}
               <Link to="/sign-up">Terms,</Link>{" "}
               <Link to="/sign-up">Privacy & Policy</Link>. You may receive sms

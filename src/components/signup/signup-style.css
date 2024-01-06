@@ -138,7 +138,8 @@
     color: #fff;
     border: none;
     border-radius: 20px;
-    background-image: linear-gradient(to left, #4f1ef3, #a63f87, #e21e1e);
+    /*background-image: linear-gradient(to left, #4f1ef3, #a63f87, #e21e1e);*/
+    background-image: linear-gradient(to left, #4f1ef3, #a63f87);
 }
 
 .signup-wrapper .button-container button:hover {
