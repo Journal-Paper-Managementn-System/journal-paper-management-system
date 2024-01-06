@@ -1,0 +1,88 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+:root {
+  --primary-color: #016ef1;
+  --secondary-color: #24292f;
+  --white-color: #ffffff;
+  --dark-color: #080808;
+  --light-white: #f4eaea;
+  --light-grey: #eceded;
+  --btn-primary-color: #f58914;
+  --btn-secondary-color: #da003c;
+  --border-color: #8e12e6;
+  --bx-shadow: 0px 0px 8px -2px rgba(10, 6, 10, 1);
+  --icon-color: #433b8f;
+  --bx-sidebar-shadow: 2px 0px 7px -3px rgba(10, 6, 10, 1);
+  --navy-blue: #060312;
+  --radio-color: #303d3d;
+  --input-box-border: #4a3c63;
+  --input-box-shadow: rgba(0, 0, 0, 0.4);
+  --policy-color: rgb(60, 54, 54);
+  --white-mild: #b1dde9;
+  --pink-mild: #cca2ba;
+}
+
+body {
+  width: 100%;
+  min-height: 100vh;
+  background-image: url("./bg-3d-gradient.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  display: flex;
+  flex-direction: column;
+}
+
+a {
+  text-decoration: none;
+  cursor: pointer;
+  text-align: center;
+  display: inline-block;
+}
+ul {
+  padding: 0;
+  margin: 0;
+}
+ul li {
+  margin-bottom: 1.5rem;
+  text-align: center;
+  list-style: none;
+}
+ul li:last-child {
+  margin-bottom: 0;
+}
+
+main {
+  width: 95%;
+  margin: 25px auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+main section {
+  min-width: 100%;
+  min-height: 75vh;
+  display: flex;
+  flex-direction: column;
+  padding: 0px !important;
+  background-color: var(--white-color);
+  border-radius: 0.25rem;
+  box-shadow: var(--bx-shadow);
+}
+
+.footer {
+  width: 100%;
+  margin-top: 25px;
+  padding: 0.85rem 0;
+  padding-bottom: 0;
+  background-color: var(--secondary-color);
+  color: var(--white-color);
+}
+.footer-contents {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}

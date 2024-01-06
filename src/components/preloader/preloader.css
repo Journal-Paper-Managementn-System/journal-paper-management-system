@@ -1,0 +1,25 @@
+.preloader-section {
+    width: 65%;
+    margin: 0 auto;
+    min-height: 50vh;
+    background-color: var(--light-grey);
+    border-radius: .25rem;
+    box-shadow: var(--bx-shadow);
+}
+.journal-title {
+    font-size: 1.85rem;
+}
+.journal-title ~ .bottom-rule {
+    margin-top: 0;
+}
+.journal-logo {
+    width: 75px;
+    height: 75px;
+    padding: .25rem;
+    margin: 0 auto;
+    border-radius: 50px;
+    border: 1px solid var(--navy-blue);
+    overflow: hidden;
+    box-shadow: var(--bx-shadow);
+    margin-bottom: .5rem;
+}
