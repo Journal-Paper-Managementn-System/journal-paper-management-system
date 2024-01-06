@@ -59,7 +59,7 @@ function SignUp() {
   const handleUsername = (evt4) =>{
     let data = evt4.target.value;
     let prevInp = username;
-    let matcher = data.match(/[^a-zA-Z]/g);
+    let matcher = data.match(/[^a-zA-Z0-9]/g);
     if(matcher===null){
       setUsername(data);
     }else {
