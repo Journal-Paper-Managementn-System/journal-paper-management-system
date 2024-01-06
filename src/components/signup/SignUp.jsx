@@ -154,6 +154,7 @@ function SignUp() {
                 placeholder="Enter new password"
                 name="password"
                 id="password"
+                pattern=".{5}"
                 required
               />
             </div>
