@@ -11,13 +11,13 @@ function SignUp() {
   const [username,setUsername] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   // Next work would be to fix there number of handler
-  const submit = (submitEvent) => {
+  const submit = (evt) => {
     // Add some form handling in here
     alert("Form submitted")
   }
   // Some repetitive boaring bullshit
-  const handlePhoneNumberInput = (evt0) =>{
-    let numberData = evt0.target.value;
+  const handlePhoneNumberInput = (evt) =>{
+    let numberData = evt.target.value;
     let pervInp = phoneNumber;
     let matcher = numberData.match(/[^0-9-]/g);
     if(matcher===null){
@@ -26,8 +26,8 @@ function SignUp() {
       setPhoneNumber(pervInp);
     }
   }
-  const handleFirstName = (evt1) =>{
-    let data = evt1.target.value;
+  const handleFirstName = (evt) =>{
+    let data = evt.target.value;
     let prevInp = firstName;
     let matcher = data.match(/[^a-zA-Z]/g);
     if(matcher===null){
@@ -36,8 +36,8 @@ function SignUp() {
       setFirstName(prevInp);
     }
   }
-  const handleMiddleName = (evt2) =>{
-    let data = evt2.target.value;
+  const handleMiddleName = (evt) =>{
+    let data = evt.target.value;
     let prevInp = middleName;
     let matcher = data.match(/[^a-zA-Z]/g);
     if(matcher===null){
@@ -46,8 +46,8 @@ function SignUp() {
       setMiddleName(prevInp);
     }
   }
-  const handleLastName = (evt3) =>{
-    let data = evt3.target.value;
+  const handleLastName = (evt) =>{
+    let data = evt.target.value;
     let prevInp = lastName;
     let matcher = data.match(/[^a-zA-Z]/g);
     if(matcher===null){
@@ -56,8 +56,8 @@ function SignUp() {
       setLastName(prevInp);
     }
   }
-  const handleUsername = (evt4) =>{
-    let data = evt4.target.value;
+  const handleUsername = (evt) =>{
+    let data = evt.target.value;
     let prevInp = username;
     let matcher = data.match(/[^a-zA-Z0-9]/g);
     if(matcher===null){
