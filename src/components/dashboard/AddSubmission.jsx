@@ -1,12 +1,22 @@
-import React from 'react'
+import React, { useState } from 'react'
 import AuthorTable from './AuthorTable';
 import KeyWords from './KeyWords';
 
 function AddSubmission() {
+    const supportedTypes = ["application/pdf", "application/vnd.openxmlformats-officedocument.wordprocessingml.document"];
+    const [file,setFile] = useState("");
+    const handleFile = (evt) =>{
+        // Add the mime type checking in here
+    }
     return (
-        <div className="container d-flex justify-content-center align-items-center p-2 submission-wrapper">
+        <div className="container d-flex flex-column justify-content-center align-items-center p-2 submission-wrapper overflow-auto">
             <form className="submission-data-form" action="/" method="post">
-                <h2>Journal Submission</h2>
+                {/* <h2>Journal Submission</h2> */}
+                <div className="row">
+                    <div className="col-sm overflow-auto">
+                        <h2>Journal Submission</h2>
+                    </div>
+                </div>
                 {/* Title of the Journal */}
                 <div className="row mb-3">
                     <label htmlFor="input-title" className="col-sm-2 col-form-label fw-bold fs-5">Title</label>
@@ -39,7 +49,8 @@ function AddSubmission() {
                 {/* Author */}
                 <AuthorTable />
                 {/* Submit button */}
-                <div className="d-flex justify-content-end">
+                {/* <div className="d-flex justify-content-end"> */}
+                <div className="d-flex justify-content-center">
                     <button type="submit" className="btn btn-warning pe-5 ps-5 fw-bold">Submit</button>
                 </div>
             </form>

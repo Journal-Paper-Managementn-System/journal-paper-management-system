@@ -34,7 +34,7 @@ function AnalyticReport() {
                 <hr />
             </h5>
             <div className="row">
-                <div className="col-8">
+                <div className="col-8 overflow-auto">
                     <Chart
                         options={state.options}
                         series={state.series}
