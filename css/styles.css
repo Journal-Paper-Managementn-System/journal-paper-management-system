@@ -1,26 +1,68 @@
 *{
-    margin: 0;
     padding: 0;
+    margin: 0;
     box-sizing: border-box;
 }
-
-html {
-    /* 1rem = 16px = 100% = 6.25% (100/16) * 10 */
-    /* now 1rem = 10px = 62.5% */
-    font-size: 62.5%;
+body {
+    background-color: rgb(15, 15, 15);
 }
-
-.header h1 {
+a {
+    text-decoration: none;
+    color: rgb(135, 168, 229);
+}
+hr {
+    margin: 5px 0;
+    border: .1px solid rgb(46, 45, 45);
+}
+ul {
+    list-style: none;
+}
+.text-center {
     text-align: center;
-    padding: 1.5rem 0;
-    font-size: 2.4rem;
-    background-color: rgb(180, 52, 219);
+    font-size: 28px;
+    padding: 15px 0;
+    color: rgb(105, 134, 187);
 }
-.header h1 > span{
-    color: rgb(255, 190, 70);
+/* applying flex on parent class */
+.header{
+    background-color: #212429;
+    padding: 14px 0;
+    display: flex;
+    flex-direction: column;
 }
-.header p{
-    margin-top: .5rem;
-    font-size: 2.5rem;
-    padding: .85rem;
+
+
+
+.header-top {
+    /* background-color: rgb(195, 192, 192); */
+    margin: 0 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.header-top ul{
+    display:flex;
+    justify-content: end;
+    /* background-color: red; */
+    width:100%;
+    
+    
+
+}
+.header-top ul li{
+    margin-right:20px ;
+}
+.header-bottom{
+    display:flex;
+    justify-content: space-between;
+    margin:0 25px;
+    align-items: center;
+}
+.header-bottom a{
+    display:inline-block;
+    margin-right: 65px ;
+}
+.header-bottom .search-box input{
+    padding: 7px 5px;
+    border-radius: 10px;
 }
