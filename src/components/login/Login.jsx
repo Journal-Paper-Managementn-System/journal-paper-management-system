@@ -23,17 +23,44 @@ function Login() {
         }
     }
 
+    const [credentials, setCredentials] = useState({userName: "", password: ""})
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        const response = await fetch("http://localhost:5000/auth/login", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(credentials)
+        });
+        const json = await response.json();
+        console.log(json);
+        if (json.success) {
+            alert(json.message);
+        }
+        else {
+            alert(json.message);
+        }
+    }
+
+    const onChange = (e) => {
+        setCredentials({ ...credentials, [e.target.name]: e.target.value });
+    }
+
     return (
         <section className="wrapper">
             <div className="center-wrapper">
-                <form action="/">
+                <form onSubmit={handleSubmit}>
                     <h1>Login {visibleIcon}</h1>
                     <div className="input-box">
                         <label htmlFor="username">Username</label>
                         <input
                             type="text"
-                            name="username"
+                            name="userName"
                             id="username"
+                            onChange={onChange}
+                            value={credentials.userName}
                             placeholder="Enter a valid username"
                             required
                         />
@@ -46,6 +73,8 @@ function Login() {
                             name="password"
                             id="password"
                             ref={pswd}
+                            onChange={onChange}
+                            value={credentials.password}
                             placeholder="Enter a valid password"
                             required
                         />
