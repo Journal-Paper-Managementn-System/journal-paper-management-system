@@ -46,6 +46,10 @@ const registerSchema = new mongoose.Schema({
         type: Date,
         default: Date.now
     },
+    journalIds :[{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Submission"
+    }],
     tokens: [{
         token: {
             type: String,
