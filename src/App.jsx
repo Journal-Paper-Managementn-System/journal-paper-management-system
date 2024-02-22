@@ -3,7 +3,9 @@ import "./App.css";
 import BaseApp from "./components/BaseApp";
 
 function App() {
-  return <BaseApp />;
+    return (
+        <BaseApp />
+    );
 }
 
 export default App;

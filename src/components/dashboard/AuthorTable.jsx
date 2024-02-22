@@ -1,10 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 
-const AuthorRow = () => {
-    const [authors, setAuthors] = useState([{ firstName: '', lastName: '', email: '', address: '', firstAuthor: false, secondAuthor: false, correspondingAuthor: false }]);
+const AuthorRow = ({ authors, setAuthors }) => {
 
     const addAuthorRow = () => {
-        setAuthors([...authors, { firstName: '', lastName: '', email: '', address: '', firstAuthor: false, secondAuthor: false, correspondingAuthor: false }]);
+        setAuthors([...authors, { firstName: '', lastName: '', email: '', affiliation: '', firstAuthor: false, secondAuthor: false, correspondingAuthor: false }]);
     };
 
     const removeAuthorRow = (index) => {
@@ -52,7 +51,7 @@ const AuthorRow = () => {
                                 <td><input type="text" name="firstName" value={author.firstName} onChange={(e) => handleInputChange(e, index)} className="form-control" /></td>
                                 <td><input type="text" name="lastName" value={author.lastName} onChange={(e) => handleInputChange(e, index)} className="form-control" /></td>
                                 <td><input type="email" name="email" value={author.email} onChange={(e) => handleInputChange(e, index)} className="form-control" /></td>
-                                <td><input type="text" name="address" value={author.address} onChange={(e) => handleInputChange(e, index)} className="form-control" /></td>
+                                <td><input type="text" name="affiliation" value={author.affiliation} onChange={(e) => handleInputChange(e, index)} className="form-control" /></td>
                                 <td><input type="checkbox" name="firstAuthor" checked={author.firstAuthor} onChange={(e) => handleCheckboxChange(e, index)} /></td>
                                 <td><input type="checkbox" name="secondAuthor" checked={author.secondAuthor} onChange={(e) => handleCheckboxChange(e, index)} /></td>
                                 <td><input type="checkbox" name="correspondingAuthor" checked={author.correspondingAuthor} onChange={(e) => handleCheckboxChange(e, index)} /></td>

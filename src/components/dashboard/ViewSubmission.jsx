@@ -1,10 +1,11 @@
 import React from 'react'
+import JournalPosts from './JournalPosts';
 
 function ViewSubmission() {
     return (
-        <div>
-            <h1>Coming soon ... </h1>
-        </div>
+        <section className="preloader-section">
+            <JournalPosts />
+        </section>
     );
 }
 

@@ -1,12 +1,14 @@
 import React, { useRef, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { GrView } from "react-icons/gr";
 import { FaUser } from "react-icons/fa";
 import { AiOutlineEyeInvisible } from "react-icons/ai";
+import Auth from "../../services/authService";
 
 function Login() {
     const [visibleIcon, setVisibleIcon] = useState(true);
     const pswd = useRef();
+    const navigate = useNavigate();
 
     const handleOnVisible = () => {
         if (pswd.current.value !== '') {
@@ -25,22 +27,15 @@ function Login() {
 
     const [credentials, setCredentials] = useState({userName: "", password: ""})
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        const response = await fetch("http://localhost:5000/auth/login", {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(credentials)
-        });
-        const json = await response.json();
-        console.log(json);
-        if (json.success) {
-            alert(json.message);
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        const responseData = await Auth.login(credentials);
+        console.log(responseData);
+        if (responseData.success) {
+            navigate('/dashboard');
         }
         else {
-            alert(json.message);
+            alert(responseData.message);
         }
     }
 
@@ -51,7 +46,7 @@ function Login() {
     return (
         <section className="wrapper">
             <div className="center-wrapper">
-                <form onSubmit={handleSubmit}>
+                <form onSubmit={handleSubmit} action="/login">
                     <h1>Login {visibleIcon}</h1>
                     <div className="input-box">
                         <label htmlFor="username">Username</label>

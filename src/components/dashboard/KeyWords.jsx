@@ -1,10 +1,9 @@
 import React, { useState } from 'react'
 
-const KeyWords = () => {
+const KeyWords = ({ keywords, setKeywords }) => {
     const maxKeys = 6;
     const [keyNumb, setKeyNumb] = useState(maxKeys);
     const [keyValue, setKeyValue] = useState('');
-    const [keywords, setKeywords] = useState([]);
     const [showWarning, setShowWarning] = useState(false);
 
     const keyChange = (event) => {
