@@ -1,7 +1,8 @@
 .leftSideBar {
     max-width: 280px;
     min-width: 220px;
-    min-height: 90vh;
+    height: auto;
+    min-height: 80vh;
     background: var(--navy-blue);
     border-radius: 5px;
     border-top-right-radius: 0;

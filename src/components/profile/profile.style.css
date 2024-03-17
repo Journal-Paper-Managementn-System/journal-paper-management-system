@@ -1,0 +1,96 @@
+.profile-upper {
+    height: 150px;
+    background-color: #787ecf;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    box-shadow: 0 0 10px 0 #a6aada;
+}
+
+.profile-avatar {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    /* border: 5px solid #787ecf; */
+    position: absolute;
+    top: 95px;
+    left: 6%;
+    box-shadow: 0 0 10px 0 #a6aada;
+}
+
+.profile-avatar img {
+    width: 100%;
+    height: 100%;
+    padding: .25rem;
+    border-radius: 50%;
+    object-fit: cover;
+    -o-object-fit: cover;
+}
+
+.profile-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 5% 0 230px;
+    padding: 10px 0;
+}
+
+.others-info {
+    min-height: 25vh;
+    margin: 30px 5%;
+    padding: 30px 20px;
+    border: .1px solid #c0c2d7;
+    /* background-color: cadetblue; */
+    border-radius: 10px;
+    box-shadow: 0 0 10px 0 #b5b7d6;
+    font-size: larger;
+    background-color: #e6fce732;
+}
+
+.others-info span {
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.others-info .user-personal-info,
+.user-submission-info {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+    max-width: 25rem;
+    background-color: #c6f3d8dd;
+    border-radius: .25rem;
+}
+.others-info .user-personal-info::before,
+.others-info .user-submission-info::before{
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 8px;
+    background-color: rgb(98, 211, 153);
+    border-radius: .25rem;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    top: 0;
+    left: 0;
+}
+.others-info .user-submission-info::before{
+    background-color: rgb(131, 74, 244);
+
+} 
+.others-info .user-submission-info {
+    background-color: #d4d8f5;
+}
+
+.others-info .user-submission-info>.submission-data,
+    .others-info .user-personal-info>.personal-data{
+    width: 100%;
+    padding: .25rem .5rem;
+    margin-top: .5rem;
+    border: .1px solid #774cf6;
+    border-radius: .25rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}

@@ -1,0 +1,125 @@
+.editor {
+    padding: .25rem 0;
+    display: grid;
+    place-items: center;
+}
+
+.editor-heading h5 {
+    margin-left: 1.85rem !important;
+}
+
+.editor-container {
+    width: 95%;
+}
+
+.editor-form {
+    width: 100%;
+    padding: .5rem;
+    min-height: 55vh;
+    border: 1px solid #ccc;
+    margin-top: .25rem;
+    background-color: #f4f7c0;
+    border-radius: .25rem;
+}
+
+.card {
+    width: 100%;
+}
+
+.card-title {
+    background-color: #8B3DFF;
+}
+
+.reviewer-list>.card-title {
+    background-color: #cf507c;
+}
+
+.card-title>h5 {
+    font-weight: 400;
+    text-align: center;
+    padding: .25rem 0;
+    color: #eee;
+}
+
+.table-header-title>th {
+    font-weight: 300;
+    font-family: 'Trebuchet MS', arial;
+    text-transform: capitalize;
+}
+
+.editor-form>.row {
+    width: 100%;
+}
+
+/* reviewer styles */
+.reviewer-list {
+    height: 310px;
+}
+
+.search-author {
+    padding: .5rem;
+    width: 100%;
+    height: auto;
+    background-color: #fdfafa;
+    position: sticky;
+    top: 0;
+    z-index: 999;
+}
+
+.reviewer-list>.card-body::-webkit-scrollbar {
+    background-color: #f0ecec;
+    width: 14px;
+}
+
+.reviewer-list>.card-body::-webkit-scrollbar-button {
+    border-radius: 2px;
+}
+
+.reviewer-list>.card-body::-webkit-scrollbar-thumb {
+    border-radius: .5rem;
+    background-color: rgb(211, 46, 109);
+    width: 8px;
+}
+
+.check-author-inp {
+    box-shadow: none !important;
+    margin-left: .5rem;
+}
+
+.author-items {
+    border: .1px solid rgb(222, 215, 215);
+    border-radius: 8px;
+    padding: .5rem .5rem;
+    margin-top: .5rem !important;
+}
+
+.reviewer-list>.card-body {
+    overflow-y: auto;
+}
+
+.table-animated {
+    width: 75%;
+    transition: all .5s ease-in-out;
+}
+
+.card-animated {
+    transition: all .5s ease-in-out;
+}
+
+@media screen and (max-width:1024px) {
+    .status {
+        margin-top: .25rem;
+    }
+
+    .card {
+        width: 280px;
+        min-width: 0rem;
+    }
+}
+
+@media screen and (max-width:768px) {
+    .editor-form>.row {
+        flex-direction: column;
+        align-items: center;
+    }
+}

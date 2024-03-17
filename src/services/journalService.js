@@ -1,23 +1,25 @@
+import { BASE_URL } from "./helper";
+
 class Journal {
 
-    constructor() {
-        this.journals = [];
-    }
-
-    async getJournal() {
+    async getJournalList() {
         try {
-            let response = await fetch("http://localhost:3000/api/get-journal");
-            let data = await response.json();
-            this.journals = data;
-            return this.journals;
+            const response = await fetch(BASE_URL + "/journal/get-journal-list", {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            });
+            const responseData = await response.json();
+            return responseData;
         } catch (error) {
             console.log(error);
         }
     }
-    
+
     async addJournal(journalData) {
         try {
-            let response = await fetch("http://localhost:3000/api/add-journal", {
+            const response = await fetch(BASE_URL + "/journal/add-journal", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

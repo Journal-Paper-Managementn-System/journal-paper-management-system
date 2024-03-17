@@ -153,6 +153,38 @@
     color: #5d7a7a;
 }
 
+/* OTP verification */
+.otp-container {
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    backdrop-filter: blur(40px);
+    background-color: #9874e6;
+}
+
+.otp-container input {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+}
+
+.otp-container button {
+    width: 100%;
+    padding: 10px;
+    background-color: #372966 !important;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.otp-container button:hover {
+    background-color: #0056b3 !important;
+}
+
 /* Responsive for Mobile screen using meadia quary */
 @media(max-width:600px) {
     .signup-wrapper {

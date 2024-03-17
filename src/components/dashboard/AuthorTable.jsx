@@ -40,7 +40,7 @@ const AuthorRow = ({ authors, setAuthors }) => {
                             <th scope="col">Affiliation</th>
                             <th scope="col">First Author</th>
                             <th scope="col">Second Author</th>
-                            <th scope="col">Coresponding Author</th>
+                            <th scope="col">Corresponding Author</th>
                             <th scope="col"><button type="button" className="btn btn-warning fw-bold" onClick={addAuthorRow}>+</button></th>
                         </tr>
                     </thead>
@@ -48,14 +48,74 @@ const AuthorRow = ({ authors, setAuthors }) => {
                         {authors.map((author, index) => (
                             <tr key={index} className='align-middle text-center'>
                                 <th scope="row">{index + 1}</th>
-                                <td><input type="text" name="firstName" value={author.firstName} onChange={(e) => handleInputChange(e, index)} className="form-control" /></td>
-                                <td><input type="text" name="lastName" value={author.lastName} onChange={(e) => handleInputChange(e, index)} className="form-control" /></td>
-                                <td><input type="email" name="email" value={author.email} onChange={(e) => handleInputChange(e, index)} className="form-control" /></td>
-                                <td><input type="text" name="affiliation" value={author.affiliation} onChange={(e) => handleInputChange(e, index)} className="form-control" /></td>
-                                <td><input type="checkbox" name="firstAuthor" checked={author.firstAuthor} onChange={(e) => handleCheckboxChange(e, index)} /></td>
-                                <td><input type="checkbox" name="secondAuthor" checked={author.secondAuthor} onChange={(e) => handleCheckboxChange(e, index)} /></td>
-                                <td><input type="checkbox" name="correspondingAuthor" checked={author.correspondingAuthor} onChange={(e) => handleCheckboxChange(e, index)} /></td>
-                                <td className="text-center"><button type="button" className="btn btn-danger fw-bold" onClick={() => removeAuthorRow(index)} disabled={authors.length === 1}>-</button></td>
+                                <td>
+                                    <input
+                                        type="text"
+                                        name="firstName"
+                                        value={author.firstName}
+                                        onChange={(e) => handleInputChange(e, index)} className="form-control"
+                                        required
+                                    />
+                                </td>
+                                <td>
+                                    <input
+                                        type="text"
+                                        name="lastName"
+                                        value={author.lastName}
+                                        onChange={(e) => handleInputChange(e, index)} className="form-control"
+                                        required
+                                    />
+                                </td>
+                                <td>
+                                    <input
+                                        type="email"
+                                        name="email"
+                                        value={author.email}
+                                        onChange={(e) => handleInputChange(e, index)} className="form-control"
+                                        required
+                                    />
+                                </td>
+                                <td>
+                                    <input
+                                        type="text"
+                                        name="affiliation"
+                                        value={author.affiliation}
+                                        onChange={(e) => handleInputChange(e, index)} className="form-control"
+                                        required
+                                    />
+                                </td>
+                                <td>
+                                    <input
+                                        type="checkbox"
+                                        name="firstAuthor"
+                                        checked={author.firstAuthor}
+                                        onChange={(e) => handleCheckboxChange(e, index)}
+                                    />
+                                </td>
+                                <td>
+                                    <input
+                                        type="checkbox"
+                                        name="secondAuthor"
+                                        checked={author.secondAuthor}
+                                        onChange={(e) => handleCheckboxChange(e, index)}
+                                    />
+                                </td>
+                                <td>
+                                    <input
+                                        type="checkbox"
+                                        name="correspondingAuthor"
+                                        checked={author.correspondingAuthor}
+                                        onChange={(e) => handleCheckboxChange(e, index)}
+                                    />
+                                </td>
+                                <td className="text-center">
+                                    <button
+                                        type="button"
+                                        className="btn btn-danger fw-bold"
+                                        onClick={() => removeAuthorRow(index)}
+                                        disabled={authors.length === 1}>-
+                                    </button>
+                                </td>
                             </tr>
                         ))}
                     </tbody>

@@ -7,7 +7,6 @@ const KeyWords = ({ keywords, setKeywords }) => {
     const [showWarning, setShowWarning] = useState(false);
 
     const keyChange = (event) => {
-        // const newKeywords = event.target.value.split(',');
         const newKeywords = event.target.value.split(',').filter(keyword => keyword.trim() !== '');
         if (newKeywords.length <= maxKeys || event.nativeEvent.data === null) {
             setKeyValue(event.target.value);
