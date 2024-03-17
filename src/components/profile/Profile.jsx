@@ -11,6 +11,7 @@ import { BsGenderMale } from "react-icons/bs";
 import { ImListNumbered } from "react-icons/im";
 import { MdPendingActions } from "react-icons/md";
 import { FaCheckCircle } from "react-icons/fa";
+import { BASE_URL } from '../../services/helper';
 
 function Profile() {
     const { user, getUser } = useAuth();
@@ -25,7 +26,7 @@ function Profile() {
             <div className="profile-upper"></div>
             <div className="profile-avatar">
                 <img 
-                    src={user.profilePicture.includes("https")? user.profilePicture: `http://localhost:5000/profile-pictures/upload/${user.profilePicture}`}
+                    src={user.profilePicture.includes("https")? user.profilePicture: `${BASE_URL}/profile-pictures/upload/${user.profilePicture}`}
                     alt="Profile Picture" 
                 />
             </div>

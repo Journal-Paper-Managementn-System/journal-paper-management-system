@@ -4,7 +4,7 @@ import { defaultLayoutPlugin } from '@react-pdf-viewer/default-layout';
 import '@react-pdf-viewer/default-layout/lib/styles/index.css';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-
+import { BASE_URL } from '../../services/helper';
 
 function PDFViewer(props) {
     const defaultLayoutPluginInstance = defaultLayoutPlugin();
@@ -25,7 +25,7 @@ function PDFViewer(props) {
                 <div style={{height: "750px"}}>
                     <Worker workerUrl="https://unpkg.com/pdfjs-dist@3.11.174/build/pdf.worker.min.js">
                         <Viewer
-                            fileUrl={`http://localhost:5000/journals/upload/${props.fileurl}`}
+                            fileUrl={`${BASE_URL}/journals/upload/${props.fileurl}`}
                             plugins={[defaultLayoutPluginInstance]}
                             pageLayout={'SinglePage'}
                         />
