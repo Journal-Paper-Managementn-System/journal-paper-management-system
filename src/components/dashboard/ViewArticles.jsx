@@ -23,7 +23,6 @@ function ViewArticles() {
         const response = await getArticles(journalId);
         if (response.success) {
             setArticles(response.data);
-            console.log(response.data);
         }
     };
 

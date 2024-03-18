@@ -12,11 +12,22 @@ const AuthProvider = ({ children }) => {
     const [journalData, setJournalData] = useState([]);
     const [userList, setUserList] = useState([{}]);
 
+    /**
+     * Retrieves the list of articles for a given journal.
+     *
+     * @param {string} journalId - The ID of the journal.
+     * @returns {Promise} A promise that resolves to the response from the server.
+     */
     const getArticles = async (journalId) => {
         const response = await JournalArticle.getArticleList(journalId);
         return response;
     }
 
+    /**
+     * Stores the access token in either local storage or session storage based on the checkbox value.
+     * @param {string} accessToken - The access token to be stored.
+     * @param {boolean} [checkbox=false] - Indicates whether to store the token in local storage (true) or session storage (false).
+     */
     const storeToken = (accessToken, checkbox = false) => {
         if (checkbox) {
             localStorage.setItem("accessToken", accessToken);
@@ -28,23 +39,39 @@ const AuthProvider = ({ children }) => {
 
     let isLoggedIn = !!token;
 
+    /**
+     * Removes the access token from session storage or local storage and sets the token state to an empty string.
+     */
     const LogoutUser = () => {
         sessionStorage.removeItem("accessToken") || localStorage.removeItem("accessToken");
         setToken("");
     };
 
+    /**
+     * Retrieves the user data from the server.
+     * @returns {Promise<Object>} A promise that resolves to the user data.
+     */
     const getUser = async () => {
         const user = await Auth.getUser(token);
         if (user.success) setUser(user.data);
         return user;
     };
 
+    /**
+     * Retrieves journal article data.
+     * @returns {Promise<Object>} The response data from the API.
+     */
     const getJournalAData = async () => {
         const responseData = await JournalArticle.getJournalArticle(token);
         setJournalAData(responseData);
         return responseData;
     }
 
+    /**
+     * Fetches the user list from the server.
+     * 
+     * @returns {Promise} A promise that resolves to the response data.
+     */
     const getUserList = async () => {
         if (isLoggedIn) {
             const responseData = await Auth.getUserList(token);
@@ -53,6 +80,10 @@ const AuthProvider = ({ children }) => {
         }
     }
 
+    /**
+     * Fetches journal data from the server.
+     * @returns {Promise<Object>} The response data from the server.
+     */
     const getJournalData = async () => {
         const responseData = await Journal.getJournalList();
         setJournalData(responseData.data);

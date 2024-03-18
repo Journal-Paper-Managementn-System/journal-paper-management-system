@@ -187,7 +187,7 @@ function Editor() {
                                 <thead className="table-dark">
                                     <tr>
                                         <th>#</th>
-                                        <th>Title</th>
+                                        <th style={{width: "45rem"}}>Title</th>
                                         <th>Created At</th>
                                         <th>View details</th>
                                     </tr>
