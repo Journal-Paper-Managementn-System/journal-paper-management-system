@@ -11,6 +11,7 @@ const AuthProvider = ({ children }) => {
     const [journalAData, setJournalAData] = useState([]);
     const [journalData, setJournalData] = useState([]);
     const [userList, setUserList] = useState([{}]);
+    // const [isLoggedIn, setIsLoggedIn] = useState(false);
 
     /**
      * Retrieves the list of articles for a given journal.
@@ -38,6 +39,7 @@ const AuthProvider = ({ children }) => {
     };
 
     let isLoggedIn = !!token;
+
 
     /**
      * Removes the access token from session storage or local storage and sets the token state to an empty string.
@@ -73,7 +75,7 @@ const AuthProvider = ({ children }) => {
      * @returns {Promise} A promise that resolves to the response data.
      */
     const getUserList = async () => {
-        if (isLoggedIn) {
+        if (isLoggedIn && user.isEditor) {
             const responseData = await Auth.getUserList(token);
             setUserList(responseData.data);
             return responseData;

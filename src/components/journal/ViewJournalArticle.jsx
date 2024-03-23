@@ -19,49 +19,51 @@ function ViewJournalArticle() {
     return (
         <>
             {articlesData ?
-                <div>
-                    <section className="preloader-section p-4">
-                        <div className="journal-lists">
-                            <table className="table table-striped table-bordered text-center">
-                                <thead className="table-dark">
-                                    <tr>
-                                        <th>Title</th>
-                                        <th>Abstract</th>
-                                        <th>Authors</th>
-                                        <th>Created At</th>
-                                        <th>Status</th>
-                                        <th>View Article</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
+                <div className="p-3">
+                    <table className="table table-striped table-bordered">
+                        <thead className="table-dark text-center">
+                            <tr>
+                                <th>Title</th>
+                                <th>Abstract</th>
+                                <th>Authors</th>
+                                <th>Created At</th>
+                                <th>Status</th>
+                                <th>View Article</th>
+                            </tr>
+                        </thead>
+                        <tbody>
 
-                                    <tr>
-                                        <td>{articleData.title}</td>
-                                        <td>{articleData.abstract}</td>
-                                        <td>{articleData.authors.map((author, index) =>
-                                            <p key={index}>{author.firstName} {author.lastName}</p>
-                                        )}</td>
-                                        <td>{new Date(articleData.createdAt).toDateString()}</td>
-                                        <td className="text-capitalize">{articleData.status}</td>
-                                        <td>
-                                            <Button variant="primary" onClick={() => setModalShow(true)}>
-                                                <GrDocumentPdf />
-                                            </Button>
-                                        </td>
-                                    </tr>
+                            <tr>
+                                <td>
+                                    <div className="txt-container" onClick={(e) => e.target.classList.toggle("txt-expanded")} style={{ width: "20rem" }}>
+                                        {articleData.title}
+                                    </div>
+                                </td>
+                                <td>
+                                    <div className="txt-container" onClick={(e) => e.target.classList.toggle("txt-expanded")} style={{ width: "30rem" }}>
+                                        {articleData.abstract}
+                                    </div>
+                                </td>
+                                <td>{articleData.authors.map((author, index) =>
+                                    <p key={index}>{author.firstName} {author.lastName}</p>
+                                )}</td>
+                                <td>{new Date(articleData.createdAt).toDateString()}</td>
+                                <td className="text-capitalize">{articleData.status}</td>
+                                <td className="text-center">
+                                    <Button variant="primary" onClick={() => setModalShow(true)}>
+                                        <GrDocumentPdf />
+                                    </Button>
+                                    <PDFViewer
+                                        show={modalShow}
+                                        onHide={() => setModalShow(false)}
+                                        fileurl={articleData.file}
+                                        title={articleData.title}
+                                    />
+                                </td>
+                            </tr>
 
-                                </tbody>
-                            </table>
-                        </div>
-                    </section>
-
-
-                    <PDFViewer
-                        show={modalShow}
-                        onHide={() => setModalShow(false)}
-                        fileurl={articleData.file}
-                        title={articleData.title}
-                    />
+                        </tbody>
+                    </table>
                 </div>
                 : <Navigate to="/dashboard/view-submission" />}
         </>

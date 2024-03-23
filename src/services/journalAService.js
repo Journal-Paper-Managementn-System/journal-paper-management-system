@@ -80,6 +80,23 @@ class JournalArticle {
             console.log(error);
         }
     }
+
+    async updateReview(reviewData, accessToken) {
+        try {
+            const response = await fetch(BASE_URL + "/journal/update-review", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${accessToken}`,
+                },
+                body: JSON.stringify(reviewData),
+            });
+            const responseData = await response.json();
+            return responseData;
+        } catch (error) {
+            console.log(error);
+        }
+    }
 }
 
 export default new JournalArticle();

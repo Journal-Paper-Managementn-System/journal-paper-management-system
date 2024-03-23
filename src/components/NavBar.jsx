@@ -39,7 +39,7 @@ function NavBar() {
                             { isLoggedIn ? <>
                             <li className="nav-item mb-0">
                                 <Link to="/dashboard"
-                                    className={`nav-link ${pathname === "/dashboard" ? "active text-white" : ""}`}
+                                    className={`nav-link ${pathname.includes("/dashboard") ? "active text-white" : ""}`}
                                     aria-current="page">Dashboard
                                 </Link>
                             </li>

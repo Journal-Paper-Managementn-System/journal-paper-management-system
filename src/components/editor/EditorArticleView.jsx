@@ -8,12 +8,22 @@ import Table from 'react-bootstrap/Table';
 
 function EditorArticleView(props) {
     const article = props.article;
+    const [show, setShow] = useState(false);
     const [modalShow, setModalShow] = useState(false);
+
+    React.useEffect(() => {
+        setShow(props.show);
+    }, [props.show]);
+
+    const handleClose = () => {
+        setShow(false);
+        props.onHide();
+    };
 
     return (
         <Modal
-            show={props.show}
-            onHide={props.onHide}
+            show={show}
+            onHide={handleClose}
             size="xl"
             dialogClassName='modal-90w'
             aria-labelledby="example-custom-modal-styling-title"
@@ -35,16 +45,26 @@ function EditorArticleView(props) {
                     </thead>
                     <tbody>
                         <tr key={1}>
-                            <td>{article.abstract}</td>
-                            <td>{article.keywords.join(", ")}</td>
                             <td>
-                                {article.authors.map((author, index) =>
-                                    <div>
-                                        {author.firstName} {author.lastName}
+                                <div className="txt-container" onClick={(e) => e.target.classList.toggle("txt-expanded")} style={{width: "40rem"}}>
+                                    {article.abstract}
+                                </div>
+                            </td>
+                            <td>
+                                {article.keywords.map((keyword, index) =>
+                                    <div key={index} className='btn btn-success mx-1'>
+                                        {keyword}
                                     </div>
                                 )}
                             </td>
                             <td>
+                                {article.authors.map((author, index) =>
+                                    <div key={index}>
+                                        {author.firstName} {author.lastName}
+                                    </div>
+                                )}
+                            </td>
+                            <td className='text-center'>
                                 <Button variant="primary" onClick={() => setModalShow(true)}>
                                     <GrDocumentPdf />
                                 </Button>
@@ -60,7 +80,7 @@ function EditorArticleView(props) {
                 </Table>
             </Modal.Body>
             <Modal.Footer>
-                <Button onClick={props.onHide}>Close</Button>
+                <Button onClick={handleClose}>Close</Button>
             </Modal.Footer>
         </Modal>
     )

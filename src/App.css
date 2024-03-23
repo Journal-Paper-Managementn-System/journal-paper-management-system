@@ -17,7 +17,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background: url('./peakpx.jpg');
+    background: url('./assets/peakpx.jpg');
     background-repeat: no-repeat;
     background-size: cover;
     background-attachment: fixed;
@@ -146,6 +146,26 @@
 
 .sign-up-link>p:hover a {
     text-decoration: underline;
+}
+
+
+.txt-container {
+    width: auto;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    cursor: pointer;
+    transition: max-height 0.5s ease;
+    /* Add transition for smooth animation */
+}
+
+.txt-container.txt-expanded {
+    white-space: normal;
+    text-overflow: initial;
+    overflow: auto;
+    max-height: auto;
+    text-align: justify;
+    /* Set a max-height for the transition */
 }
 
 @media screen and (max-width: 486px) {

@@ -9,7 +9,7 @@ import Reviewer from "../../services/reviewerService";
 import EditorArticleView from "./EditorArticleView";
 import { Button } from "react-bootstrap";
 
-function Editor() {
+function AssignReviewer() {
     const { getArticles, journalData, user, token } = useAuth();
     const [articles, setArticles] = useState([]);
     const [article, setArticle] = useState(false);
@@ -31,7 +31,11 @@ function Editor() {
             toast.error("Please select at least one reviewer");
             return;
         }
-        article.reviewers = selectedReviewers.map(reviewer => ({ email: reviewer }));
+        const existingReviewers = article.reviewers.map(reviewer => reviewer.email);
+        const newReviewers = selectedReviewers.filter(reviewer => !existingReviewers.includes(reviewer));
+        newReviewers.forEach(reviewer => {
+            article.reviewers.push({ email: reviewer });
+        });
         // Update the article with the selected reviewers
         const response = await JournalArticle.updateArticle(article, token);
         // If the update is successful, show a success message
@@ -78,6 +82,11 @@ function Editor() {
     const handleSubmitStatus = async (e) => {
         e.preventDefault();
         // Update the article status with the provided token
+        if (["accepted", "rejected"].includes(article.status)) {
+            article.finalStatus = article.status;
+        } else {
+            article.finalStatus = "pending";
+        }
         const response = await JournalArticle.updateArticle(article, token);
         if (response.success) {
             toast.success("Status updated successfully");
@@ -126,6 +135,11 @@ function Editor() {
         getReviewers();
     }, [])
 
+    /**
+     * Handles the click event when a row is clicked.
+     * Toggles the selection state of the clicked row and updates the article state accordingly.
+     * @param {Event} event - The click event object.
+     */
     const handleClick = (event) => {
         // Retrieve the ID of the clicked row
         const selectedRowId = event.currentTarget.id;
@@ -151,7 +165,6 @@ function Editor() {
 
         // Update the state with the modified articles array
         setArticles(updatedArticles);
-        // console.log(article.title);
     };
 
 
@@ -163,7 +176,7 @@ function Editor() {
         setSearch(e.target.value);
         const searchValue = e.target.value.toLowerCase();
         const filteredReviewers = tempReviewers.filter(reviewer => {
-            return reviewer.firstName.toLowerCase().includes(searchValue) || reviewer.lastName.toLowerCase().includes(searchValue);
+            return reviewer.firstName.toLowerCase().includes(searchValue) || reviewer.lastName.toLowerCase().includes(searchValue) || reviewer.affiliation.toLowerCase().includes(searchValue);
         });
         setReviewers(filteredReviewers);
     }
@@ -188,7 +201,7 @@ function Editor() {
                                     <tr>
                                         <th>#</th>
                                         <th style={{width: "45rem"}}>Title</th>
-                                        <th>Created At</th>
+                                        <th>Submission Date</th>
                                         <th>View details</th>
                                     </tr>
                                 </thead>
@@ -196,17 +209,21 @@ function Editor() {
                                     {articles.map((article, index) => (
                                         <tr key={index} onClick={handleClick} id={article._id} className={article.isSelected ? "table-primary" : ""}>
                                             <th>{index + 1}</th>
-                                            <td>{article.title}</td>
                                             <td>
-                                                {new Date(article.createdAt).toDateString()}
+                                                <div className="txt-container text-start" onClick={(e) => e.target.classList.toggle("txt-expanded")} style={{width: "30rem"}}>
+                                                    {article.title}
+                                                </div>
                                             </td>
                                             <td>
-                                                <Button variant="primary" onClick={() => setModalShow(true)}>
+                                                {new Date(article.createdAt).toLocaleString()}
+                                            </td>
+                                            <td>
+                                                <Button variant="outline-primary" onClick={() => setModalShow(index, true)}>
                                                     <GrView />
                                                 </Button>
                                                 <EditorArticleView
-                                                    show={modalShow}
-                                                    onHide={() => setModalShow(false)}
+                                                    show={modalShow === index}
+                                                    onHide={() => setModalShow(index, false)}
                                                     article={article}
                                                 />
                                             </td>
@@ -270,7 +287,7 @@ function Editor() {
                                                         id={reviewer._id}
                                                         className="bg-none check-author-inp"
                                                         onChange={handleSelectReviewer}
-                                                    // checked={selectedReviewers.includes(reviewer.email)}
+                                                        // checked={selectedReviewers.includes(reviewer.email)}
                                                     />
                                                 </li>
                                             </label>
@@ -297,4 +314,4 @@ function Editor() {
     );
 }
 
-export default Editor;
+export default AssignReviewer;

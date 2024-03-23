@@ -1,5 +1,6 @@
 import React, { Suspense, lazy } from "react";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import AcceptedArticles from "./editor/AcceptedArticles";
 
 // React.lazy() is used to dynamically import a component when it's rendered.
 lazy(() => import("../App.css"));
@@ -17,11 +18,11 @@ const Logout = lazy(() => import("./logout/Logout"));
 const Profile = lazy(() => import("./profile/Profile"));
 const Verification = lazy(() => import("./signup/Verification"));
 const ForgotPassword = lazy(() => import("./login/ForgotPassword"));
-const Editor = lazy(() => import("./editor/Editor"));
+const AssignReviewer = lazy(() => import("./editor/AssignReviewer"));
 const ProtectedRoute = lazy(() => import("../utils/ProtectedRoute"));
-const Reviewer = lazy(() => import("./reviewer/Reviewer"));
-const AddReviewer = lazy(() => import("./reviewer/AddReviewer"));
-const ViewArticles = lazy(() => import("./dashboard/ViewArticles"));
+const Reviewer = lazy(() => import("./reviewer/ReviewArticles"));
+const AddReviewer = lazy(() => import("./editor/AddReviewer"));
+const ViewArticles = lazy(() => import("./editor/ViewArticles"));
 // import DOCViewer from "./fileviewer/DOCViewer";
 
 const router = createBrowserRouter([
@@ -57,10 +58,10 @@ const router = createBrowserRouter([
                                 ),
                             },
                             {
-                                path: "editor",
+                                path: "assign-reviewer",
                                 element: (
                                     <Suspense fallback={<Loading />}>
-                                        <Editor />
+                                        <AssignReviewer />
                                     </Suspense>
                                 ),
                             },
@@ -105,6 +106,14 @@ const router = createBrowserRouter([
                                 ),
                             },
                             {
+                                path: "accepted-articles",
+                                element: (
+                                    <Suspense fallback={<Loading />}>
+                                        <AcceptedArticles />
+                                    </Suspense>
+                                ),
+                            },
+                            {
                                 path: "view-submission/:journalId?",
                                 element: (
                                     <Suspense fallback={<Loading />}>
@@ -134,6 +143,14 @@ const router = createBrowserRouter([
                     </Suspense>
                 ),
             },
+            {
+                path: "verify-email",
+                element: (
+                    <Suspense fallback={<Loading />}>
+                        <Verification />
+                    </Suspense>
+                ),
+            }
         ],
     },
     {

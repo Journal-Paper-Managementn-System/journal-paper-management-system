@@ -1,8 +1,9 @@
 import React from "react";
 import { GrView } from "react-icons/gr";
 import { BiMessageSquareAdd } from "react-icons/bi";
-import { MdAdminPanelSettings, MdOutlineAnalytics, MdOutlineAssignmentInd, MdOutlinePreview, MdPreview } from "react-icons/md";
-import { FaRegUserCircle } from "react-icons/fa";
+import { MdOutlineAnalytics, MdOutlineAssignmentInd, MdPreview } from "react-icons/md";
+import { FiUserPlus } from "react-icons/fi";
+import { FaRegCheckCircle, FaRegUserCircle } from "react-icons/fa";
 import styles from "./sidebarStyle.module.css";
 import { NavLink } from "react-router-dom";
 import { useAuth } from "../../store/AuthContext";
@@ -27,15 +28,21 @@ function SidebarMenu() {
                         </NavLink>
                     </li>
                     <li id="sidebar-link">
-                        <NavLink to="/dashboard/editor" className="btn text-white text-center w-100">
+                        <NavLink to="/dashboard/assign-reviewer" className="btn text-white text-center w-100">
                         <MdOutlineAssignmentInd className={`${styles.dashboardIconView}`} />
-                            Assign
+                            Assign Reviewer
                         </NavLink>
                     </li>
                     <li id="sidebar-link">
                         <NavLink to="/dashboard/add-reviewer" className="btn text-white text-center w-100">
-                            <MdOutlinePreview className={`${styles.dashboardIconView}`} />
+                            <FiUserPlus className={`${styles.dashboardIconView}`} />
                             Add Reviewer
+                        </NavLink>
+                    </li>
+                    <li id="sidebar-link">
+                        <NavLink to="/dashboard/accepted-articles" className="btn text-white text-center w-100">
+                            <FaRegCheckCircle className={`${styles.dashboardIconView}`} />
+                            Accepted Articles
                         </NavLink>
                     </li>
                 </>

@@ -30,6 +30,10 @@ function SignUp() {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
+        if (!event.target['alert-policy'].checked) {
+            toast.error('Please accept the Terms, Privacy & Policy.');
+            return;
+        }
         setLoader(true);
         const responseData = await Auth.register(credentials);
         if (responseData.success) {
@@ -219,13 +223,13 @@ function SignUp() {
                                 </div>
                                 {/* terms & condition */}
                                 <div className="policy">
-                                    <p className="policy-text">
+                                    <label className="policy-text" htmlFor="policy-btn">
                                         <input type="checkbox" name="alert-policy" id="policy-btn" /> By
                                         clicking sign up, you agree to our{" "}
                                         <Link to="/sign-up">Terms,</Link>{" "}
                                         <Link to="/sign-up">Privacy & Policy</Link>. You may receive sms
                                         notifications from us and can opt out at any time.
-                                    </p>
+                                    </label>
                                 </div>
                                 {/* signup button */}
                                 <div className="button-container">

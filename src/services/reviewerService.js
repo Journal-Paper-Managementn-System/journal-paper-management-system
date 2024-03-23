@@ -68,6 +68,28 @@ class Reviewer {
             console.log(error);
         }
     }
+
+    /**
+     * Deletes a reviewer from the journal.
+     * @param {string} reviewerId - The ID of the reviewer to be deleted.
+     * @param {string} accessToken - The access token for authentication.
+     * @returns {Promise<Object>} - A promise that resolves to the response data.
+     */
+    async deleteReviewer(reviewerId, accessToken) {
+        try {
+            const response = await fetch(BASE_URL + `/journal/delete-reviewer/${reviewerId}`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${accessToken}`,
+                },
+            });
+            const responseData = await response.json();
+            return responseData;
+        } catch (error) {
+            console.log(error);
+        }
+    }
 }
 
 export default new Reviewer();

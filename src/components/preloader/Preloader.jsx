@@ -21,7 +21,7 @@ function Preloader() {
                     </Link>
                     <hr className="bottom-rule" />
                     <div className="journal-lists">
-                        <table className="table table-striped table-bordered">
+                        <table className="table table-striped table-bordered table-hover">
                             <thead className="table-dark">
                                 <tr>
                                     <th>#</th>

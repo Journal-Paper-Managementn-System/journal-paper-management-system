@@ -18,7 +18,7 @@ const ProtectedRoute = () => {
 
     if (user.isEditor) {
         // Editors can only access these pages
-        if (!['/dashboard/profile', '/dashboard/editor', '/dashboard', '/dashboard/view-articles', '/dashboard/add-reviewer'].includes(pathname)) {
+        if (!['/dashboard/profile', '/dashboard/assign-reviewer', '/dashboard', '/dashboard/view-articles', '/dashboard/add-reviewer', '/dashboard/accepted-articles'].includes(pathname)) {
             return <Navigate to="/" replace />;
         }
     } else {
