@@ -3,7 +3,7 @@ import { FaRegSave } from "react-icons/fa";
 // import { RiDeleteBinLine } from "react-icons/ri";
 import { useAuth } from '../../store/AuthContext';
 import parse from 'html-react-parser';
-import JournalArticle from '../../services/journalAService';
+import Article from '../../services/articleService';
 import { toast } from 'react-toastify';
 
 function ReviewerRow({ article, index }) {
@@ -11,18 +11,18 @@ function ReviewerRow({ article, index }) {
         <>
             <td>
                 <tr>
-                    {article.reviewers?.[index]?.email}
+                    {article.reviewers?.[index]?.email || "Not Assigned"}
                 </tr>
             </td>
             <td>
                 <tr className='text-capitalize'>
-                    {article.reviewers?.[index]?.status}
+                    {article.reviewers?.[index]?.status || "Null"}
                 </tr>
             </td>
-            <td>
+            <td className='text-start'>
                 <tr>
                     <div style={{ width: "15rem" }}>
-                        {article.reviewers?.[index]?.comments ? parse(article.reviewers?.[index]?.comments) : ""}
+                        {article.reviewers?.[index]?.comments ? parse(article.reviewers?.[index]?.comments) : "Null"}
                     </div>
                 </tr>
             </td>
@@ -72,7 +72,7 @@ function ViewArticles() {
         }
         article.finalStatus = article.status;
         // Update the article based on the field
-        const response = await JournalArticle.updateArticle(article, token);
+        const response = await Article.updateArticle(article, token);
         if (response.success) {
             getJournalArticles();
             toast.success(response.message);
@@ -111,7 +111,7 @@ function ViewArticles() {
             <tbody>
                 {articles.map((article, index) => (
                     <>
-                        <tr>
+                        <tr key={index}>
                             <th rowSpan={3}>{index + 1}</th>
                             <td rowSpan={3}>
                                 <div className="txt-container text-start" onClick={(e) => e.target.classList.toggle("txt-expanded")} style={{ width: "20rem" }}>

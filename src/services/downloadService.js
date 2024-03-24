@@ -1,7 +1,9 @@
+import { BASE_URL } from "./helper";
+
 class DownloadService {
     async downloadArticles(files, accessToken) {
         try {
-            const response = await fetch('http://localhost:5000/zip/create-zip', {
+            const response = await fetch(BASE_URL + '/zip/create-zip', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

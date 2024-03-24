@@ -45,7 +45,7 @@ function ViewJournalArticle() {
                                     </div>
                                 </td>
                                 <td>{articleData.authors.map((author, index) =>
-                                    <p key={index}>{author.firstName} {author.lastName}</p>
+                                    <p key={index} className="p-0">{author.firstName} {author.lastName}</p>
                                 )}</td>
                                 <td>{new Date(articleData.createdAt).toDateString()}</td>
                                 <td className="text-capitalize">{articleData.status}</td>

@@ -15,7 +15,7 @@ import { BASE_URL } from '../../services/helper';
 
 function Profile() {
     const { user, getUser } = useAuth();
-    const { journalAData } = useAuth();
+    const { articleData } = useAuth();
     const [show, setShow] = useState(false);
 
     const handleClose = () => setShow(false);
@@ -74,7 +74,7 @@ function Profile() {
                     <div className='submission-data'>
                         <ImListNumbered />
                         <div>
-                            {journalAData.success ? (journalAData.data.length < 10 ? "0" + journalAData.data.length : journalAData.data.length) : 0}
+                            {articleData.success ? (articleData.data.length < 10 ? "0" + articleData.data.length : articleData.data.length) : 0}
                         </div>
                     </div>
                 </div>

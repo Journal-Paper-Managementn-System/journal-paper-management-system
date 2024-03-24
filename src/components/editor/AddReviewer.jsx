@@ -3,10 +3,12 @@ import { toast } from 'react-toastify';
 import { useAuth } from '../../store/AuthContext';
 import { useEffect, useState } from 'react';
 import { RiDeleteBinLine } from 'react-icons/ri';
+import CSVReader from 'react-csv-reader';
 
 function AddReviewer() {
     const { token } = useAuth();
     const [reviewerList, setReviewerList] = useState([{}]);
+    const [reviewers, setReviewers] = useState([{}]);
 
     /**
      * Handles the form submission for adding a reviewer.
@@ -56,15 +58,7 @@ function AddReviewer() {
 
     const handleCSVSubmit = async (e) => {
         e.preventDefault();
-        const formData = new FormData();
-        formData.append('file', e.target[0].files[0]);
-        const responseData = await Reviewer.addBulkReviewer(formData, token);
-        if (responseData.success) {
-            toast.success(responseData.message);
-            getReviewerList();
-        } else {
-            toast.error(responseData.message);
-        }
+        console.log(reviewers);
         e.target.reset();
     }
 
@@ -78,7 +72,7 @@ function AddReviewer() {
             <hr />
             <form className='border p-3' onSubmit={handleOnSubmit}>
                 <table className="table table-bordered text-center table-responsive">
-                    <thead className=''>
+                    <thead>
                         <tr>
                             <th><label htmlFor="first-name">First Name</label></th>
                             <th><label htmlFor="last-name">Last Name</label></th>
@@ -138,7 +132,12 @@ function AddReviewer() {
             <form className="row mt-5 mx-3 border p-3 rounded-2" onSubmit={handleCSVSubmit}>
                 <label htmlFor="reviewer-file" className='col-md-2 col-form-label fs-5 fw-bold'>Upload CSV File</label>
                 <div className="col-md-8 d-flex align-items-center">
-                    <input type="file" accept='.csv' id='reviewer-file' className='form-control' />
+                    {/* <input type="file" accept='.csv' id='reviewer-file' className='form-control' /> */}
+                    <CSVReader
+                        parserOptions={{ header: true }}
+                        onFileLoaded={(data, fileInfo) => setReviewers(data)}
+                        inputId='reviewer-file'
+                    />
                 </div>
                 <button className="btn btn-primary col-md-2 px-5 fw-bold">Add Reviewer</button>
             </form>
@@ -162,7 +161,18 @@ function AddReviewer() {
                             <td>{reviewer.email}</td>
                             <td>{reviewer.affiliation}</td>
                             <td>
-                                <button className='btn btn-outline-danger' onClick={() => deleteReviewer(reviewer._id)}><RiDeleteBinLine /></button>
+                                <button
+                                    type='button'
+                                    className='btn btn-outline-danger'
+                                    data-bs-toggle="tooltip"
+                                    // data-bs-placement="top"
+                                    data-bs-html="true"
+                                    // data-bs-custom-class="custom-tooltip"
+                                    data-bs-title="This top tooltip is themed via CSS variables."
+                                    onClick={() => deleteReviewer(reviewer._id)}
+                                >
+                                    <RiDeleteBinLine />
+                                </button>
                             </td>
                         </tr>
                     ))}

@@ -52,7 +52,7 @@ function EditorArticleView(props) {
                             </td>
                             <td>
                                 {article.keywords.map((keyword, index) =>
-                                    <div key={index} className='btn btn-success mx-1'>
+                                    <div key={index} className='btn btn-success mx-1 my-1'>
                                         {keyword}
                                     </div>
                                 )}

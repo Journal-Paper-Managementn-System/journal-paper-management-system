@@ -3,7 +3,7 @@ import { Button } from 'react-bootstrap';
 import { GrDocumentPdf } from 'react-icons/gr';
 import PDFViewer from '../fileviewer/PDFViewer';
 import { useAuth } from '../../store/AuthContext';
-import JournalArticle from '../../services/journalAService';
+import Article from '../../services/articleService';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { toast } from 'react-toastify';
@@ -14,7 +14,7 @@ function ReviewArticles() {
     const [articles, setArticles] = useState([{}]);
 
     const getArticles = async () => {
-        const responseData = await JournalArticle.getReviewArticles(token);
+        const responseData = await Article.getReviewArticles(token);
         setArticles(responseData);
     }
 
@@ -33,7 +33,7 @@ function ReviewArticles() {
         const article = articles.data.find((article) => article._id === e.target.id);
         article.reviewers[0].reviewed = true;
         article.reviewers[0].reviewDate = new Date();
-        const response = await JournalArticle.updateReview(article, token);
+        const response = await Article.updateReview(article, token);
         if (response.success) {
             getArticles();
             toast.success("Article reviewed successfully");

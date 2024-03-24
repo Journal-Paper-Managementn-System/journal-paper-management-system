@@ -4,14 +4,14 @@ import { useParams } from 'react-router-dom';
 import ViewJournalArticle from '../journal/ViewJournalArticle';
 
 function ViewSubmission() {
-    const { journalAData } = useAuth();
+    const { articleData } = useAuth();
     const { journalId } = useParams();
 
     return (
         <>
             {!!journalId ? <ViewJournalArticle /> :
                 <div className='p-4'>
-                    {journalAData.success ? (
+                    {articleData.success ? (
                         <table className="table table-striped table-bordered table-hover text-center">
                             <thead className="table-dark">
                                 <tr>
@@ -24,11 +24,11 @@ function ViewSubmission() {
                                 </tr>
                             </thead>
                             <tbody>
-                                {journalAData.data.map((journal, index) => (
+                                {articleData.data.map((journal, index) => (
                                     <tr key={index}>
                                         <td>{index + 1}</td>
                                         <td>
-                                            <Link to={`/dashboard/view-submission/${journal._id}`} state={{ articlesData: journalAData.data }} className="txt-container text-start" style={{ width: "20rem" }}>{journal.title}</Link>
+                                            <Link to={`/dashboard/view-submission/${journal._id}`} state={{ articlesData: articleData.data }} className="txt-container text-start" style={{ width: "20rem" }}>{journal.title}</Link>
                                         </td>
                                         <td>
                                             {new Date(journal.createdAt).toLocaleString()}
@@ -48,7 +48,7 @@ function ViewSubmission() {
                                 ))}
                             </tbody>
                         </table>
-                    ) : (<h3 className='p-4'>{journalAData.message}</h3>)}
+                    ) : (<h3 className='p-4'>{articleData.message}</h3>)}
                 </div>}
         </>
     );

@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import AuthorTable from './AuthorTable';
 import KeyWords from './KeyWords';
-import JournalArticle from "../../services/journalAService";
+import Article from "../../services/articleService";
 import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { useAuth } from "../../store/AuthContext";
@@ -18,7 +18,7 @@ function AddSubmission() {
     const [authors, setAuthors] = useState([{ firstName: '', lastName: '', email: '', affiliation: '', firstAuthor: false, secondAuthor: false, correspondingAuthor: false }]); // Authors of the submission
     const navigate = useNavigate(); // Navigation hook
     const totalLettersCount = 1000; // Maximum allowed letters in the abstract
-    const { user, getJournalAData, journalData } = useAuth(); // Auth context
+    const { user, getArticleData, journalData } = useAuth(); // Auth context
     const { journalId } = useParams(); // Journal ID from URL parameters
     const accessToken = sessionStorage.getItem("accessToken") || localStorage.getItem("accessToken"); // Access token
 
@@ -36,10 +36,10 @@ function AddSubmission() {
         formData.append('userId', user._id.toString());
         formData.append('journalId', event.target['journal-list'].value);
         // Call the service to add the journal article
-        const resJournalAData = await JournalArticle.addJournalArticle(formData, accessToken);
+        const responseData = await Article.addArticle(formData, accessToken);
         const emailReceivers = authors.map(author => author.email)
         emailReceivers.push(user.email);
-        if (resJournalAData.success) {
+        if (responseData.success) {
             // If successful, send a mail and navigate to the view submission page
             await MailService.sendMail({
                 mailFrom: "Journal Submission",
@@ -55,12 +55,12 @@ function AddSubmission() {
                 `
             });
             navigate('/dashboard/view-submission');
-            toast.success(resJournalAData.message);
-            getJournalAData();
+            toast.success(responseData.message);
+            getArticleData();
             setLoader(false);
         } else {
             // If not successful, show an error toast
-            toast.error(resJournalAData.message);
+            toast.error(responseData.message);
         }
     }
 

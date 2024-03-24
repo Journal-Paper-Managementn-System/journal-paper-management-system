@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { GrView } from "react-icons/gr";
 import "./editor.css";
 import { useAuth } from "../../store/AuthContext";
-import JournalArticle from "../../services/journalAService";
+import Article from "../../services/articleService";
 import { toast } from "react-toastify";
 import Reviewer from "../../services/reviewerService";
 import EditorArticleView from "./EditorArticleView";
@@ -37,7 +37,7 @@ function AssignReviewer() {
             article.reviewers.push({ email: reviewer });
         });
         // Update the article with the selected reviewers
-        const response = await JournalArticle.updateArticle(article, token);
+        const response = await Article.updateArticle(article, token);
         // If the update is successful, show a success message
         if (response.success) {
             toast.success("Reviewers updated successfully");
@@ -87,7 +87,7 @@ function AssignReviewer() {
         } else {
             article.finalStatus = "pending";
         }
-        const response = await JournalArticle.updateArticle(article, token);
+        const response = await Article.updateArticle(article, token);
         if (response.success) {
             toast.success("Status updated successfully");
             getJournalArticles();
@@ -241,7 +241,7 @@ function AssignReviewer() {
                                 </div>
                                 <div className="card-body d-flex flex-column justify-content-around">
                                     <form onSubmit={handleSubmitStatus}>
-                                        <select name="status" id="status" className="form-select" value={article ? article.status : "select-status"} onChange={statusChange}>
+                                        <select name="status" id="status" className="form-select" value={["accepted", "rejected", "pending for review"].includes(article.status) ? article.status : "select-status"} onChange={statusChange}>
                                             <option value="select-status" disabled>Select Status</option>
                                             <option value="accepted">Accepted</option>
                                             <option value="rejected">Rejected</option>

@@ -3,7 +3,7 @@ import { BASE_URL } from "./helper";
 class MailService {
     async sendMail(mailData) {
         try {
-            const response = await fetch(BASE_URL + "/send-mail", {
+            const response = await fetch(BASE_URL + "/mail-api/send-mail", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

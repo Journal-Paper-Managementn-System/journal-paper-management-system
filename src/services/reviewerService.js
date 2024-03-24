@@ -9,7 +9,7 @@ class Reviewer {
      */
     async addReviewer(reviewerData, accessToken) {
         try {
-            const response = await fetch(BASE_URL + "/journal/add-reviewer", {
+            const response = await fetch(BASE_URL + "/reviewer/add-reviewer", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -33,7 +33,7 @@ class Reviewer {
      */
     async addBulkReviewer(reviewerData, accessToken) {
         try {
-            const response = await fetch(BASE_URL + "/journal/add-bulk-reviewer", {
+            const response = await fetch(BASE_URL + "/reviewer/add-bulk-reviewer", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -55,7 +55,7 @@ class Reviewer {
      */
     async getReviewerList(accessToken) {
         try {
-            const response = await fetch(BASE_URL + "/journal/get-reviewer-list", {
+            const response = await fetch(BASE_URL + "/reviewer/get-reviewer-list", {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
@@ -77,7 +77,7 @@ class Reviewer {
      */
     async deleteReviewer(reviewerId, accessToken) {
         try {
-            const response = await fetch(BASE_URL + `/journal/delete-reviewer/${reviewerId}`, {
+            const response = await fetch(BASE_URL + `/reviewer/delete-reviewer/${reviewerId}`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",

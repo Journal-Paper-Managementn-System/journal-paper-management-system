@@ -1,10 +1,10 @@
 import { BASE_URL } from "./helper";
 
-class JournalArticle {
+class Article {
 
-    async getJournalArticle(accessToken) {
+    async getArticle(accessToken) {
         try {
-            const response = await fetch(BASE_URL + "/journal/get-article", {
+            const response = await fetch(BASE_URL + "/article/get-article", {
                 method: "GET",
                 headers: {
                     "Authorization": `Bearer ${accessToken}`,
@@ -17,14 +17,14 @@ class JournalArticle {
         }
     }
 
-    async addJournalArticle(journalAData, accessToken) {
+    async addArticle(article, accessToken) {
         try {
-            const response = await fetch(BASE_URL + "/journal/add-article", {
+            const response = await fetch(BASE_URL + "/article/add-article", {
                 method: "POST",
                 headers: {
                     "Authorization": `Bearer ${accessToken}`,
                 },
-                body: journalAData,
+                body: article,
             });
             const responseData = await response.json();
             return responseData;
@@ -35,7 +35,7 @@ class JournalArticle {
 
     async updateArticle(articleData, accessToken) {
         try {
-            const response = await fetch(BASE_URL + "/journal/update-article", {
+            const response = await fetch(BASE_URL + "/article/update-article", {
                 method: "POST",
                 headers: {
                     "Authorization": `Bearer ${accessToken}`,
@@ -52,7 +52,7 @@ class JournalArticle {
 
     async getArticleList(journalId) {
         try {
-            const response = await fetch(`${BASE_URL}/journal/get-article-list/${journalId}`, {
+            const response = await fetch(`${BASE_URL}/article/get-article-list/${journalId}`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
@@ -67,7 +67,7 @@ class JournalArticle {
 
     async getReviewArticles(accessToken) {
         try {
-            const response = await fetch(BASE_URL + "/journal/get-review-articles", {
+            const response = await fetch(BASE_URL + "/article/get-review-articles", {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
@@ -83,7 +83,7 @@ class JournalArticle {
 
     async updateReview(reviewData, accessToken) {
         try {
-            const response = await fetch(BASE_URL + "/journal/update-review", {
+            const response = await fetch(BASE_URL + "/article/update-review", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -99,4 +99,4 @@ class JournalArticle {
     }
 }
 
-export default new JournalArticle();
+export default new Article();

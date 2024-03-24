@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useLayoutEffect, useState } from "react";
 import Auth from "../services/authService";
-import JournalArticle from '../services/journalAService';
+import Article from '../services/articleService';
 import Journal from '../services/journalService';
 
 export const AuthContext = createContext();
@@ -8,7 +8,7 @@ export const AuthContext = createContext();
 const AuthProvider = ({ children }) => {
     const [user, setUser] = useState("");
     const [token, setToken] = useState(sessionStorage.getItem("accessToken") || localStorage.getItem("accessToken"));
-    const [journalAData, setJournalAData] = useState([]);
+    const [articleData, setArticleData] = useState([]);
     const [journalData, setJournalData] = useState([]);
     const [userList, setUserList] = useState([{}]);
     // const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -20,7 +20,7 @@ const AuthProvider = ({ children }) => {
      * @returns {Promise} A promise that resolves to the response from the server.
      */
     const getArticles = async (journalId) => {
-        const response = await JournalArticle.getArticleList(journalId);
+        const response = await Article.getArticleList(journalId);
         return response;
     }
 
@@ -36,6 +36,7 @@ const AuthProvider = ({ children }) => {
             sessionStorage.setItem("accessToken", accessToken);
         }
         setToken(accessToken);
+        // setIsLoggedIn(true);
     };
 
     let isLoggedIn = !!token;
@@ -55,17 +56,20 @@ const AuthProvider = ({ children }) => {
      */
     const getUser = async () => {
         const user = await Auth.getUser(token);
-        if (user.success) setUser(user.data);
-        return user;
+        if (user.success) {
+            setUser(user.data);
+            // setIsLoggedIn(true);
+            return user;
+        }
     };
 
     /**
      * Retrieves journal article data.
      * @returns {Promise<Object>} The response data from the API.
      */
-    const getJournalAData = async () => {
-        const responseData = await JournalArticle.getJournalArticle(token);
-        setJournalAData(responseData);
+    const getArticleData = async () => {
+        const responseData = await Article.getArticle(token);
+        setArticleData(responseData);
         return responseData;
     }
 
@@ -91,7 +95,7 @@ const AuthProvider = ({ children }) => {
         setJournalData(responseData.data);
         return responseData;
     }
-    
+
     useEffect(() => {
         getJournalData();
         getUserList();
@@ -100,9 +104,9 @@ const AuthProvider = ({ children }) => {
     useLayoutEffect(() => {
         if (token) {
             getUser();
-            getJournalAData();
+            getArticleData();
         }
-    }, [token,]);
+    }, [token]);
 
     return (
         <AuthContext.Provider value={{
@@ -110,8 +114,8 @@ const AuthProvider = ({ children }) => {
             isLoggedIn,
             user,
             LogoutUser,
-            journalAData,
-            getJournalAData,
+            articleData,
+            getArticleData,
             journalData,
             getUser,
             getArticles,
