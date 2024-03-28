@@ -6,6 +6,8 @@ import MailService from "../../services/mailService";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { ThreeDots } from "react-loader-spinner";
+import SignupMessage from "../../utils/emailMessages/signupMessage";
+import ReactDOMServer from "react-dom/server";
 
 function SignUp() {
     const location = useLocation();
@@ -28,6 +30,12 @@ function SignUp() {
         setEmailOtp(Math.floor(1000 + Math.random() * 900000));
     }, [setEmailOtp]);
 
+    /**
+     * Handles the form submission for signing up a user.
+     * 
+     * @param {Event} event - The form submission event.
+     * @returns {Promise<void>} - A promise that resolves when the submission is complete.
+     */
     const handleSubmit = async (event) => {
         event.preventDefault();
         if (!event.target['alert-policy'].checked) {
@@ -41,22 +49,8 @@ function SignUp() {
                 mailFrom: "Journal Submission",
                 mailTo: credentials.email,
                 mailSubject: "Verify your email address",
-                mailText: "Please verify your email address using OTP to complete registration.",
-                mailHtml: `
-                    <div style="border: 2px solid aqua; border-radius: 5px; padding: 10px;">
-                        Hi ${credentials.firstName},
-                        <p>
-                            Thank you for registering with us. Please use the following OTP to confirm your email address.
-                        </p>
-                        <div style="display: flex; justify-content: center; margin: 30px 0;">
-                            <button style="padding: 12px 39px; font-size: larger; font-weight: bold; outline: none; border: medium; background-color: #0040ff; color: wheat;border-radius: 6px;">${emailOtp}</button>
-                        </div>
-                        <p>Thanks,
-                            <br>
-                            Team XYZ
-                        </p>
-                    </div>
-                `
+                // mailText: `Your OTP is ${emailOtp}. This passcode will only be valid for the next 2 minutes.`,
+                mailHtml: ReactDOMServer.renderToString(<SignupMessage otp={emailOtp} firstName={credentials.firstName} />),
             });
             if (resMailData.success) {
                 navigate("/sign-up/verify-email", { state: { email: credentials.email, emailOtp: emailOtp, redirectTo: location.state?.redirectTo } });
