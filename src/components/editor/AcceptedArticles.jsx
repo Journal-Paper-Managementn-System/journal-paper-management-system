@@ -100,7 +100,16 @@ function AcceptedArticles() {
                     </table>
                     <div className="d-flex justify-content-end">
                         <button className="btn btn-primary d-flex align-items-center fw-semibold fs-5" onClick={handleDownload}>
-                            {loader ? <><ColorRing height={40} width={40} colors={['#fff', '#fff', '#fff', '#fff', '#fff']} /> Downloading Articles...</> : <><FaDownload className='me-2' /> Download Articles</>}
+                            {loader ?
+                                <>
+                                    <ColorRing height={40} width={40} colors={['#fff', '#fff', '#fff', '#fff', '#fff']} />
+                                    Generating Articles...
+                                </> :
+                                <>
+                                    <FaDownload className='me-2' />
+                                    Download Articles
+                                </>
+                            }
                         </button>
                     </div>
                 </>

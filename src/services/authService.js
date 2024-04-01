@@ -144,6 +144,7 @@ class Auth {
     /**
      * Checks the user by sending a POST request to the server.
      * @param {Object} data - The data to be sent in the request body.
+     * @param {string} data.email - The email of the user.
      * @returns {Promise<Object>} - A promise that resolves to the response data from the server.
      */
     async checkUser(data) {

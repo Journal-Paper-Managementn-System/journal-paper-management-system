@@ -4,11 +4,16 @@ import { useAuth } from '../../store/AuthContext';
 import { useEffect, useState } from 'react';
 import { RiDeleteBinLine } from 'react-icons/ri';
 import CSVReader from 'react-csv-reader';
+import mailService from '../../services/mailService';
+import { MdAddCircleOutline } from 'react-icons/md';
+import { ColorRing } from 'react-loader-spinner';
 
 function AddReviewer() {
     const { token } = useAuth();
     const [reviewerList, setReviewerList] = useState([{}]);
     const [reviewers, setReviewers] = useState([{}]);
+    const [loader1, setLoader1] = useState(false);
+    const [loader2, setLoader2] = useState(false);
 
     /**
      * Handles the form submission for adding a reviewer.
@@ -18,6 +23,7 @@ function AddReviewer() {
      */
     const handleOnSubmit = async (e) => {
         e.preventDefault();
+        setLoader1(true);
         const responseData = await Reviewer.addReviewer({
             firstName: e.target.firstName.value,
             lastName: e.target.lastName.value,
@@ -25,12 +31,22 @@ function AddReviewer() {
             affiliation: e.target.affiliation.value
         }, token);
         if (responseData.success) {
+            await mailService.sendMail({
+                mailFrom: "Journal Submission",
+                mailTo: e.target.email.value,
+                mailSubject: "Reviewer Update",
+                mailHtml: `<div>
+                    <h4>Hello ${e.target.firstName.value},</h4>
+                    <p>You have been added as a reviewer for reviewing articles. <a href=${window.location.origin + "/sign-up"}>Register</a> or <a href=${window.location.origin + "/login"}>login</a> to start reviewing articles.</p>
+                </div>`
+            });
             toast.success(responseData.message);
             getReviewerList();
         } else {
             toast.error(responseData.message);
         }
         e.target.reset();
+        setLoader1(false);
     }
 
     /**
@@ -126,7 +142,10 @@ function AddReviewer() {
                     </tbody>
                 </table>
                 <div className="d-flex justify-content-end">
-                    <button type="submit" className="btn btn-primary px-5 fw-bold">Add Reviewer</button>
+                    <button type="submit" className="btn btn-primary px-3 fw-bold d-flex align-items-center">
+                        {loader1 ? <ColorRing height={28} width={28} colors={['#fff', '#fff', '#fff', '#fff', '#fff']} wrapperClass='me-1' /> : <MdAddCircleOutline className='me-2 fs-5' />}
+                        Add Reviewer
+                    </button>
                 </div>
             </form>
             <form className="row mt-5 mx-3 border p-3 rounded-2" onSubmit={handleCSVSubmit}>
@@ -139,7 +158,10 @@ function AddReviewer() {
                         inputId='reviewer-file'
                     />
                 </div>
-                <button className="btn btn-primary col-md-2 px-5 fw-bold">Add Reviewer</button>
+                <button className="btn btn-primary col-md-2 fw-bold d-flex align-items-center justify-content-center">
+                    {loader2 ? <ColorRing height={28} width={28} colors={['#fff', '#fff', '#fff', '#fff', '#fff']} wrapperClass='me-1' /> : <MdAddCircleOutline className='me-2 fs-5' />}
+                    Add Reviewer
+                </button>
             </form>
             <h2 className="text-center mt-4 fw-bold">List of Reviewers</h2>
             <hr />
@@ -164,11 +186,6 @@ function AddReviewer() {
                                 <button
                                     type='button'
                                     className='btn btn-outline-danger'
-                                    data-bs-toggle="tooltip"
-                                    // data-bs-placement="top"
-                                    data-bs-html="true"
-                                    // data-bs-custom-class="custom-tooltip"
-                                    data-bs-title="This top tooltip is themed via CSS variables."
                                     onClick={() => deleteReviewer(reviewer._id)}
                                 >
                                     <RiDeleteBinLine />

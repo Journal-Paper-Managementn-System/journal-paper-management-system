@@ -48,7 +48,7 @@ function ViewSubmission() {
                                 ))}
                             </tbody>
                         </table>
-                    ) : (<h3 className='p-4'>{articleData.message}</h3>)}
+                    ) : (<h3 className='p-2'>{articleData.message}</h3>)}
                 </div>}
         </>
     );

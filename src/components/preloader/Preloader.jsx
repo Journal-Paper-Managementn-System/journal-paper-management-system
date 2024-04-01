@@ -14,7 +14,7 @@ function Preloader() {
             <section className="preloader-section container">
                 <div className="container">
                     <h1 className="journal-title text-center p-lg-3 p-sm-2 p-md-3">
-                        Journal Publication Lists
+                        Publication Lists
                     </h1>
                     <Link to="/" className="text-center d-flex justify-content-center align-items-center journal-logo">
                         <img src="/journal-icon.png" alt="logo" width={50} />

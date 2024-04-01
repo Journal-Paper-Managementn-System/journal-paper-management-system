@@ -189,8 +189,8 @@ function AssignReviewer() {
                         <span className="text-danger">Welcome,</span> {user.firstName}
                     </h5>
                     <MdAdminPanelSettings size={40} color="#8B3DFF" />
-                </div> */}
-                <hr className="my-0" />
+                </div>
+                <hr className="my-0" /> */}
                 <div className="editor-form">
                     <div className="row m-0 p-0">
                         {/* Editor journal-title */}

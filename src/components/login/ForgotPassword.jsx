@@ -5,6 +5,8 @@ import { toast } from "react-toastify";
 import Auth from "../../services/authService";
 import { useLocation, useNavigate, Navigate } from "react-router-dom";
 import "../signup/signup-style.css";
+import EmailMessage from "../../utils/emailMessages/Message";
+import ReactDOMServer from "react-dom/server";
 
 function ForgotPassword() {
     const location = useLocation();
@@ -37,22 +39,9 @@ function ForgotPassword() {
             const resMailData = await MailService.sendMail({
                 mailFrom: "Journal Submission",
                 mailTo: userEmail,
-                mailSubject: "Verify your email address",
+                mailSubject: "Verify Your Email Address",
                 mailText: "Please verify your email address using OTP to complete registration.",
-                mailHtml: `
-                    <div style="border: 2px solid aqua; border-radius: 5px; padding: 10px;">
-                        <p>
-                            Please use the following OTP to verify your email address:
-                        </p>
-                        <div style="display: flex; justify-content: center; margin: 30px 0;">
-                            <button style="padding: 12px 39px; font-size: larger; font-weight: bold; outline: none; border: medium; background-color: #0040ff; color: wheat;border-radius: 6px;">${emailOtp}</button>
-                        </div>
-                        <p>Thanks,
-                            <br>
-                            Team XYZ
-                        </p>
-                    </div>
-                `
+                mailHtml: ReactDOMServer.renderToString(<EmailMessage otp={emailOtp} firstName={checkUser.data.firstName} target="forgot-password" />)
             })
             if (resMailData.success) {
                 setSendOtp(1);

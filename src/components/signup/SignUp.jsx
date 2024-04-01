@@ -6,7 +6,7 @@ import MailService from "../../services/mailService";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { ThreeDots } from "react-loader-spinner";
-import SignupMessage from "../../utils/emailMessages/signupMessage";
+import EmailMessage from "../../utils/emailMessages/Message";
 import ReactDOMServer from "react-dom/server";
 
 function SignUp() {
@@ -48,10 +48,11 @@ function SignUp() {
             const resMailData = await MailService.sendMail({
                 mailFrom: "Journal Submission",
                 mailTo: credentials.email,
-                mailSubject: "Verify your email address",
+                mailSubject: "Verify Your Email Address",
                 // mailText: `Your OTP is ${emailOtp}. This passcode will only be valid for the next 2 minutes.`,
-                mailHtml: ReactDOMServer.renderToString(<SignupMessage otp={emailOtp} firstName={credentials.firstName} />),
+                mailHtml: ReactDOMServer.renderToString(<EmailMessage otp={emailOtp} firstName={credentials.firstName} target="sign-up"/>),
             });
+            // console.log(resMailData);
             if (resMailData.success) {
                 navigate("/sign-up/verify-email", { state: { email: credentials.email, emailOtp: emailOtp, redirectTo: location.state?.redirectTo } });
                 toast.success('Registration successful. Please verify your email address.');

@@ -1,7 +1,7 @@
 import React from 'react';
 
-function SignupMessage(props) {
-    const { otp, firstName } = props;
+function Message(props) {
+    const { otp, firstName, target } = props;
 
     return (
         <html lang="en">
@@ -12,7 +12,7 @@ function SignupMessage(props) {
                 <title>Email Verification</title>
             </head>
 
-            <body style={{ padding: "0", fontFamily: "sans-serif", display: "flex", justifyContent: "center" }}>
+            <body style={{ padding: "0", fontFamily: "sans-serif" }}>
                 <table role="presentation" cellSpacing={0} cellPadding={0} style={{ backgroundColor: '#fff', maxWidth: '42rem' }}>
                     <tbody>
                         <tr>
@@ -21,9 +21,13 @@ function SignupMessage(props) {
                                     <tbody>
                                         <tr>
                                             <td>
-                                                <div style={{ padding: '20px' }}>
-                                                    <span style={{ fontSize: '1.5rem', fontWeight: 'bold', textTransform: 'capitalize' }}>Verify
-                                                        your E-mail Address</span>
+                                                <div style={{ padding: "20px 20px 10px" }}>
+                                                    {/* <div style={{ borderTop: "1px solid", width: "40px", height: "20px", display: "inline-block" }}></div> */}
+                                                    <img src="https://i.imgur.com/3z3v5sd.png" alt="Mail" height="45" />
+                                                    {/* <div style={{ borderTop: "1px solid", width: "40px", height: "20px", display: "inline-block" }}></div> */}
+                                                </div>
+                                                <div style={{ padding: '0 20px 20px' }}>
+                                                    <span style={{ fontSize: '1.5rem', fontWeight: 'bold', textTransform: 'capitalize' }}>Email Verification</span>
                                                 </div>
                                             </td>
                                         </tr>
@@ -35,8 +39,7 @@ function SignupMessage(props) {
                                             <td>
                                                 <h4 style={{ color: '#374151' }}>Hi {firstName},</h4>
                                                 <p style={{ lineHeight: '1.5', color: '#4b5563' }}>
-                                                    Thank you for registering with us. Please use
-                                                    the following <strong>One Time Password (OTP)</strong>
+                                                    {target === "sign-up" && "Thank you for registering with us."}{target === "forgot-password" && "You recently requested to reset your password for your account."} Please use the following <strong>One Time Password (OTP)</strong> to verify your email address.
                                                 </p>
                                                 <table role="presentation" cellSpacing={0} cellPadding={0} style={{ marginTop: '20px', textAlign: 'center' }}>
                                                     <tbody>
@@ -91,4 +94,4 @@ function SignupMessage(props) {
     );
 }
 
-export default SignupMessage;
+export default Message;
