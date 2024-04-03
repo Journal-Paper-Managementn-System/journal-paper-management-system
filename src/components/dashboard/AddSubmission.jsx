@@ -7,6 +7,7 @@ import { toast } from 'react-toastify';
 import { useAuth } from "../../store/AuthContext";
 import { ThreeDots } from 'react-loader-spinner';
 import MailService from '../../services/mailService';
+import './submission.css';
 
 // Component for adding a new submission
 function AddSubmission() {
@@ -74,10 +75,10 @@ function AddSubmission() {
 
     return (
         // Main container for the form
-        <div className="d-flex flex-column justify-content-center align-items-center p-2 submission-wrapper overflow-auto">
+        <div className="d-flex justify-content-center align-items-center p-2 submission-wrapper">
             {/* Form for submitting a journal article */}
             <form className="submission-data-form" encType='multipart/form-data' onSubmit={handleSubmit}>
-                {/* <h2>Journal Article Submission</h2> */}
+                <h2>Article Submission</h2>
                 {/* Journal names */}
                 <div className="row mb-3">
                     <label htmlFor="journal-list" className="col-sm-2 col-form-label fw-bold fs-5">Journal</label>

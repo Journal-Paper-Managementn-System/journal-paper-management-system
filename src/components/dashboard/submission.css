@@ -2,11 +2,12 @@
     color: var(--navy-blue);
 }
 
-.submission-wrapper{
+.submission-wrapper {
     background-color: var(--light-white);
     border-radius: .5rem;
     box-shadow: var(--bx-shadow);
 }
+
 form.submission-data-form {
     width: 100%;
     /* min-height: 90vh; */
@@ -15,6 +16,7 @@ form.submission-data-form {
     backdrop-filter: blur(5px);
     /* box-shadow: var(--dark-color) 0px 0px 20px 0px; */
 }
+
 form.submission-data-form label {
     font-size: 1rem !important;
     font-weight: 500 !important;
@@ -30,14 +32,3 @@ form.submission-data-form h2 {
     text-align: center;
     border-bottom: 2px solid var(--navy-blue);
 }
-/* .submission-data-form input[type="text"],
-.submission-data-form input[type="email"],
-.submission-data-form input[type="file"]::-webkit-file-upload-button,
-.submission-data-form textarea,
-.submission-data-form th, 
-.submission-data-form td, 
-.submission-data-form td > input[type="text"],
-form.submission-data-form > input[type="file"] {
-    background: transparent !important;
-   
-} */

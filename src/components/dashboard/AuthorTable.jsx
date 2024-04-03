@@ -52,6 +52,7 @@ const AuthorRow = ({ authors, setAuthors }) => {
                                     <input
                                         type="text"
                                         name="firstName"
+                                        style={{ width: "10rem" }}
                                         value={author.firstName}
                                         onChange={(e) => handleInputChange(e, index)} className="form-control"
                                         required
@@ -61,6 +62,7 @@ const AuthorRow = ({ authors, setAuthors }) => {
                                     <input
                                         type="text"
                                         name="lastName"
+                                        style={{ width: "10rem" }}
                                         value={author.lastName}
                                         onChange={(e) => handleInputChange(e, index)} className="form-control"
                                         required
@@ -70,6 +72,7 @@ const AuthorRow = ({ authors, setAuthors }) => {
                                     <input
                                         type="email"
                                         name="email"
+                                        style={{ width: "15rem" }}
                                         value={author.email}
                                         onChange={(e) => handleInputChange(e, index)} className="form-control"
                                         required
@@ -79,6 +82,7 @@ const AuthorRow = ({ authors, setAuthors }) => {
                                     <input
                                         type="text"
                                         name="affiliation"
+                                        style={{ width: "10rem" }}
                                         value={author.affiliation}
                                         onChange={(e) => handleInputChange(e, index)} className="form-control"
                                         required

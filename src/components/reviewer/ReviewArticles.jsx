@@ -65,7 +65,7 @@ function ReviewArticles() {
     };
 
     return (
-        <>
+        <div className='table-responsive'>
             {articles.success && articles.data.filter((article) => !article.reviewers[0].reviewed).length !== 0 ?
                 <table className="table table-striped table-bordered text-center table-hover">
                     <thead className="table-dark">
@@ -87,7 +87,7 @@ function ReviewArticles() {
                                             <>
                                                 <th>{index + 1}</th>
                                                 <td>
-                                                    <div className='txt-container text-start' onClick={(e) => e.target.classList.toggle("txt-expanded")} style={{width: "30rem"}}>
+                                                    <div className='txt-container text-start' onClick={(e) => e.target.classList.toggle("txt-expanded")} style={{ width: "20rem" }}>
                                                         {article.title}
                                                     </div>
                                                 </td>
@@ -108,6 +108,7 @@ function ReviewArticles() {
                                                         name="status"
                                                         id={article._id}
                                                         className="form-select"
+                                                        style={{ minWidth: "12rem" }}
                                                         value={article.reviewers[0].status || "select status"}
                                                         onChange={handleStatus}
                                                     >
@@ -148,7 +149,7 @@ function ReviewArticles() {
                     </tbody>
                 </table>
                 : <h3 className='p-3'>There are no articles for review...</h3>}
-        </>
+        </div>
     )
 }
 

@@ -10,7 +10,7 @@ function ViewSubmission() {
     return (
         <>
             {!!journalId ? <ViewJournalArticle /> :
-                <div className='p-4'>
+                <div className='p-4 table-responsive'>
                     {articleData.success ? (
                         <table className="table table-striped table-bordered table-hover text-center">
                             <thead className="table-dark">

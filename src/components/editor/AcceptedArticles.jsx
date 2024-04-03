@@ -64,40 +64,40 @@ function AcceptedArticles() {
                 <>
                     <h2 className='text-center fw-bold'>Accepted Articles</h2>
                     <hr />
-                    <table className='table table-bordered table-striped table-hover text-center'>
-                        <thead className='table-dark'>
-                            <tr>
-                                <th>#</th>
-                                <th style={{ width: "60rem" }}>Title</th>
-                                <th>Submission Date</th>
-                                <th>View Article</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {articles.map((article, index) => (
-                                <tr key={index}>
-                                    <td>{index + 1}</td>
-                                    <td style={{ width: "30rem" }}
-                                        className="txt-container text-start" onClick={(e) => e.target.classList.toggle("txt-expanded")} >
-                                        {article.title}
-
-                                    </td>
-                                    <td>{new Date(article.createdAt).toLocaleDateString()}</td>
-                                    <td>
-                                        <Button variant="primary" onClick={() => setModalShow(index, true)}>
-                                            <GrDocumentPdf />
-                                        </Button>
-                                        <PDFViewer
-                                            show={modalShow === index}
-                                            onHide={() => setModalShow(index, false)}
-                                            fileurl={article.file}
-                                            title={article.title}
-                                        />
-                                    </td>
+                    <div className="table-responsive">
+                        <table className='table table-bordered table-striped table-hover text-center'>
+                            <thead className='table-dark'>
+                                <tr>
+                                    <th>#</th>
+                                    <th style={{ width: "60rem" }}>Title</th>
+                                    <th>Submission Date</th>
+                                    <th>View Article</th>
                                 </tr>
-                            ))}
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                {articles.map((article, index) => (
+                                    <tr key={index}>
+                                        <td>{index + 1}</td>
+                                        <td className='text-start'>
+                                            {article.title}
+                                        </td>
+                                        <td>{new Date(article.createdAt).toLocaleDateString()}</td>
+                                        <td>
+                                            <Button variant="primary" onClick={() => setModalShow(index, true)}>
+                                                <GrDocumentPdf />
+                                            </Button>
+                                            <PDFViewer
+                                                show={modalShow === index}
+                                                onHide={() => setModalShow(index, false)}
+                                                fileurl={article.file}
+                                                title={article.title}
+                                            />
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
                     <div className="d-flex justify-content-end">
                         <button className="btn btn-primary d-flex align-items-center fw-semibold fs-5" onClick={handleDownload}>
                             {loader ?

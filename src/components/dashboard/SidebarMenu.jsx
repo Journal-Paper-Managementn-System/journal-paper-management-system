@@ -14,7 +14,7 @@ function SidebarMenu() {
     return (
         <ul>
             <li id="sidebar-link">
-                <NavLink to="/dashboard/profile" className="btn text-white text-center w-100">
+                <NavLink to="/dashboard/profile" className="btn text-white text-start w-100">
                     <FaRegUserCircle className={`${styles.dashboardIconView}`} />
                     Profile
                 </NavLink>
@@ -22,25 +22,25 @@ function SidebarMenu() {
             {user.isEditor && (
                 <>
                     <li id="sidebar-link">
-                        <NavLink to="/dashboard/view-articles" className="btn text-white text-center w-100">
+                        <NavLink to="/dashboard/view-articles" className="btn text-white text-start w-100">
                             <GrView className={`${styles.dashboardIconView}`} />
                             View Articles
                         </NavLink>
                     </li>
                     <li id="sidebar-link">
-                        <NavLink to="/dashboard/assign-reviewer" className="btn text-white text-center w-100">
+                        <NavLink to="/dashboard/assign-reviewer" className="btn text-white text-start w-100">
                         <MdOutlineAssignmentInd className={`${styles.dashboardIconView}`} />
                             Assign Reviewer
                         </NavLink>
                     </li>
                     <li id="sidebar-link">
-                        <NavLink to="/dashboard/add-reviewer" className="btn text-white text-center w-100">
+                        <NavLink to="/dashboard/add-reviewer" className="btn text-white text-start w-100">
                             <FiUserPlus className={`${styles.dashboardIconView}`} />
                             Add Reviewer
                         </NavLink>
                     </li>
                     <li id="sidebar-link">
-                        <NavLink to="/dashboard/accepted-articles" className="btn text-white text-center w-100">
+                        <NavLink to="/dashboard/accepted-articles" className="btn text-white text-start w-100">
                             <FaRegCheckCircle className={`${styles.dashboardIconView}`} />
                             Accepted Articles
                         </NavLink>
