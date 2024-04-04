@@ -49,7 +49,7 @@ function AddEditor() {
                         Delete Journal
                     </Button>
 
-                    <DeleteJournal show={showDeleteModal} handleClose={() => setShowDeleteModal(false)} journalData={journalData} getJournalData={getJournalData} />
+                    <DeleteJournal show={showDeleteModal} handleClose={() => setShowDeleteModal(false)} journalData={journalData} getJournalData={getJournalData} token={token} />
                 </div>
             </div>
             <hr />

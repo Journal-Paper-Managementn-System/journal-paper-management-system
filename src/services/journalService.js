@@ -34,6 +34,22 @@ class Journal {
         }
     }
 
+    async deleteJournal(journalId, accessToken) {
+        try {
+            const response = await fetch(BASE_URL + `/journal/delete-journal/${journalId}`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${accessToken}`,
+                }
+            });
+            const responseData = await response.json();
+            return responseData;
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
     async addEditor(editorData, accessToken) {
         try {
             const response = await fetch(BASE_URL + "/editor/add-editor", {
