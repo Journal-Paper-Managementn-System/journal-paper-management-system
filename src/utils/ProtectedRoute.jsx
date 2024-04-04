@@ -21,9 +21,14 @@ const ProtectedRoute = () => {
         if (!['/dashboard/profile', '/dashboard/assign-reviewer', '/dashboard', '/dashboard/view-articles', '/dashboard/add-reviewer', '/dashboard/accepted-articles'].includes(pathname)) {
             return <Navigate to="/" replace />;
         }
+    } else if (user.isSuperAdmin) {
+        // Super admins can only access these pages
+        if (!['/add-editor'].includes(pathname)) {
+            return <Navigate to="/" replace />;
+        }
     } else {
-        // Simple users can't access the editor page
-        if (['/dashboard/editor', '/dashboard/add-reviewer', '/dashboard/view-articles'].includes(pathname)) {
+        // Simple users can only access these pages
+        if (['/dashboard/assign-reviewer', '/dashboard/view-articles', '/dashboard/add-reviewer', '/dashboard/accepted-articles'].includes(pathname)) {
             return <Navigate to="/" replace />;
         }
     }

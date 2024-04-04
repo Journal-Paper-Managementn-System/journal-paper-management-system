@@ -1,10 +1,8 @@
 import React, { Suspense, lazy } from "react";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import AcceptedArticles from "./editor/AcceptedArticles";
 
 // React.lazy() is used to dynamically import a component when it's rendered.
 lazy(() => import("../App.css"));
-lazy(() => import('./submission.css'));
 const Loading = lazy(() => import("../utils/Loading"));
 const Layout = lazy(() => import("../Layout"));
 const DashBoard = lazy(() => import("./dashboard/DashBoard"));
@@ -23,6 +21,9 @@ const ProtectedRoute = lazy(() => import("../utils/ProtectedRoute"));
 const Reviewer = lazy(() => import("./reviewer/ReviewArticles"));
 const AddReviewer = lazy(() => import("./editor/AddReviewer"));
 const ViewArticles = lazy(() => import("./editor/ViewArticles"));
+const AcceptedArticles = lazy(() => import("./editor/AcceptedArticles"));
+const PageNotFound = lazy(() => import("./PageNotFound"));
+const AddEditor = lazy(() => import("./admin/AddEditor"));
 // import DOCViewer from "./fileviewer/DOCViewer";
 
 const router = createBrowserRouter([
@@ -122,7 +123,15 @@ const router = createBrowserRouter([
                                 ),
                             },
                         ],
-                    }
+                    },
+                    {
+                        path: "add-editor",
+                        element: (
+                            <Suspense fallback={<Loading />}>
+                                <AddEditor />
+                            </Suspense>
+                        ),
+                    },
                 ],
             },
         ],
@@ -183,7 +192,7 @@ const router = createBrowserRouter([
         path: "/*",
         element: (
             <Suspense fallback={<Loading />}>
-                <h1>404 Not Found</h1>
+                <PageNotFound />
             </Suspense>
         ),
     },

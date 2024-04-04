@@ -7,7 +7,7 @@ function NavBar() {
     /* It save the current selected or active nav-item until we changes the pathname & also get actual instance after reloads the page.
      */
     const { pathname } = useLocation();
-    const { isLoggedIn } = useAuth();
+    const { isLoggedIn, user } = useAuth();
 
     return (
         <>
@@ -64,12 +64,19 @@ function NavBar() {
                             </li>
 
                             {isLoggedIn ? <>
-                                <li className="nav-item mb-0">
-                                    <Link to="/dashboard"
-                                        className={`nav-link ${pathname.includes("/dashboard") ? "active text-white" : ""}`}
-                                        aria-current="page">Dashboard
-                                    </Link>
-                                </li>
+                                {user.isSuperAdmin ?
+                                    <li className="nav-item mb-0">
+                                        <Link to="/add-editor"
+                                            className={`nav-link ${pathname === "/add-editor" ? "active text-white" : ""}`}
+                                            aria-current="page">Admin
+                                        </Link>
+                                    </li> :
+                                    <li className="nav-item mb-0">
+                                        <Link to="/dashboard"
+                                            className={`nav-link ${pathname.includes("/dashboard") ? "active text-white" : ""}`}
+                                            aria-current="page">Dashboard
+                                        </Link>
+                                    </li>}
                                 <li className="nav-item mb-0">
                                     <Link to="/logout"
                                         className={`nav-link ${pathname === "/logout" ? "active text-white" : ""}`}

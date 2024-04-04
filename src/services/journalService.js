@@ -17,14 +17,48 @@ class Journal {
         }
     }
 
-    async addJournal(journalData) {
+    async addJournal(journalData, accessToken) {
         try {
             const response = await fetch(BASE_URL + "/journal/add-journal", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
+                    "Authorization": `Bearer ${accessToken}`,
                 },
                 body: JSON.stringify(journalData),
+            });
+            const responseData = await response.json();
+            return responseData;
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    async addEditor(editorData, accessToken) {
+        try {
+            const response = await fetch(BASE_URL + "/editor/add-editor", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${accessToken}`,
+                },
+                body: JSON.stringify(editorData),
+            });
+            const responseData = await response.json();
+            return responseData;
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    async removeEditor(journalId, accessToken) {
+        try {
+            const response = await fetch(BASE_URL + `/editor/remove-editor/${journalId}`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${accessToken}`,
+                },
             });
             const responseData = await response.json();
             return responseData;

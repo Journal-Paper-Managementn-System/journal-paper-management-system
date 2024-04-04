@@ -8,6 +8,8 @@ import { useAuth } from "../../store/AuthContext";
 import { toast } from "react-toastify";
 import { ThreeDots } from "react-loader-spinner";
 import MailService from "../../services/mailService";
+import ReactDOMServer from "react-dom/server";
+import EmailMessage from "../../utils/emailMessages/Message";
 
 function Login() {
     const [visibleIcon, setVisibleIcon] = useState(true);
@@ -52,6 +54,12 @@ function Login() {
         const responseData = await Auth.login(credentials);
         if (responseData.success) {
             storeToken(responseData.accessToken, checkbox);
+            if (responseData.data.isSuperAdmin) {
+                navigate('/add-editor', { replace: true });
+                toast.success(responseData.message);
+                setLoader(false);
+                return;
+            }
             if (state) {
                 navigate(state.redirectTo || '/dashboard/profile', { replace: true });
             } else {
@@ -68,24 +76,10 @@ function Login() {
                     mailTo: responseData.data.email,
                     mailSubject: "Verify your email address",
                     mailText: "Please verify your email address using OTP to complete registration.",
-                    mailHtml: `
-                        <div style="border: 2px solid aqua; border-radius: 5px; padding: 10px;">
-                            Hi ${responseData.data.firstName},
-                            <p>
-                                Thank you for registering with us. Please use the following OTP to confirm your email address.
-                            </p>
-                            <div style="display: flex; justify-content: center; margin: 30px 0;">
-                                <button style="padding: 12px 39px; font-size: larger; font-weight: bold; outline: none; border: medium; background-color: #0040ff; color: wheat;border-radius: 6px;">${emailOtp}</button>
-                            </div>
-                            <p>Thanks,
-                                <br>
-                                Team XYZ
-                            </p>
-                        </div>
-                    `
+                    mailHtml: ReactDOMServer.renderToString(<EmailMessage otp={emailOtp} firstName={responseData.data.firstName} target="sign-up"/>),
                 });
                 if (resMailData.success) {
-                    navigate('/login/verify-email', { state: { email: responseData.data.email, emailOtp: emailOtp, redirectTo: state.redirectTo || '/dashboard' } }, { replace: true });
+                    navigate('/login/verify-email', { state: { email: responseData.data.email, emailOtp: emailOtp, redirectTo: state?.redirectTo || '/dashboard' } }, { replace: true });
                 } else {
                     toast.error('Email verification failed');
                 }
