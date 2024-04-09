@@ -20,9 +20,9 @@ function SignUp() {
         userName: "",
         email: "",
         phoneNumber: "",
+        institution: "",
         password: "",
         confPassword: "",
-        gender: "",
     });
     const navigate = useNavigate();
 
@@ -70,7 +70,11 @@ function SignUp() {
     }
 
     const autoGenerateUsername = (e) => {
-        if (credentials.firstName === "") return;
+        if (credentials.firstName === "") {
+            toast.error("Please enter your first name to auto-generate username.");
+            e.target.checked = false;
+            return;
+        }
         if (e.target.checked) {
             setCredentials({ ...credentials, userName: credentials.firstName.toLowerCase() + Math.floor(Math.random() * 1000) });
         }
@@ -131,10 +135,11 @@ function SignUp() {
                                             Username &#40;<span>&nbsp;
                                                 <input
                                                     type="checkbox"
+                                                    id="auto-username"
                                                     style={{ width: "auto", height: "auto" }}
                                                     onChange={autoGenerateUsername}
                                                 />
-                                                &nbsp;Auto generated </span>&#41;
+                                                &nbsp;<label className="d-inline" htmlFor="auto-username">Auto generated</label> </span>&#41;
                                         </label>
                                         <input
                                             type="text"
@@ -174,6 +179,18 @@ function SignUp() {
                                         />
                                     </div>
                                     <div className="input-control">
+                                        <label htmlFor="institute-name">Institution</label>
+                                        <input
+                                            type="text"
+                                            placeholder="Enter Institution Name"
+                                            name="institution"
+                                            id="institute-name"
+                                            value={credentials.institution}
+                                            onChange={onChange}
+                                            required
+                                        />
+                                    </div>
+                                    <div className="input-control">
                                         <label htmlFor="password">Password</label>
                                         <input
                                             type="password"
@@ -197,24 +214,8 @@ function SignUp() {
                                             required
                                         />
                                     </div>
-                                    <span className="gender-title">Gender</span>
-                                    <div className="gender_category">
-                                        <input type="radio" name="gender" id="male"
-                                            value="male"
-                                            onChange={onChange}
-                                        />
-                                        <label htmlFor="male">Male</label>
-                                        <input type="radio" name="gender" id="female"
-                                            value="female"
-                                            onChange={onChange}
-                                        />
-                                        <label htmlFor="female">Female</label>
-                                        <input type="radio" name="gender" id="other"
-                                            value="other"
-                                            onChange={onChange}
-                                        />
-                                        <label htmlFor="other">Other</label>
-                                    </div>
+                                    
+                                    
                                 </div>
                                 {/* terms & condition */}
                                 <div className="policy">

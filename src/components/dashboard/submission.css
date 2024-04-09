@@ -18,8 +18,8 @@ form.submission-data-form {
 }
 
 form.submission-data-form label {
-    font-size: 1rem !important;
-    font-weight: 500 !important;
+    font-size: 1.2rem;
+    font-weight: 700;
 }
 
 form.submission-data-form h2 {

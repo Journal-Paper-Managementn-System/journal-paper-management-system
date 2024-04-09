@@ -22,12 +22,12 @@ const KeyWords = ({ keywords, setKeywords }) => {
 
     return (
         <div className="row mb-3">
-            <label htmlFor="input-keywords" className="col-sm-2 col-form-label fw-bold fs-5">Keywords</label>
+            <label htmlFor="input-keywords" className="col-sm-2 col-form-label">Keywords <span className="required-field">*</span></label>
             <div className="col-sm-8">
                 <input type="text" name="journal-keywords" className="form-control" value={keyValue} onChange={keyChange}
-                    spellCheck="false" placeholder="Add a comma after each keywords..." required id="input-keywords" />
+                    spellCheck="false" placeholder="Add a comma( , ) after each keywords..." required id="input-keywords" />
                 {/* Show when reached the max keywords */}
-                {showWarning && <p className='text-danger'>Maximum keywords reached!</p>}
+                {showWarning && <p className='text-danger m-0'>Maximum keywords reached!</p>}
                 {/* Contains the keywords */}
                 <div>
                     {keywords.map((keyword, index) => (

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 // import { MdAdminPanelSettings } from "react-icons/md";
 import { GrView } from "react-icons/gr";
 import "./editor.css";
@@ -8,6 +8,7 @@ import { toast } from "react-toastify";
 import Reviewer from "../../services/reviewerService";
 import EditorArticleView from "./EditorArticleView";
 import { Button } from "react-bootstrap";
+import Confirmation from "../../utils/Confirmation";
 
 function AssignReviewer() {
     const { getArticles, journalData, user, token } = useAuth();
@@ -18,6 +19,8 @@ function AssignReviewer() {
     const [selectedReviewers, setSelectedReviewers] = useState([]);
     const [modalShow, setModalShow] = useState(false);
     const [search, setSearch] = useState("");
+    const [confirm, setConfirm] = useState(false);
+    const [cnfModalShow, setCnfModalShow] = useState(false);
 
     /**
      * Handles the submission of the selected reviewers.
@@ -81,6 +84,15 @@ function AssignReviewer() {
      */
     const handleSubmitStatus = async (e) => {
         e.preventDefault();
+        // Check if the status is selected
+        console.log(article.status)
+        if (article.status === "select-status") {
+            return toast.error("Please select a status");
+        }
+        // confirm the status update
+        setCnfModalShow(true);
+        
+        if (!confirm) return;
         // Update the article status with the provided token
         if (["accepted", "rejected"].includes(article.status)) {
             article.finalStatus = article.status;
@@ -200,7 +212,7 @@ function AssignReviewer() {
                                 <thead className="table-dark">
                                     <tr>
                                         <th>#</th>
-                                        <th style={{width: "45rem"}}>Title</th>
+                                        <th style={{ width: "45rem" }}>Title</th>
                                         <th>Submission Date</th>
                                         <th>View details</th>
                                     </tr>
@@ -210,7 +222,7 @@ function AssignReviewer() {
                                         <tr key={index} onClick={handleClick} id={article._id} className={article.isSelected ? "table-primary" : ""}>
                                             <th>{index + 1}</th>
                                             <td>
-                                                <div className="txt-container text-start" onClick={(e) => e.target.classList.toggle("txt-expanded")} style={{width: "30rem"}}>
+                                                <div className="txt-container text-start" onClick={(e) => e.target.classList.toggle("txt-expanded")} style={{ width: "30rem" }}>
                                                     {article.title}
                                                 </div>
                                             </td>
@@ -241,17 +253,24 @@ function AssignReviewer() {
                                 </div>
                                 <div className="card-body d-flex flex-column justify-content-around">
                                     <form onSubmit={handleSubmitStatus}>
-                                        <select name="status" id="status" className="form-select" value={["accepted", "rejected", "pending for review"].includes(article.status) ? article.status : "select-status"} onChange={statusChange}>
+                                        <select name="status" id="status" className="form-select" value={["accepted", "rejected", "under review"].includes(article.status) ? article.status : "select-status"} onChange={statusChange}>
                                             <option value="select-status" disabled>Select Status</option>
                                             <option value="accepted">Accepted</option>
                                             <option value="rejected">Rejected</option>
-                                            <option value="pending for review">Pending For Review</option>
+                                            <option value="under review">Under Review</option>
                                             {/* <option value="reviewed">Reviewed</option> */}
                                         </select>
                                         <input
                                             type="submit"
                                             value="Submit"
                                             className="btn btn-dark btn-lg w-100 mt-3"
+                                        />
+
+                                        <Confirmation
+                                            show={cnfModalShow}
+                                            handleClose={() => setCnfModalShow(false)}
+                                            setConfirm={setConfirm}
+                                            message="Are you sure you want to update the status?"
                                         />
                                     </form>
                                 </div>
@@ -276,7 +295,7 @@ function AssignReviewer() {
                                             onChange={handleSearch}
                                         />
                                     </div>
-                                    <ul className="p-2">
+                                    <ul className="p-2 ">
                                         {reviewers.map((reviewer, index) => (
                                             <label htmlFor={reviewer._id} className="w-100" key={index}>
                                                 <li className="m-0 d-flex justify-content-between align-items-center author-items">
@@ -287,7 +306,7 @@ function AssignReviewer() {
                                                         id={reviewer._id}
                                                         className="bg-none check-author-inp"
                                                         onChange={handleSelectReviewer}
-                                                        // checked={selectedReviewers.includes(reviewer.email)}
+                                                    // checked={selectedReviewers.includes(reviewer.email)}
                                                     />
                                                 </li>
                                             </label>

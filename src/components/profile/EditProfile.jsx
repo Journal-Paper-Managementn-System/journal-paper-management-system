@@ -33,7 +33,7 @@ function EditProfile(props) {
         formData.append('email', userDetails.email);
         formData.append('phoneNumber', userDetails.phoneNumber);
         formData.append('dateOfBirth', userDetails.dateOfBirth);
-        formData.append('gender', userDetails.gender);
+        formData.append('institution', userDetails.institution);
         const reponse = await Auth.profileUpdate(formData, accessToken);
         if (reponse.success) {
             getUser();
@@ -161,18 +161,15 @@ function EditProfile(props) {
                             />
                         </div>
                         <div className="col-6">
-                            <label htmlFor="gender" className="form-label">Gender</label>
-                            <select
-                                name="gender"
-                                id="gender"
-                                className='form-select'
-                                value={userDetails.gender}
+                            <label htmlFor="institution-name" className="form-label">Institution</label>
+                            <input
+                                type="text"
+                                className="form-control"
+                                id="institution-name"
+                                name='institution'
+                                value={userDetails.institution}
                                 onChange={handleChange}
-                            >
-                                <option value="male">Male</option>
-                                <option value="female">Female</option>
-                                <option value="other">Other</option>
-                            </select>
+                            />
                         </div>
 
                         <Modal.Footer>

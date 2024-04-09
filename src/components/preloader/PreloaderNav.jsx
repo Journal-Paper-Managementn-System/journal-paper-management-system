@@ -6,7 +6,7 @@ function PreloaderNav() {
         <>
             <div className="preloader-nav">
                 <div className="nav-title py-2 w-100">
-                    <h3 className="text-center">Journal Submission System</h3>
+                    <h3 className="text-center">Article Submission System</h3>
                     {/* <div className="banner">
                         <img src="./medal.png" alt="" width="180" />
                     </div> */}

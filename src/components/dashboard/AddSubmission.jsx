@@ -19,17 +19,34 @@ function AddSubmission() {
     const [authors, setAuthors] = useState([{ firstName: '', lastName: '', email: '', affiliation: '', firstAuthor: false, secondAuthor: false, correspondingAuthor: false }]); // Authors of the submission
     const navigate = useNavigate(); // Navigation hook
     const totalLettersCount = 1000; // Maximum allowed letters in the abstract
-    const { user, getArticleData, journalData } = useAuth(); // Auth context
+    const { user, getArticleData, journalData, token } = useAuth(); // Auth context
     const { journalId } = useParams(); // Journal ID from URL parameters
-    const accessToken = sessionStorage.getItem("accessToken") || localStorage.getItem("accessToken"); // Access token
 
     // Function to handle form submission
     const handleSubmit = async (event) => {
         event.preventDefault();
+        const supportedFileTypes = ['pdf', 'docx'];
+        const menuscript = event.target['menuscript'].files[0];
+        const coverLetter = event.target['cover-letter'].files[0];
+        const supplementaryFile = event.target['supplementary-file'].files[0];
+        // Check if the file type is supported
+        if (!supportedFileTypes.includes(menuscript.name.split('.').pop())) {
+            return toast.error('Please upload a valid file type for the menuscript');
+        }
+        // Check if the file type is supported
+        if (!supportedFileTypes.includes(coverLetter.name.split('.').pop())) {
+            return toast.error('Please upload a valid file type for the cover letter');
+        }
+        // Check if the file size is less than 10MB
+        if (supplementaryFile.size > 10485760) {
+            return toast.error('Supplementary file size should be less than 10MB');
+        }
         setLoader(true);
         const formData = new FormData();
         // Append form data
-        formData.append('journal-attachment', event.target['journal-attachment'].files[0]);
+        formData.append('menuscript', menuscript);
+        formData.append('coverLetter', coverLetter);
+        formData.append('supplementaryFile', supplementaryFile);
         formData.append('title', event.target['journal-title'].value);
         formData.append('abstract', abstract);
         formData.set('keywords', JSON.stringify(keywords));
@@ -37,7 +54,7 @@ function AddSubmission() {
         formData.append('userId', user._id.toString());
         formData.append('journalId', event.target['journal-list'].value);
         // Call the service to add the journal article
-        const responseData = await Article.addArticle(formData, accessToken);
+        const responseData = await Article.addArticle(formData, token);
         const emailReceivers = authors.map(author => author.email)
         emailReceivers.push(user.email);
         if (responseData.success) {
@@ -55,9 +72,9 @@ function AddSubmission() {
                     </div>
                 `
             });
+            getArticleData();
             navigate('/dashboard/view-submission');
             toast.success(responseData.message);
-            getArticleData();
             setLoader(false);
         } else {
             // If not successful, show an error toast
@@ -76,40 +93,48 @@ function AddSubmission() {
     return (
         // Main container for the form
         <div className="d-flex justify-content-center align-items-center p-2 submission-wrapper">
+
             {/* Form for submitting a journal article */}
             <form className="submission-data-form" encType='multipart/form-data' onSubmit={handleSubmit}>
                 <h2>Article Submission</h2>
+
                 {/* Journal names */}
                 <div className="row mb-3">
-                    <label htmlFor="journal-list" className="col-sm-2 col-form-label fw-bold fs-5">Journal</label>
+                    <label htmlFor="journal-list" className="col-sm-2 col-form-label">Journal <span className="required-field">*</span></label>
                     <div className="col-sm-10">
                         {/* If a journal ID is provided, show a disabled select with the journal title */}
                         {!!journalId ?
                             <select className="form-control" disabled name='journal-list'>
                                 <option value={journalId}>{journalData.find(item => item._id === journalId).title}</option>
                             </select>
-                            : 
+                            :
                             // Else, show a select with all available journals
                             <select name="journal-list" id="journal-list" className="form-select" defaultValue="selectJournal" required>
                                 <option value="selectJournal" disabled>Select Journal</option>
-                                {journalData.map((journal, index) => (
-                                    <option key={index} value={journal._id}>{journal.title}</option>
-                                ))}
+                                {
+                                    journalData.map((journal, index) => (
+                                        <option key={index} value={journal._id}>
+                                            {journal.title}
+                                        </option>
+                                    ))
+                                }
                             </select>
                         }
                     </div>
                 </div>
+
                 {/* Title of the Journal Article */}
                 <div className="row mb-3">
-                    <label htmlFor="input-title" className="col-sm-2 col-form-label fw-bold fs-5">Title</label>
+                    <label htmlFor="input-title" className="col-sm-2 col-form-label">Title <span className="required-field">*</span></label>
                     <div className="col-sm-10">
                         <input type="text" name="journal-title" className="form-control" id="input-title"
                             placeholder="Title of the Article..." required />
                     </div>
                 </div>
+
                 {/* Abstract of the Journal Article */}
                 <div className="row mb-3">
-                    <label htmlFor="input-abstract" className="col-sm-2 col-form-label fw-bold fs-5">Abstract</label>
+                    <label htmlFor="input-abstract" className="col-sm-2 col-form-label">Abstract <span className="required-field">*</span></label>
                     <div className="col-sm-10">
                         <textarea name="journal-abstract" id="input-abstract" cols="" rows="10" spellCheck="true"
                             className="form-control" placeholder="Describe something about your article..."
@@ -123,20 +148,45 @@ function AddSubmission() {
                         </div>
                     </div>
                 </div>
+
                 {/* Keywords of the Journal Article */}
                 <KeyWords keywords={keywords} setKeywords={setKeywords} />
-                {/* File Upload */}
+
+                {/* Upload MenuScript */}
                 <div className="row mb-3">
-                    <label htmlFor="input-attachment" className="col-sm-2 col-form-label fw-bold fs-5">Upload File
-                        <span>&#40;.pdf,
-                            .docx&#41;</span></label>
+                    <label htmlFor="menuscript" className="col-sm-2 col-form-label">Menuscript
+                        <span>{" ("}.pdf,
+                            .docx{")"}</span><span className="required-field">*</span></label>
                     <div className="col-sm-10">
-                        <input type="file" name="journal-attachment" className="form-control" id="input-attachment"
+                        <input type="file" name="menuscript" className="form-control" id="menuscript"
                             accept=".pdf, .docx" required />
                     </div>
                 </div>
+
+                {/* Upload Cover Letter */}
+                <div className="row mb-3">
+                    <label htmlFor="cover-letter" className="col-sm-2 col-form-label">Cover Letter
+                        <span>{" ("}.pdf,
+                            .docx{")"}</span><span className="required-field">*</span></label>
+                    <div className="col-sm-10">
+                        <input type="file" name="cover-letter" className="form-control" id="cover-letter"
+                            accept=".pdf, .docx" required />
+                    </div>
+                </div>
+
+                {/* Upload Supplementary File */}
+                <div className="row mb-3">
+                    <label htmlFor="supplementary-file" className="col-sm-2 col-form-label">Supplementary File <span className="required-field">*</span>
+                    </label>
+                    <div className="col-sm-10">
+                        <input type="file" name="supplementary-file" className="form-control" id="supplementary-file" required />
+                        <p className='m-0' hidden={true}>{"Maximum file size should be 10MB"}</p>
+                    </div>
+                </div>
+
                 {/* Authors */}
                 <AuthorTable authors={authors} setAuthors={setAuthors} />
+
                 {/* Submit button */}
                 <div className="d-flex justify-content-end">
                     <button type="submit" className="btn btn-warning pe-5 ps-5 fw-bold">

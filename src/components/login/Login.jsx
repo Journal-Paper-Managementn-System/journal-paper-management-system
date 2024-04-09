@@ -27,17 +27,13 @@ function Login() {
      * If the password input field is empty, it displays a warning toast message.
      */
     const handleOnVisible = () => {
-        if (pswd.current.value !== '') {
-            if (pswd.current.type !== 'password') {
-                pswd.current.type = 'password';
-                setVisibleIcon(true);
-            }
-            else {
-                pswd.current.type = 'text';
-                setVisibleIcon(!visibleIcon);
-            }
-        } else {
-            toast.warn('Please enter a valid password');
+        if (pswd.current.type !== 'password') {
+            pswd.current.type = 'password';
+            setVisibleIcon(true);
+        }
+        else {
+            pswd.current.type = 'text';
+            setVisibleIcon(!visibleIcon);
         }
     }
 
@@ -74,9 +70,9 @@ function Login() {
                 const resMailData = await MailService.sendMail({
                     mailFrom: "Journal Submission",
                     mailTo: responseData.data.email,
-                    mailSubject: "Verify your email address",
+                    mailSubject: "Verify Your Email Address",
                     mailText: "Please verify your email address using OTP to complete registration.",
-                    mailHtml: ReactDOMServer.renderToString(<EmailMessage otp={emailOtp} firstName={responseData.data.firstName} target="sign-up"/>),
+                    mailHtml: ReactDOMServer.renderToString(<EmailMessage otp={emailOtp} firstName={responseData.data.firstName} target="sign-up" />),
                 });
                 if (resMailData.success) {
                     navigate('/login/verify-email', { state: { email: responseData.data.email, emailOtp: emailOtp, redirectTo: state?.redirectTo || '/dashboard' } }, { replace: true });
@@ -151,11 +147,11 @@ function Login() {
                                     </p>
                                 </div>
                                 <button type="submit" className="login-btn">
-                                    {!loader? "Login": <div className="d-flex justify-content-center"><ThreeDots height={25} width={54} color="#fff" /></div>}
+                                    {!loader ? "Login" : <div className="d-flex justify-content-center"><ThreeDots height={25} width={54} color="#fff" /></div>}
                                 </button>
                                 <div className="sign-up-link">
                                     <p>
-                                        Don't have an account? Please <Link to="/sign-up" state={{ redirectTo: state?.redirectTo }}>Sign up</Link>
+                                        Don't have an account? Please <Link to="/sign-up" state={{ redirectTo: state?.redirectTo }} className="text-white fw-bold text-decoration-underline">Sign up or register</Link>
                                     </p>
                                 </div>
                             </form>

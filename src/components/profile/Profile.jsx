@@ -4,7 +4,7 @@ import { useAuth } from "../../store/AuthContext";
 import { useState } from "react";
 import Button from 'react-bootstrap/Button';
 import EditProfile from './EditProfile';
-import { IoCalendarNumberOutline } from "react-icons/io5";
+import { IoCalendarNumberOutline, IoSchoolOutline } from "react-icons/io5";
 import { IoMdPhonePortrait } from "react-icons/io";
 import { MdMailOutline } from "react-icons/md";
 import { BsGenderMale } from "react-icons/bs";
@@ -25,9 +25,9 @@ function Profile() {
         <div className="profile-container container position-relative">
             <div className="profile-upper"></div>
             <div className="profile-avatar">
-                <img 
-                    src={user.profilePicture.includes("https")? user.profilePicture: `${BASE_URL}/profile-pictures/upload/${user.profilePicture}`}
-                    alt="Profile Picture" 
+                <img
+                    src={user.profilePicture.includes("https") ? user.profilePicture : `${BASE_URL}/profile-pictures/upload/${user.profilePicture}`}
+                    alt="Profile Picture"
                 />
             </div>
             <div className="profile-info">
@@ -60,15 +60,15 @@ function Profile() {
                     <div className='personal-data'>
                         <MdMailOutline />
                         <div className='d-flex align-items-center'>
-                            {user.email} {user.emailVerified? <FaCheckCircle className='text-success ms-2'/>: <MdPendingActions className='text-warning ms-2'/>}
+                            {user.email} {user.emailVerified ? <FaCheckCircle className='text-success ms-2' /> : <MdPendingActions className='text-warning ms-2' />}
                         </div>
                     </div>
                 </div>
                 <div className="col-md-6 user-submission-info">
                     <div className="text-capitalize submission-data">
-                        <BsGenderMale />
+                        <IoSchoolOutline />
                         <div>
-                            {user.gender}
+                            {user.institution}
                         </div>
                     </div>
                     <div className='submission-data'>

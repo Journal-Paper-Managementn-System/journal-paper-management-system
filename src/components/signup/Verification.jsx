@@ -24,8 +24,10 @@ function Verification() {
             if (response.success) {
                 navigate('/login', { state: { redirectTo: location.state?.redirectTo } });
                 toast.success('OTP Verification Successful! Please login to continue');
-                setLoader(false);
+            } else {
+                toast.error(response.message);
             }
+            setLoader(false);
         } else {
             toast.warn('Invalid OTP');
         }
