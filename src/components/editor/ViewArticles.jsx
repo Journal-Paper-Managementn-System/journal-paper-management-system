@@ -11,23 +11,23 @@ function ReviewerRow({ article, index }) {
         <>
             <td>
                 <tr>
-                    <div style={{ maxWidth: "15rem" }}>
+                    <p style={{ minWidth: "15rem" }}>
                         {article.reviewers?.[index]?.email || "Not Assigned"}
-                    </div>
+                    </p>
                 </tr>
             </td>
             <td>
                 <tr className='text-capitalize'>
-                    <div style={{ width: "15rem" }}>
+                    <p style={{ minWidth: "10rem" }}>
                         {article.reviewers?.[index]?.status || "Null"}
-                    </div>
+                    </p>
                 </tr>
             </td>
             <td className='text-start'>
                 <tr>
-                    <div style={{ width: "15rem" }}>
+                    <p style={{ minWidth: "15rem" }}>
                         {article.reviewers?.[index]?.comments ? parse(article.reviewers?.[index]?.comments) : "Null"}
-                    </div>
+                    </p>
                 </tr>
             </td>
         </>
@@ -35,7 +35,7 @@ function ReviewerRow({ article, index }) {
 }
 
 function ViewArticles() {
-    const [articles, setArticles] = useState([{}]);
+    const [articles, setArticles] = useState([]);
     const { user, journalData, getArticles, token } = useAuth();
 
     /**
@@ -50,10 +50,13 @@ function ViewArticles() {
          * @param {string} user._id - The editor ID.
          * @returns {string} The journal ID.
          */
-        const { _id: journalId } = journalData.find((journal) => journal.editorId === user._id);
-        const response = await getArticles(journalId);
-        if (response.success) {
-            setArticles(response.data);
+        if (journalData.length === 0) return;
+        const journal = journalData.find((journal) => journal.editorId === user._id);
+        if (journal !== undefined) {
+            const response = await getArticles(journal._id);
+            if (response.success) {
+                setArticles(response.data);
+            }
         }
     };
 
@@ -71,9 +74,15 @@ function ViewArticles() {
     const handleSubmit = async (id) => {
         // Find the article based on the ID
         const article = articles.find((article) => article._id === id);
+        // Check if the editor comments are empty
+        if (article.editorComments.trim() === "") {
+            return toast.error("Please provide comments");
+        }
+        // Check if the status is selected
         if (!["accepted", "rejected"].includes(article.status)) {
             return toast.error("Please select a status");
         }
+
         article.finalStatus = article.status;
         // Update the article based on the field
         const response = await Article.updateArticle(article, token);
@@ -100,84 +109,88 @@ function ViewArticles() {
 
     return (
         <div className="table-responsive">
-            <table className='table table-bordered text-center table-striped'>
-                <thead className='table-dark'>
-                    <tr>
-                        <th>#</th>
-                        <th>Title</th>
-                        <th>Reviewers</th>
-                        <th>Reviewer Status</th>
-                        <th>Reviewer Comments</th>
-                        <th>Additional comments</th>
-                        <th>Set Status</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {articles.map((article, index) => (
-                        <>
-                            <tr key={index}>
-                                <th rowSpan={3}>{index + 1}</th>
-                                <td rowSpan={3}>
-                                    <div className="txt-container text-start" onClick={(e) => e.target.classList.toggle("txt-expanded")} style={{ maxWidth: "20rem" }}>
-                                        {article.title}
-                                    </div>
-                                </td>
-                                <ReviewerRow article={article} index={0} />
-                                <td rowSpan={3} >
-                                    {["accepted", "rejected"].includes(article.finalStatus) ?
-                                        article.editorComments :
-                                        <textarea
-                                            name="editorComments"
-                                            id={article._id}
-                                            rows="5"
-                                            cols="40"
-                                            style={{ width: "300px" }}
-                                            className='form-control'
-                                            placeholder='Additional comments'
-                                            onChange={handleChange}
-                                            value={article.editorComments || ""}
-                                        >
-                                        </textarea>
-                                    }
-                                </td>
-                                <td rowSpan={3}>
-                                    {article.finalStatus === "accepted" ? <div className='text-primary fw-bold'>Accepted</div> : article.finalStatus === "rejected" ? <div className='text-danger fw-bold'>Rejected</div> :
-                                        <select
-                                            name="status"
-                                            id={article._id}
-                                            className='form-select'
-                                            style={{width: "10rem"}}
-                                            onChange={handleChange}
-                                            value={['accepted', 'rejected'].includes(article.status) ? article.status : "select-status"}
-                                        >
-                                            <option value="select-status" selected disabled>Select Status</option>
-                                            <option value="accepted">Accepted</option>
-                                            <option value="rejected">Rejected</option>
-                                        </select>}
-                                </td>
-                                <td rowSpan={3}>
-                                    {["accepted", "rejected"].includes(article.finalStatus) ? "" :
-                                        <div className="d-flex flex-column">
-                                            <div className='save-button'>
-                                                <button className='btn btn-primary my-3' onClick={(() => handleSubmit(article._id))} ><FaRegSave /></button>
+            {
+                articles.length === 0 ? <h2 className='fw-bold p-3'>There are no articles...</h2>
+                    :
+                    <table className='table table-bordered text-center table-striped'>
+                        <thead className='table-dark'>
+                            <tr>
+                                <th>#</th>
+                                <th>Title</th>
+                                <th>Reviewers</th>
+                                <th>Reviewer Status</th>
+                                <th>Reviewer Comments</th>
+                                <th>Additional comments</th>
+                                <th>Set Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {articles.map((article, index) => (
+                                <>
+                                    <tr key={index}>
+                                        <th rowSpan={3}>{index + 1}</th>
+                                        <td rowSpan={3}>
+                                            <div className="text-start" style={{ minWidth: "20rem" }}>
+                                                {article.title}
                                             </div>
-                                            {/* <div className='delete-button'>
+                                        </td>
+                                        <ReviewerRow article={article} index={0} />
+                                        <td rowSpan={3} >
+                                            {["accepted", "rejected"].includes(article.finalStatus) ?
+                                                article.editorComments :
+                                                <textarea
+                                                    name="editorComments"
+                                                    id={article._id}
+                                                    rows="5"
+                                                    cols="40"
+                                                    style={{ minWidth: "300px" }}
+                                                    className='form-control'
+                                                    placeholder='Additional comments'
+                                                    onChange={handleChange}
+                                                    value={article.editorComments || ""}
+                                                >
+                                                </textarea>
+                                            }
+                                        </td>
+                                        <td rowSpan={3}>
+                                            {article.finalStatus === "accepted" ? <div className='text-primary fw-bold'>Accepted</div> : article.finalStatus === "rejected" ? <div className='text-danger fw-bold'>Rejected</div> :
+                                                <select
+                                                    name="status"
+                                                    id={article._id}
+                                                    className='form-select'
+                                                    style={{ width: "10rem" }}
+                                                    onChange={handleChange}
+                                                    value={['accepted', 'rejected'].includes(article.status) ? article.status : "select-status"}
+                                                >
+                                                    <option value="select-status" disabled>Select Status</option>
+                                                    <option value="accepted">Accepted</option>
+                                                    <option value="rejected">Rejected</option>
+                                                </select>}
+                                        </td>
+                                        <td rowSpan={3}>
+                                            {["accepted", "rejected"].includes(article.finalStatus) ? "" :
+                                                <div className="d-flex flex-column">
+                                                    <div className='save-button'>
+                                                        <button className='btn btn-primary my-3' onClick={(() => handleSubmit(article._id))} ><FaRegSave /></button>
+                                                    </div>
+                                                    {/* <div className='delete-button'>
                                             <button className='btn btn-danger'><RiDeleteBinLine /></button>
                                         </div> */}
-                                        </div>
-                                    }
-                                </td>
-                            </tr>
-                            <tr>
-                                <ReviewerRow article={article} index={1} />
-                            </tr>
-                            <tr>
-                                <ReviewerRow article={article} index={2} />
-                            </tr>
-                        </>))}
-                </tbody>
-            </table>
+                                                </div>
+                                            }
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <ReviewerRow article={article} index={1} />
+                                    </tr>
+                                    <tr>
+                                        <ReviewerRow article={article} index={2} />
+                                    </tr>
+                                </>))}
+                        </tbody>
+                    </table>
+            }
         </div>
     )
 }

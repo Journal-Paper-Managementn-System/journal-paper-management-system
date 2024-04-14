@@ -8,25 +8,22 @@ import AddJournal from './AddJournal';
 import Journal from '../../services/journalService';
 import { toast } from 'react-toastify';
 import DeleteJournal from './DeleteJournal';
+import Confirmation from '../../utils/Confirmation'
 
 function AddEditor() {
     const [modalShow, setModalShow] = useState(false);
     const [show, setShow] = useState(false);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const { journalData, getJournalData, token } = useAuth();
+    const [cnfModalShow, setCnfModalShow] = useState({});
 
     const handleRemoveEditor = async (journalId) => {
-        const confirmation = confirm('Are you sure you want to remove this editor?');
-        if (confirmation) {
-            const response = await Journal.removeEditor(journalId, token);
-            if (response.success) {
-                getJournalData();
-                toast.success(response.message);
-            } else {
-                toast.error(response.message);
-            }
+        const response = await Journal.removeEditor(journalId, token);
+        if (response.success) {
+            getJournalData();
+            toast.success(response.message);
         } else {
-            return;
+            toast.error(response.message);
         }
     }
 
@@ -74,23 +71,37 @@ function AddEditor() {
                                     <Button
                                         variant='outline-primary'
                                         className='mx-2 d-flex justify-content-center align-items-center fs-5 my-1'
-                                        onClick={() => setModalShow(index, true)}
+                                        onClick={() => setModalShow(prevState => ({ ...prevState, [index]: true }))}
                                     >
                                         <MdOutlinePersonAddAlt />
                                     </Button>
 
                                     {/* Modal: Update the existing editors */}
-                                    <UpdateEditor show={modalShow === index} handleClose={() => setModalShow(index, false)} journal={journal} getJournalData={getJournalData} token={token} />
+                                    <UpdateEditor
+                                        show={modalShow[index]}
+                                        handleClose={() => setModalShow(prevState => ({ ...prevState, [index]: false }))}
+                                        journal={journal}
+                                        getJournalData={getJournalData}
+                                        token={token}
+                                    />
 
                                     {/* Remove a existing editor */}
                                     <Button
                                         variant='danger'
                                         className='d-flex justify-content-center align-items-center fs-5 my-1'
-                                        onClick={() => handleRemoveEditor(journal._id)}
+                                        onClick={() => setCnfModalShow(prevState => ({ ...prevState, [index]: true }))}
                                         disabled={!journal.editor}
                                     >
                                         <RiDeleteBinLine />
                                     </Button>
+
+                                    <Confirmation
+                                        show={cnfModalShow[index]}
+                                        handleClose={() => setCnfModalShow(prevState => ({ ...prevState, [index]: false }))}
+                                        title='Delete Editor'
+                                        message={`Are you sure you want to delete this editor <strong>${journal.editor?.firstName} ${journal.editor?.lastName}</strong>?`}
+                                        onConfirm={() => handleRemoveEditor(journal._id)}
+                                    />
                                 </div>
                             </td>
                         </tr>

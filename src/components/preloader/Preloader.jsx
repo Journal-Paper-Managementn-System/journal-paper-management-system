@@ -27,6 +27,7 @@ function Preloader() {
                                     <th>#</th>
                                     <th>Journals</th>
                                     <th>Description</th>
+                                    <th>Template</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -41,6 +42,7 @@ function Preloader() {
                                         <td>
                                             <p>{journal.description}</p>
                                         </td>
+                                        <td></td>
                                     </tr>
                                 ))}
                             </tbody>

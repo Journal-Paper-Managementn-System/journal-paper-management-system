@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 // import { MdAdminPanelSettings } from "react-icons/md";
 import { GrView } from "react-icons/gr";
 import "./editor.css";
@@ -19,7 +19,6 @@ function AssignReviewer() {
     const [selectedReviewers, setSelectedReviewers] = useState([]);
     const [modalShow, setModalShow] = useState(false);
     const [search, setSearch] = useState("");
-    const [confirm, setConfirm] = useState(false);
     const [cnfModalShow, setCnfModalShow] = useState(false);
 
     /**
@@ -82,17 +81,11 @@ function AssignReviewer() {
      * @param {Event} e - The event object.
      * @returns {Promise<void>} - A promise that resolves when the status update is handled.
      */
-    const handleSubmitStatus = async (e) => {
-        e.preventDefault();
+    const handleSubmitStatus = async () => {
         // Check if the status is selected
-        console.log(article.status)
         if (article.status === "select-status") {
             return toast.error("Please select a status");
         }
-        // confirm the status update
-        setCnfModalShow(true);
-        
-        if (!confirm) return;
         // Update the article status with the provided token
         if (["accepted", "rejected"].includes(article.status)) {
             article.finalStatus = article.status;
@@ -120,10 +113,13 @@ function AssignReviewer() {
          * @param {string} user._id - The editor ID.
          * @returns {string} The journal ID.
          */
-        const { _id: journalId } = journalData.find((journal) => journal.editorId === user._id);
-        const response = await getArticles(journalId);
-        if (response.success) {
-            setArticles(response.data);
+        if (journalData.length === 0) return;
+        const journal = journalData.find((journal) => journal.editorId === user._id);
+        if (journal !== undefined) {
+            const response = await getArticles(journal._id);
+            if (response.success) {
+                setArticles(response.data);
+            }
         }
     }
 
@@ -154,6 +150,7 @@ function AssignReviewer() {
      */
     const handleClick = (event) => {
         // Retrieve the ID of the clicked row
+        if (['BUTTON', 'path', 'svg'].includes(event.target.tagName)) return;
         const selectedRowId = event.currentTarget.id;
         // Toggle the selection state of the clicked row
         const updatedArticles = articles.map(article => {
@@ -206,44 +203,50 @@ function AssignReviewer() {
                 <div className="editor-form">
                     <div className="row m-0 p-0">
                         {/* Editor journal-title */}
-
-                        <div className={`col-md-9 ${!article && 'col-md-12'}`}>
-                            <table className="table table-striped table-bordered text-center">
-                                <thead className="table-dark">
-                                    <tr>
-                                        <th>#</th>
-                                        <th style={{ width: "45rem" }}>Title</th>
-                                        <th>Submission Date</th>
-                                        <th>View details</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {articles.map((article, index) => (
-                                        <tr key={index} onClick={handleClick} id={article._id} className={article.isSelected ? "table-primary" : ""}>
-                                            <th>{index + 1}</th>
-                                            <td>
-                                                <div className="txt-container text-start" onClick={(e) => e.target.classList.toggle("txt-expanded")} style={{ width: "30rem" }}>
-                                                    {article.title}
-                                                </div>
-                                            </td>
-                                            <td>
-                                                {new Date(article.createdAt).toLocaleString()}
-                                            </td>
-                                            <td>
-                                                <Button variant="outline-primary" onClick={() => setModalShow(index, true)}>
-                                                    <GrView />
-                                                </Button>
-                                                <EditorArticleView
-                                                    show={modalShow === index}
-                                                    onHide={() => setModalShow(index, false)}
-                                                    article={article}
-                                                />
-                                            </td>
-                                        </tr>
-                                    ))}
-                                </tbody>
-                            </table>
+                        <div className="col-md-12">
+                            <h2 className="text-center fw-bold">Assign Reviewer</h2>
+                            <hr />
                         </div>
+                        {
+                            articles.length === 0 ? <h2 className='fw-bold'>There are no articles...</h2> :
+                                <div className={`col-md-9 ${!article && 'col-md-12'}`}>
+                                    <table className="table table-striped table-bordered text-center">
+                                        <thead className="table-dark">
+                                            <tr>
+                                                <th>#</th>
+                                                <th style={{ width: "45rem" }}>Title</th>
+                                                <th>Submission Date</th>
+                                                <th>View details</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {articles.map((article, index) => (
+                                                <tr key={index} onClick={handleClick} id={article._id} className={article.isSelected ? "table-primary" : ""}>
+                                                    <th>{index + 1}</th>
+                                                    <td>
+                                                        <div className="txt-container text-start" onClick={(e) => e.target.classList.toggle("txt-expanded")} style={{ width: "30rem" }}>
+                                                            {article.title}
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        {new Date(article.createdAt).toLocaleString()}
+                                                    </td>
+                                                    <td>
+                                                        <Button variant="outline-primary" onClick={() => setModalShow(prevState => ({ ...prevState, [index]: true }))}>
+                                                            <GrView />
+                                                        </Button>
+                                                        <EditorArticleView
+                                                            show={modalShow[index]}
+                                                            handleClose={() => setModalShow(prevState => ({ ...prevState, [index]: false }))}
+                                                            article={article}
+                                                        />
+                                                    </td>
+                                                </tr>
+                                            ))}
+                                        </tbody>
+                                    </table>
+                                </div>
+                        }
 
                         {article && <div className='col-md-3'>
                             {/* Status*/}
@@ -252,29 +255,33 @@ function AssignReviewer() {
                                     <h5>Status</h5>
                                 </div>
                                 <div className="card-body d-flex flex-column justify-content-around">
-                                    <form onSubmit={handleSubmitStatus}>
-                                        <select name="status" id="status" className="form-select" value={["accepted", "rejected", "under review"].includes(article.status) ? article.status : "select-status"} onChange={statusChange}>
-                                            <option value="select-status" disabled>Select Status</option>
-                                            <option value="accepted">Accepted</option>
-                                            <option value="rejected">Rejected</option>
-                                            <option value="under review">Under Review</option>
-                                            {/* <option value="reviewed">Reviewed</option> */}
-                                        </select>
-                                        <input
-                                            type="submit"
-                                            value="Submit"
-                                            className="btn btn-dark btn-lg w-100 mt-3"
-                                        />
+                                    <select
+                                        name="status"
+                                        id="status"
+                                        className="form-select"
+                                        value={["accepted", "rejected", "under review"].includes(article.status) ? article.status : "select-status"} onChange={statusChange}
+                                    >
+                                        <option value="select-status" disabled>Select Status</option>
+                                        <option value="accepted">Accept</option>
+                                        <option value="rejected">Reject</option>
+                                        <option value="under review">Under Review</option>
+                                    </select>
+                                    <button
+                                        type="button"
+                                        onClick={() => setCnfModalShow(true)}
+                                        className="btn btn-dark btn-lg w-100 mt-3"
+                                    >Update</button>
 
-                                        <Confirmation
-                                            show={cnfModalShow}
-                                            handleClose={() => setCnfModalShow(false)}
-                                            setConfirm={setConfirm}
-                                            message="Are you sure you want to update the status?"
-                                        />
-                                    </form>
+                                    <Confirmation
+                                        show={cnfModalShow}
+                                        handleClose={() => setCnfModalShow(false)}
+                                        onConfirm={handleSubmitStatus}
+                                        title="Update Status"
+                                        message={`<p><strong class="text-capitalize d-block mb-2">Status: ${article.status}</strong>Are you sure you want to update the status?</p>`}
+                                    />
                                 </div>
                             </div>
+
                             {/* Reviewer list */}
                             {article.reviewers.length < 3 && <form className="card reviewer-list mt-2" id="submit">
                                 <div className="card-title">
@@ -291,6 +298,7 @@ function AssignReviewer() {
                                             id="author-search"
                                             placeholder="Search Reviewer..."
                                             className="form-control"
+                                            aria-label="Search"
                                             value={search}
                                             onChange={handleSearch}
                                         />
@@ -299,14 +307,15 @@ function AssignReviewer() {
                                         {reviewers.map((reviewer, index) => (
                                             <label htmlFor={reviewer._id} className="w-100" key={index}>
                                                 <li className="m-0 d-flex justify-content-between align-items-center author-items">
-                                                    <label htmlFor={reviewer._id}>{reviewer.firstName} {reviewer.lastName} ({reviewer.affiliation})</label>
+                                                    <label htmlFor={reviewer._id}>
+                                                        {reviewer.firstName} {reviewer.lastName} ({reviewer.affiliation})
+                                                    </label>
                                                     <input
                                                         type="checkbox"
                                                         name="check-author"
                                                         id={reviewer._id}
                                                         className="bg-none check-author-inp"
                                                         onChange={handleSelectReviewer}
-                                                    // checked={selectedReviewers.includes(reviewer.email)}
                                                     />
                                                 </li>
                                             </label>

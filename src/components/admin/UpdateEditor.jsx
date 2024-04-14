@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import { ThreeDots } from 'react-loader-spinner';
@@ -10,34 +10,23 @@ function UpdateEditor(props) {
     const [loader, setLoader] = useState(false);
     const { journal, getJournalData, token } = props;
 
-    const [show, setShow] = useState(false);
-
-    useEffect(() => {
-        setShow(props.show);
-    }, [props.show]);
-
-    const handleClose = () => {
-        setShow(false);
-        props.handleClose();
-    };
-
     const handleSaveChanges = async (e) => {
         e.preventDefault();
+        if (!e.target.confirm.checked) {
+            return toast.error('Please confirm that you want to assign this editor');
+        }
         setLoader(true);
-        // console.log(e.target.firstName.value, e.target.lastName.value, e.target.email.value, e.target.phoneNumber.value, e.target.gender.value);
         const response = await Journal.addEditor({
             firstName: e.target.firstName.value,
             middleName: e.target.middleName.value,
             lastName: e.target.lastName.value,
             email: e.target.email.value,
             phoneNumber: e.target.phoneNumber.value,
-            gender: e.target.gender.value,
             journalId: journal._id
         }, token);
         if (response.success) {
             getJournalData();
-            toast.success(response.message);
-            handleClose();
+            
             await mailService.sendMail({
                 mailFrom: "Journal Submission",
                 mailTo: e.target.email.value,
@@ -50,16 +39,18 @@ function UpdateEditor(props) {
                     <p><strong> Password: </strong> ${response.data.password}</p>
                 </div>`
             });
+            toast.success(response.message);
         } else {
             toast.error(response.message);
         }
         setLoader(false);
+        props.handleClose();
     }
 
     return (
         <Modal
-            show={show}
-            onHide={handleClose}
+            show={props.show}
+            onHide={props.handleClose}
             backdrop="static"
             keyboard={false}
             size='lg'
@@ -123,26 +114,28 @@ function UpdateEditor(props) {
                             required
                         />
                     </div>
-                    <div className="col-2">
-                        <label htmlFor="gender" className='form-label'>Gender</label>
+                    <div className="col-6">
+                        <label htmlFor="institution" className="form-label">Institution</label>
+                        <input
+                            type="text"
+                            className="form-control"
+                            id="institution"
+                            name='institution'
+                            placeholder='Enter Institution Name'
+                            required
+                        />
                     </div>
-                    <div className="col-10">
-                        <div className="form-check form-check-inline">
-                            <input className="form-check-input" type="radio" name="gender" id="male" value="male" />
-                            <label className="form-check-label" htmlFor="inlineRadio1">Male</label>
-                        </div>
-                        <div className="form-check form-check-inline">
-                            <input className="form-check-input" type="radio" name="gender" id="female" value="female" />
-                            <label className="form-check-label" htmlFor="inlineRadio2">Female</label>
-                        </div>
-                        <div className="form-check form-check-inline">
-                            <input className="form-check-input" type="radio" name="gender" id="other" value="other" />
-                            <label className="form-check-label" htmlFor="inlineRadio3">Other</label>
-                        </div>
+                    
+                    <div className="form-check mx-2">
+                        <input className="form-check-input border-dark" type="checkbox" id="confirm" value="confirm" />
+                        <label className="form-check-label" htmlFor="confirm">
+                            Are you sure you want to assign this editor to <strong>{journal.title}</strong>?
+                        </label>
                     </div>
 
+
                     <Modal.Footer>
-                        <Button variant="secondary" onClick={handleClose}>Close</Button>
+                        <Button variant="secondary" onClick={props.handleClose}>Close</Button>
                         {
                             loader ? <Button variant="primary" type='button' disabled><ThreeDots height={24} width={50} wrapperStyle={{ padding: "0 22px" }} color='white' /></Button>
                                 : <Button variant="primary" type='submit'>Save changes</Button>

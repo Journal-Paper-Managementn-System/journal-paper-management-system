@@ -50,6 +50,7 @@ function EditProfile(props) {
      * @param {Event} event - The change event object.
      */
     const handleChange = (event) => {
+        // console.log(event.target.files[0]);
         const { name, value, type } = event.target;
         setUserDetails({
             ...userDetails,

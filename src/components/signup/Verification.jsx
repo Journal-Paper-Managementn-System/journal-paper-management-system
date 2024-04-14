@@ -17,7 +17,8 @@ function Verification() {
         userEmail = userEmail.join('@');    
     }
 
-    async function verifyOTP() {
+    async function verifyOTP(e) {
+        e.preventDefault();
         if (otp == location.state.emailOtp) {
             setLoader(true);
             const response = await Auth.verifyEmail(location.state.email);
@@ -52,7 +53,7 @@ function Verification() {
                         <button type="button" className="d-flex justify-content-center">
                             <ThreeDots height={25} width={54} color="#fff" />
                         </button>
-                        : <button type="button" onClick={verifyOTP} className="fw-bold">Verify OTP</button>
+                        : <button type="submit" onClick={verifyOTP} className="fw-bold">Verify OTP</button>
                     }
                 </div>)
                 : (<Navigate to="/sign-up" />)}

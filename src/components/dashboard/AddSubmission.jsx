@@ -16,9 +16,9 @@ function AddSubmission() {
     const [abstract, setAbstract] = useState(''); // Abstract of the submission
     const [keywords, setKeywords] = useState([]); // Keywords for the submission
     const [loader, setLoader] = useState(false); // Loader state
-    const [authors, setAuthors] = useState([{ firstName: '', lastName: '', email: '', affiliation: '', firstAuthor: false, secondAuthor: false, correspondingAuthor: false }]); // Authors of the submission
+    const [authors, setAuthors] = useState([{ firstName: '', lastName: '', email: '', affiliation: '', correspondingAuthor: false, firstAuthor: false, otherAuthor: false }]); // Authors of the submission
     const navigate = useNavigate(); // Navigation hook
-    const totalLettersCount = 1000; // Maximum allowed letters in the abstract
+    const totalLettersCount = 2000; // Maximum allowed letters in the abstract
     const { user, getArticleData, journalData, token } = useAuth(); // Auth context
     const { journalId } = useParams(); // Journal ID from URL parameters
 
@@ -45,8 +45,8 @@ function AddSubmission() {
         const formData = new FormData();
         // Append form data
         formData.append('menuscript', menuscript);
-        formData.append('coverLetter', coverLetter);
-        formData.append('supplementaryFile', supplementaryFile);
+        // formData.append('coverLetter', coverLetter);
+        // formData.append('supplementaryFile', supplementaryFile);
         formData.append('title', event.target['journal-title'].value);
         formData.append('abstract', abstract);
         formData.set('keywords', JSON.stringify(keywords));
@@ -136,11 +136,17 @@ function AddSubmission() {
                 <div className="row mb-3">
                     <label htmlFor="input-abstract" className="col-sm-2 col-form-label">Abstract <span className="required-field">*</span></label>
                     <div className="col-sm-10">
-                        <textarea name="journal-abstract" id="input-abstract" cols="" rows="10" spellCheck="true"
-                            className="form-control" placeholder="Describe something about your article..."
-                            required
+                        <textarea
+                            name="journal-abstract"
+                            id="input-abstract"
+                            cols=""
+                            rows="10"
+                            spellCheck="true"
+                            className="form-control"
+                            placeholder="Describe something about your article..."
                             value={abstract}
                             onChange={handleOnChange}
+                            required
                         ></textarea>
                         {/* Counter for the number of letters in the abstract */}
                         <div className="d-flex justify-content-end my-1">

@@ -6,16 +6,14 @@ import Button from 'react-bootstrap/Button';
 import EditProfile from './EditProfile';
 import { IoCalendarNumberOutline, IoSchoolOutline } from "react-icons/io5";
 import { IoMdPhonePortrait } from "react-icons/io";
-import { MdMailOutline } from "react-icons/md";
-import { BsGenderMale } from "react-icons/bs";
+import { MdMailOutline, MdOutlineNature } from "react-icons/md";
 import { ImListNumbered } from "react-icons/im";
 import { MdPendingActions } from "react-icons/md";
 import { FaCheckCircle } from "react-icons/fa";
 import { BASE_URL } from '../../services/helper';
 
 function Profile() {
-    const { user, getUser } = useAuth();
-    const { articleData } = useAuth();
+    const { user, getUser, articleData } = useAuth();
     const [show, setShow] = useState(false);
 
     const handleClose = () => setShow(false);
@@ -69,6 +67,12 @@ function Profile() {
                         <IoSchoolOutline />
                         <div>
                             {user.institution}
+                        </div>
+                    </div>
+                    <div className="text-capitalize submission-data">
+                        <MdOutlineNature />
+                        <div>
+                            {user.isEditor ? "Editor" : (user.isReviewer ? "Reviewer" : "User")}
                         </div>
                     </div>
                     <div className='submission-data'>

@@ -24,6 +24,7 @@ const ViewArticles = lazy(() => import("./editor/ViewArticles"));
 const AcceptedArticles = lazy(() => import("./editor/AcceptedArticles"));
 const PageNotFound = lazy(() => import("./PageNotFound"));
 const AddEditor = lazy(() => import("./admin/AddEditor"));
+const GuestRoute = lazy(() => import("../utils/GuestRoute"));
 // import DOCViewer from "./fileviewer/DOCViewer";
 
 const router = createBrowserRouter([
@@ -132,62 +133,68 @@ const router = createBrowserRouter([
                             </Suspense>
                         ),
                     },
+                    
                 ],
             },
         ],
     },
     {
-        path: "/login",
-        element: (
-            <Suspense fallback={<Loading />}>
-                <Login />
-            </Suspense>
-        ),
+        element: <GuestRoute />,
         children: [
             {
-                path: "forgot-password",
+                path: "/login",
                 element: (
                     <Suspense fallback={<Loading />}>
-                        <ForgotPassword />
+                        <Login />
                     </Suspense>
                 ),
+                children: [
+                    {
+                        path: "forgot-password",
+                        element: (
+                            <Suspense fallback={<Loading />}>
+                                <ForgotPassword />
+                            </Suspense>
+                        ),
+                    },
+                    {
+                        path: "verify-email",
+                        element: (
+                            <Suspense fallback={<Loading />}>
+                                <Verification />
+                            </Suspense>
+                        ),
+                    }
+                ],
             },
             {
-                path: "verify-email",
+                path: "/sign-up",
                 element: (
                     <Suspense fallback={<Loading />}>
-                        <Verification />
+                        <SignUp />
                     </Suspense>
                 ),
-            }
-        ],
-    },
-    {
-        path: "/sign-up",
-        element: (
-            <Suspense fallback={<Loading />}>
-                <SignUp />
-            </Suspense>
-        ),
-        children: [
-            {
-                path: "verify-email",
-                element: (
-                    <Suspense fallback={<Loading />}>
-                        <Verification />
-                    </Suspense>
-                ),
+                children: [
+                    {
+                        path: "verify-email",
+                        element: (
+                            <Suspense fallback={<Loading />}>
+                                <Verification />
+                            </Suspense>
+                        ),
+                    },
+                ],
             },
         ],
     },
-    {
-        path: "/logout",
-        element: (
-            <Suspense fallback={<Loading />}>
-                <Logout />
-            </Suspense>
-        ),
-    },
+    // {
+    //     path: "/logout",
+    //     element: (
+    //         <Suspense fallback={<Loading />}>
+    //             <Logout />
+    //         </Suspense>
+    //     ),
+    // },
     {
         path: "/*",
         element: (

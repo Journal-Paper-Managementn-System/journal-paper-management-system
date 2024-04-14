@@ -27,10 +27,13 @@ function AcceptedArticles() {
          * @param {string} user._id - The editor ID.
          * @returns {string} The journal ID.
          */
-        const { _id: journalId } = journalData.find((journal) => journal.editorId === user._id);
-        const response = await getArticles(journalId);
-        if (response.success) {
-            setArticles(response.data.filter(article => article.finalStatus === 'accepted'));
+        if (journalData.length === 0) return;
+        const journal = journalData.find((journal) => journal.editorId === user._id);
+        if (journal !== undefined) {
+            const response = await getArticles(journal._id);
+            if (response.success) {
+                setArticles(response.data.filter(article => article.finalStatus === 'accepted'));
+            }
         }
     };
 

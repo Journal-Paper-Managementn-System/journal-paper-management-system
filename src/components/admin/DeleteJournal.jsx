@@ -60,7 +60,7 @@ function DeleteJournal(props) {
                         <Button variant="secondary" onClick={props.handleClose}>Close</Button>
                         {
                             loader ? <Button variant="primary" type='button' disabled><ThreeDots height={24} width={50} wrapperStyle={{ padding: "0 22px" }} color='white' /></Button>
-                                : <Button variant="primary" type='submit'>Save changes</Button>
+                                : <Button variant="danger" type='submit'>Delete</Button>
                         }
                     </Modal.Footer>
                 </form>

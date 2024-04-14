@@ -11,7 +11,7 @@ const AuthProvider = ({ children }) => {
     const [articleData, setArticleData] = useState([]);
     const [journalData, setJournalData] = useState([]);
     const [userList, setUserList] = useState([{}]);
-    // const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
 
     /**
      * Retrieves the list of articles for a given journal.
@@ -36,18 +36,7 @@ const AuthProvider = ({ children }) => {
             sessionStorage.setItem("accessToken", accessToken);
         }
         setToken(accessToken);
-        // setIsLoggedIn(true);
-    };
-
-    let isLoggedIn = !!token;
-
-
-    /**
-     * Removes the access token from session storage or local storage and sets the token state to an empty string.
-     */
-    const LogoutUser = () => {
-        sessionStorage.removeItem("accessToken") || localStorage.removeItem("accessToken");
-        setToken("");
+        setIsLoggedIn(true);
     };
 
     /**
@@ -56,9 +45,9 @@ const AuthProvider = ({ children }) => {
      */
     const getUser = async () => {
         const user = await Auth.getUser(token);
+        setIsLoggedIn(user.success);
         if (user.success) {
             setUser(user.data);
-            // setIsLoggedIn(true);
             return user;
         }
     };
@@ -113,7 +102,6 @@ const AuthProvider = ({ children }) => {
             storeToken,
             isLoggedIn,
             user,
-            LogoutUser,
             articleData,
             getArticleData,
             journalData,
@@ -122,6 +110,7 @@ const AuthProvider = ({ children }) => {
             getJournalData,
             userList,
             token,
+            setIsLoggedIn,
         }}>
             {children}
         </AuthContext.Provider>

@@ -12,10 +12,6 @@ const ProtectedRoute = () => {
         return <Navigate to="/login" replace state={{ redirectTo: pathname }} />;
     }
 
-    // if (['/login', '/signup'].includes(pathname)) {
-    //     return <Navigate to="/" replace />;
-    // }
-
     if (user.isEditor) {
         // Editors can only access these pages
         if (!['/dashboard/profile', '/dashboard/assign-reviewer', '/dashboard', '/dashboard/view-articles', '/dashboard/add-reviewer', '/dashboard/accepted-articles'].includes(pathname)) {
