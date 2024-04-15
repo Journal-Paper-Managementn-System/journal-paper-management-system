@@ -68,7 +68,7 @@ function Login() {
             if (responseData.message === 'Email not verified') {
                 const emailOtp = Math.floor(1000 + Math.random() * 900000);
                 const resMailData = await MailService.sendMail({
-                    mailFrom: "Journal Submission",
+                    mailFrom: "Article Submission System",
                     mailTo: responseData.data.email,
                     mailSubject: "Verify Your Email Address",
                     mailText: "Please verify your email address using OTP to complete registration.",

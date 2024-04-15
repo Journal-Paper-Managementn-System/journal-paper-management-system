@@ -37,10 +37,10 @@ function ForgotPassword() {
             }
             // Send OTP to the user's email
             const resMailData = await MailService.sendMail({
-                mailFrom: "Journal Submission",
+                mailFrom: "Article Submission System",
                 mailTo: userEmail,
                 mailSubject: "Verify Your Email Address",
-                mailText: "Please verify your email address using OTP to complete registration.",
+                // mailText: "Please verify your email address using OTP to complete registration.",
                 mailHtml: ReactDOMServer.renderToString(<EmailMessage otp={emailOtp} firstName={checkUser.data.firstName} target="forgot-password" />)
             })
             if (resMailData.success) {

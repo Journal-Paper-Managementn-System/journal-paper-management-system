@@ -4,7 +4,7 @@ function Footer() {
     return (
         <footer className="footer">
             <div className="container footer-contents">
-                <h4>Article Submission</h4>
+                <h4 className="fw-bold">Article Submission System</h4>
                 <ul>
                     <li>
                         Vidyasagar University, Department of Computer Science.

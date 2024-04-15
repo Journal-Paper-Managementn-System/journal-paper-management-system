@@ -5,6 +5,7 @@ import { useAuth } from '../../store/AuthContext';
 import parse from 'html-react-parser';
 import Article from '../../services/articleService';
 import { toast } from 'react-toastify';
+import Confirmation from '../../utils/Confirmation';
 
 function ReviewerRow({ article, index }) {
     return (
@@ -37,6 +38,7 @@ function ReviewerRow({ article, index }) {
 function ViewArticles() {
     const [articles, setArticles] = useState([]);
     const { user, journalData, getArticles, token } = useAuth();
+    const [cnfModalShow, setCnfModalShow] = useState(false);
 
     /**
      * Retrieves journal articles for the current user.
@@ -66,14 +68,12 @@ function ViewArticles() {
     }, []);
 
     /**
-     * Handles the submission of an article.
+     * Checks the validation of comments and status.
      *
-     * @param {string} id - The ID of the article to be submitted.
-     * @returns {Promise<void>} - A promise that resolves when the submission is complete.
+     * @param {Object} article - The article object.
+     * @returns {void}
      */
-    const handleSubmit = async (id) => {
-        // Find the article based on the ID
-        const article = articles.find((article) => article._id === id);
+    const checkValidation = (article) => {
         // Check if the editor comments are empty
         if (article.editorComments.trim() === "") {
             return toast.error("Please provide comments");
@@ -82,7 +82,16 @@ function ViewArticles() {
         if (!["accepted", "rejected"].includes(article.status)) {
             return toast.error("Please select a status");
         }
+        setCnfModalShow(true);
+    }
 
+    /**
+     * Handles the submission of an article.
+     *
+     * @param {string} id - The ID of the article to be submitted.
+     * @returns {Promise<void>} - A promise that resolves when the submission is complete.
+     */
+    const handleSubmit = async (article) => {
         article.finalStatus = article.status;
         // Update the article based on the field
         const response = await Article.updateArticle(article, token);
@@ -172,11 +181,17 @@ function ViewArticles() {
                                             {["accepted", "rejected"].includes(article.finalStatus) ? "" :
                                                 <div className="d-flex flex-column">
                                                     <div className='save-button'>
-                                                        <button className='btn btn-primary my-3' onClick={(() => handleSubmit(article._id))} ><FaRegSave /></button>
+                                                        <button className='btn btn-primary my-3' onClick={() => checkValidation(article)} >
+                                                            <FaRegSave />
+                                                        </button>
+                                                        <Confirmation
+                                                            show={cnfModalShow}
+                                                            handleClose={() => setCnfModalShow(false)}
+                                                            onConfirm={() => handleSubmit(article)}
+                                                            title="Update Status"
+                                                            message={`<p><strong class="text-capitalize d-block mb-2">Status: ${article.status}</strong>Are you sure you want to update the status? You can't undone this, once it changed.</p>`}
+                                                        />
                                                     </div>
-                                                    {/* <div className='delete-button'>
-                                            <button className='btn btn-danger'><RiDeleteBinLine /></button>
-                                        </div> */}
                                                 </div>
                                             }
                                         </td>

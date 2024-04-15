@@ -4,10 +4,10 @@ import { useAuth } from '../../store/AuthContext';
 import PDFViewer from '../fileviewer/PDFViewer';
 import { Button } from 'react-bootstrap';
 import { GrDocumentPdf } from 'react-icons/gr';
-import Download from '../../services/downloadService';
 import { toast } from 'react-toastify';
 import { BASE_URL } from '../../services/helper';
 import { ColorRing } from 'react-loader-spinner';
+import zipService from '../../services/zipService';
 
 function AcceptedArticles() {
     const { user, journalData, getArticles, token } = useAuth();
@@ -40,19 +40,18 @@ function AcceptedArticles() {
     const handleDownload = async () => {
         // Download the articles
         setLoader(true);
-        const files = { files: articles.map(article => article.file) };
-        const response = await Download.downloadArticles(files, token);
+        const files = { files: articles.map(article => article.mergedScript) };
+        const response = await zipService.createZip(files, token);
         if (response.success) {
             const link = document.createElement('a');
-            link.href = `${BASE_URL}/journals/zip/${response.filename}`;
+            link.href = `${BASE_URL}/articles/zip-files/${response.filename}`;
             link.setAttribute('download', response.filename);
-            document.body.appendChild(link);
             link.click();
-            document.body.removeChild(link);
             toast.success("Articles download started...");
         } else {
             toast.error("Failed to download articles...");
         }
+        // console.log(response);
         setLoader(false);
     }
 
@@ -86,13 +85,13 @@ function AcceptedArticles() {
                                         </td>
                                         <td>{new Date(article.createdAt).toLocaleDateString()}</td>
                                         <td>
-                                            <Button variant="primary" onClick={() => setModalShow(index, true)}>
+                                            <Button variant="primary" onClick={() => setModalShow(prevState => ({ ...prevState, [index]: true }))}>
                                                 <GrDocumentPdf />
                                             </Button>
                                             <PDFViewer
-                                                show={modalShow === index}
-                                                onHide={() => setModalShow(index, false)}
-                                                fileurl={article.file}
+                                                show={modalShow[index]}
+                                                onHide={() => setModalShow(prevState => ({ ...prevState, [index]: false }))}
+                                                fileurl={article.mergedScript}
                                                 title={article.title}
                                             />
                                         </td>

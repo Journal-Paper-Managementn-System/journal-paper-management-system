@@ -35,14 +35,14 @@ function ViewJournalArticle() {
 
                             <tr>
                                 <td>
-                                    <div className="txt-container" onClick={(e) => e.target.classList.toggle("txt-expanded")} style={{ width: "20rem" }}>
+                                    <p style={{ width: "20rem" }}>
                                         {articleData.title}
-                                    </div>
+                                    </p>
                                 </td>
                                 <td>
-                                    <div className="txt-container" onClick={(e) => e.target.classList.toggle("txt-expanded")} style={{ width: "30rem" }}>
+                                    <p style={{ width: "30rem" }}>
                                         {articleData.abstract}
-                                    </div>
+                                    </p>
                                 </td>
                                 <td>{articleData.authors.map((author, index) =>
                                     <p key={index} className="p-0">{author.firstName} {author.lastName}</p>
@@ -56,7 +56,7 @@ function ViewJournalArticle() {
                                     <PDFViewer
                                         show={modalShow}
                                         onHide={() => setModalShow(false)}
-                                        fileurl={articleData.file}
+                                        fileurl={articleData.mergedScript}
                                         title={articleData.title}
                                     />
                                 </td>

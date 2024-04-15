@@ -191,7 +191,7 @@ function AssignReviewer() {
     }
 
     return (
-        <section className="editor">
+        <section className="editor table-responsive">
             <div className="editor-container">
                 {/* <div className="editor-heading logo d-flex align-items-center bg-light rounded-1">
                     <h5 className="py-1 mx-2 my-3 fs-2">
@@ -209,7 +209,7 @@ function AssignReviewer() {
                         </div>
                         {
                             articles.length === 0 ? <h2 className='fw-bold'>There are no articles...</h2> :
-                                <div className={`col-md-9 ${!article && 'col-md-12'}`}>
+                                <div className={`col-md-9 table-responsive ${!article && 'col-md-12'}`}>
                                     <table className="table table-striped table-bordered text-center">
                                         <thead className="table-dark">
                                             <tr>
@@ -224,7 +224,7 @@ function AssignReviewer() {
                                                 <tr key={index} onClick={handleClick} id={article._id} className={article.isSelected ? "table-primary" : ""}>
                                                     <th>{index + 1}</th>
                                                     <td>
-                                                        <div className="txt-container text-start" onClick={(e) => e.target.classList.toggle("txt-expanded")} style={{ width: "30rem" }}>
+                                                        <div className="txt-container text-start" style={{ width: "30rem" }}>
                                                             {article.title}
                                                         </div>
                                                     </td>
@@ -262,8 +262,8 @@ function AssignReviewer() {
                                         value={["accepted", "rejected", "under review"].includes(article.status) ? article.status : "select-status"} onChange={statusChange}
                                     >
                                         <option value="select-status" disabled>Select Status</option>
-                                        <option value="accepted">Accept</option>
-                                        <option value="rejected">Reject</option>
+                                        <option value="accepted">Accepted</option>
+                                        <option value="rejected">Rejected</option>
                                         <option value="under review">Under Review</option>
                                     </select>
                                     <button

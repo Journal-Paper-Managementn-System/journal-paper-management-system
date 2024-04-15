@@ -1,6 +1,7 @@
 {
   "homepage": "https://journal-submission.github.io/journal-submission",
-  "name": "jpss",
+  "name": "article-submission",
+  "description": "A React app for submitting articles to a journal",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -22,6 +23,8 @@
     "dotenv": "^16.4.2",
     "gh-pages": "^6.1.1",
     "html-react-parser": "^5.1.9",
+    "jszip": "^3.10.1",
+    "pdf-merger-js": "^5.1.1",
     "pdfjs-dist": "^3.4.120",
     "react": "^18.2.0",
     "react-apexcharts": "^1.4.1",

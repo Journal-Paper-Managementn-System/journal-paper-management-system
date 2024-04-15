@@ -1,6 +1,5 @@
 import React from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-// import menuList from "../config/menuConfig";
 import { useAuth } from "../store/AuthContext";
 
 function NavBar() {

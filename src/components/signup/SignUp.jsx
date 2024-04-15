@@ -39,20 +39,21 @@ function SignUp() {
     const handleSubmit = async (event) => {
         event.preventDefault();
         if (!event.target['alert-policy'].checked) {
-            toast.error('Please accept the Terms, Privacy & Policy.');
-            return;
+            return toast.error('Please accept the Terms, Privacy & Policy.');
+        }
+        if (credentials.password !== credentials.confPassword) {
+            return toast.error('Passwords do not match.');
         }
         setLoader(true);
         const responseData = await Auth.register(credentials);
         if (responseData.success) {
             const resMailData = await MailService.sendMail({
-                mailFrom: "Journal Submission",
+                mailFrom: "Article Submission System",
                 mailTo: credentials.email,
                 mailSubject: "Verify Your Email Address",
                 // mailText: `Your OTP is ${emailOtp}. This passcode will only be valid for the next 2 minutes.`,
                 mailHtml: ReactDOMServer.renderToString(<EmailMessage otp={emailOtp} firstName={credentials.firstName} target="sign-up"/>),
             });
-            // console.log(resMailData);
             if (resMailData.success) {
                 navigate("/sign-up/verify-email", { state: { email: credentials.email, emailOtp: emailOtp, redirectTo: location.state?.redirectTo } });
                 toast.success('Registration successful. Please verify your email address.');

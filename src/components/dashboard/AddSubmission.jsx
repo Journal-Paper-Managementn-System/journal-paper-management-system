@@ -8,6 +8,7 @@ import { useAuth } from "../../store/AuthContext";
 import { ThreeDots } from 'react-loader-spinner';
 import MailService from '../../services/mailService';
 import './submission.css';
+import PDFMerger from 'pdf-merger-js';
 
 // Component for adding a new submission
 function AddSubmission() {
@@ -43,10 +44,16 @@ function AddSubmission() {
         }
         setLoader(true);
         const formData = new FormData();
+        const merger = new PDFMerger();
+        // Merge the cover letter and menuscript
+        await merger.add(coverLetter);
+        await merger.add(menuscript);
+        const mergedScript = await merger.saveAsBlob();
         // Append form data
         formData.append('menuscript', menuscript);
-        // formData.append('coverLetter', coverLetter);
-        // formData.append('supplementaryFile', supplementaryFile);
+        formData.append('coverLetter', coverLetter);
+        formData.append('supplementaryFile', supplementaryFile);
+        formData.append('mergedScript', new File([mergedScript], `merged-${Date.now()}.pdf`));
         formData.append('title', event.target['journal-title'].value);
         formData.append('abstract', abstract);
         formData.set('keywords', JSON.stringify(keywords));

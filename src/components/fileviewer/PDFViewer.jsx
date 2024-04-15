@@ -28,7 +28,7 @@ function PDFViewer(props) {
             aria-labelledby="contained-modal-title-vcenter"
             centered
         >
-            <Modal.Header closeButton>
+            <Modal.Header>
                 <Modal.Title id="contained-modal-title-vcenter">
                     {props.title}
                 </Modal.Title>
@@ -37,7 +37,7 @@ function PDFViewer(props) {
                 <div style={{height: "750px"}}>
                     <Worker workerUrl="https://unpkg.com/pdfjs-dist@3.11.174/build/pdf.worker.min.js">
                         <Viewer
-                            fileUrl={`${BASE_URL}/journals/upload/${props.fileurl}`}
+                            fileUrl={`${BASE_URL}/articles/merged-script/${props.fileurl}`}
                             plugins={[defaultLayoutPluginInstance]}
                             pageLayout={'SinglePage'}
                         />

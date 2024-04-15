@@ -12,7 +12,7 @@ const AnalyticReport = lazy(() => import("./dashboard/AnalyticReport"));
 const Login = lazy(() => import("./login/Login"));
 const SignUp = lazy(() => import("./signup/SignUp"));
 const Preloader = lazy(() => import("./preloader/Preloader"));
-const Logout = lazy(() => import("./logout/Logout"));
+// const Logout = lazy(() => import("./logout/Logout"));
 const Profile = lazy(() => import("./profile/Profile"));
 const Verification = lazy(() => import("./signup/Verification"));
 const ForgotPassword = lazy(() => import("./login/ForgotPassword"));
@@ -25,7 +25,7 @@ const AcceptedArticles = lazy(() => import("./editor/AcceptedArticles"));
 const PageNotFound = lazy(() => import("./PageNotFound"));
 const AddEditor = lazy(() => import("./admin/AddEditor"));
 const GuestRoute = lazy(() => import("../utils/GuestRoute"));
-// import DOCViewer from "./fileviewer/DOCViewer";
+// const DocViewer = lazy(() => import("./fileviewer/DOCViewer"));
 
 const router = createBrowserRouter([
     {

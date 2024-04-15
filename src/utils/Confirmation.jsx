@@ -1,30 +1,19 @@
-import React, { useEffect, useState } from 'react'
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import parse from 'html-react-parser';
 
 function Confirmation(props) {
     const { show, handleClose, onConfirm } = props;
-    const [showModal, setShowModal] = useState(false);
-
-    useEffect(() => {
-        setShowModal(show);
-    }, [show]);
-
-    const handleHide = () => {
-        setShowModal(false);
-        handleClose();
-    }
 
     const handleConfirm = () => {
         onConfirm();
-        handleHide();
+        props.handleClose();
     }
 
     return (
         <Modal
-            show={showModal}
-            onHide={handleHide}
+            show={show}
+            onHide={handleClose}
             backdrop="static"
             // keyboard={false} 
         >
@@ -41,7 +30,7 @@ function Confirmation(props) {
                 <Button variant="secondary" onClick={handleConfirm}>
                     Yes
                 </Button>
-                <Button variant="primary" onClick={handleHide}>No</Button>
+                <Button variant="primary" onClick={handleClose}>No</Button>
             </Modal.Footer>
         </Modal>
     )

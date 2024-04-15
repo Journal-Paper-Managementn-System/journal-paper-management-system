@@ -93,13 +93,13 @@ function ReviewArticles() {
                                                 </td>
                                                 <td>{new Date(article.createdAt).toLocaleDateString()}</td>
                                                 <td>
-                                                    <Button variant="primary" onClick={() => setModalShow(index, true)}>
+                                                    <Button variant="primary" onClick={() => setModalShow(prevState => ({...prevState, [index]: true}))}>
                                                         <GrDocumentPdf />
                                                     </Button>
                                                     <PDFViewer
-                                                        show={modalShow === index}
-                                                        onHide={() => setModalShow(index, false)}
-                                                        fileurl={article.file}
+                                                        show={modalShow[index]}
+                                                        onHide={() => setModalShow(prevState => ({ ...prevState, [index]: false }))}
+                                                        fileurl={article.mergedScript}
                                                         title={article.title}
                                                     />
                                                 </td>

@@ -11,7 +11,7 @@
     border: 0;
     border-top: 5px solid var(--border-color);
     transition: all .1s linear;
-    z-index: 9999;
+    z-index: 0;
     box-shadow: var(--bx-sidebar-shadow);
     box-sizing: border-box;
 }
@@ -20,7 +20,9 @@
     border-bottom: .1px solid var(--border-color);
     padding: .5rem 0;
     font-weight: 400;
-    margin-top: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .dashboardTitle h4>span {
@@ -30,9 +32,9 @@
 }
 
 .dashboardIcon {
-    margin-bottom: .25rem;
+    /* margin-bottom: .25rem; */
     color: var(--icon-color);
-    cursor: pointer;
+    /* cursor: pointer; */
 }
 
 .leftSidebarMenu {
