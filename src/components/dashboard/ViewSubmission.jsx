@@ -4,12 +4,12 @@ import { useParams } from 'react-router-dom';
 import ViewJournalArticle from '../journal/ViewJournalArticle';
 
 function ViewSubmission() {
-    const { articleData } = useAuth();
-    const { journalId } = useParams();
+    const { articleData, user } = useAuth();
+    const { articleId } = useParams();
 
     return (
         <>
-            {!!journalId ? <ViewJournalArticle /> :
+            {!!articleId ? <ViewJournalArticle /> :
                 <div className='p-4 table-responsive'>
                     {articleData.success ? (
                         <table className="table table-striped table-bordered table-hover text-center">
@@ -28,7 +28,7 @@ function ViewSubmission() {
                                     <tr key={index}>
                                         <td>{index + 1}</td>
                                         <td>
-                                            <Link to={`/dashboard/view-submission/${journal._id}`} state={{ articlesData: articleData.data }} className="txt-container text-start" style={{ width: "20rem" }}>{journal.title}</Link>
+                                            <Link to={`/dashboard/view-submission/${journal._id}`} state={{ articlesData: articleData.data, user: user }} className="txt-container text-start" style={{ width: "20rem" }}>{journal.title}</Link>
                                         </td>
                                         <td>
                                             {new Date(journal.createdAt).toLocaleString()}

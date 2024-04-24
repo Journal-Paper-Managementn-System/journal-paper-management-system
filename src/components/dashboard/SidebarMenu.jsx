@@ -13,7 +13,7 @@ function SidebarMenu() {
 
     return (
         <ul>
-            <li id="sidebar-link">
+            <li className="sidebar-link">
                 <NavLink to="/dashboard/profile" className="btn text-white text-start w-100">
                     <FaRegUserCircle className={`${styles.dashboardIconView}`} />
                     Profile
@@ -21,25 +21,25 @@ function SidebarMenu() {
             </li>
             {user.isEditor && (
                 <>
-                    <li id="sidebar-link">
+                    <li className="sidebar-link">
                         <NavLink to="/dashboard/view-articles" className="btn text-white text-start w-100">
                             <GrView className={`${styles.dashboardIconView}`} />
                             View Articles
                         </NavLink>
                     </li>
-                    <li id="sidebar-link">
+                    <li className="sidebar-link">
                         <NavLink to="/dashboard/assign-reviewer" className="btn text-white text-start w-100">
                         <MdOutlineAssignmentInd className={`${styles.dashboardIconView}`} />
                             Assign Reviewer
                         </NavLink>
                     </li>
-                    <li id="sidebar-link">
+                    <li className="sidebar-link">
                         <NavLink to="/dashboard/add-reviewer" className="btn text-white text-start w-100">
                             <FiUserPlus className={`${styles.dashboardIconView}`} />
                             Add Reviewer
                         </NavLink>
                     </li>
-                    <li id="sidebar-link">
+                    <li className="sidebar-link">
                         <NavLink to="/dashboard/accepted-articles" className="btn text-white text-start w-100">
                             <FaRegCheckCircle className={`${styles.dashboardIconView}`} />
                             Accepted Articles
@@ -49,25 +49,25 @@ function SidebarMenu() {
             )}
             {!user.isEditor && (
                 <>
-                    <li id="sidebar-link">
+                    <li className="sidebar-link">
                         <NavLink to="/dashboard/view-submission" className="btn text-white text-center">
                             <GrView className={`${styles.dashboardIconView}`} />
                             View Submission
                         </NavLink>
                     </li>
-                    <li id="sidebar-link">
+                    <li className="sidebar-link">
                         <NavLink to="/dashboard/add-submission" className="btn text-white text-center">
                             <BiMessageSquareAdd className={`${styles.dashboardIconView}`} />
                             Add Submission
                         </NavLink>
                     </li>
-                    <li id="sidebar-link">
+                    <li className="sidebar-link">
                         <NavLink to="/dashboard/analytical-report" className="btn text-white text-center">
                             <MdOutlineAnalytics className={`${styles.dashboardIconView}`} />
                             Analytical Report
                         </NavLink>
                     </li>
-                    {user.isReviewer && <li id="sidebar-link">
+                    {user.isReviewer && <li className="sidebar-link">
                         <NavLink to="/dashboard/review-article" className="btn text-white text-center">
                             <MdPreview className={`${styles.dashboardIconView}`} />
                             Review Article

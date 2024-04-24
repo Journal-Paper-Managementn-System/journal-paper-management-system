@@ -116,7 +116,7 @@ const router = createBrowserRouter([
                                 ),
                             },
                             {
-                                path: "view-submission/:journalId?",
+                                path: "view-submission/:articleId?",
                                 element: (
                                     <Suspense fallback={<Loading />}>
                                         <ViewSubmission />

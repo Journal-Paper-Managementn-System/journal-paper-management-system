@@ -33,8 +33,8 @@ function AddJournal(props) {
             keyboard={false}
             size='lg'
         >
-            <Modal.Header closeButton>
-                <Modal.Title className='fw-bold'>Add Journal</Modal.Title>
+            <Modal.Header>
+                <Modal.Title className='fw-bold text-center w-100'>Add Journal</Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 <form className="row g-3" onSubmit={handleSaveChanges} >

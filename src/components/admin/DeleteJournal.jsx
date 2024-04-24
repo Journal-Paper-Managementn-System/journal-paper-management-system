@@ -35,8 +35,8 @@ function DeleteJournal(props) {
             keyboard={false}
             size='lg'
         >
-            <Modal.Header closeButton>
-                <Modal.Title className='fw-bold'>Delete Journal</Modal.Title>
+            <Modal.Header>
+                <Modal.Title className='fw-bold text-center w-100'>Delete Journal</Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 <form className="row g-3 p-4" onSubmit={handleSaveChanges}>

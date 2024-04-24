@@ -24,7 +24,7 @@ function Profile() {
             <div className="profile-upper"></div>
             <div className="profile-avatar">
                 <img
-                    src={user.profilePicture.includes("https") ? user.profilePicture : `${BASE_URL}/profile-pictures/upload/${user.profilePicture}`}
+                    src={user.profilePicture.includes("https") ? user.profilePicture : `${BASE_URL}/profile-pictures/${user.profilePicture}`}
                     alt="Profile Picture"
                 />
             </div>

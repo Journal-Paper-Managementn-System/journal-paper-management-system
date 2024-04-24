@@ -28,13 +28,13 @@ function PDFViewer(props) {
             aria-labelledby="contained-modal-title-vcenter"
             centered
         >
-            <Modal.Header>
-                <Modal.Title id="contained-modal-title-vcenter">
-                    {props.title}
+            {/* <Modal.Header>
+                <Modal.Title id="contained-modal-title-vcenter" className='fw-bold lh-1'>
+                    {props.title || "View Article"}
                 </Modal.Title>
-            </Modal.Header>
+            </Modal.Header> */}
             <Modal.Body>
-                <div style={{height: "750px"}}>
+                <div style={{ height: "800px" }}>
                     <Worker workerUrl="https://unpkg.com/pdfjs-dist@3.11.174/build/pdf.worker.min.js">
                         <Viewer
                             fileUrl={`${BASE_URL}/articles/merged-script/${props.fileurl}`}
@@ -44,9 +44,9 @@ function PDFViewer(props) {
                     </Worker>
                 </div>
             </Modal.Body>
-            <Modal.Footer>
+            {/* <Modal.Footer>
                 <Button onClick={handleClose}>Close</Button>
-            </Modal.Footer>
+            </Modal.Footer> */}
         </Modal>
     );
 }

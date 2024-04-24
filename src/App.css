@@ -1,5 +1,5 @@
 /* helper classes */
-#sidebar-link>a.active {
+.sidebar-link>a.active, .sidebar-link>a:hover {
     color: var(--btn-secondary-color) !important;
 }
 

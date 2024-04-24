@@ -18,7 +18,7 @@ function Confirmation(props) {
             // keyboard={false} 
         >
             <Modal.Header>
-                <Modal.Title className='fw-bold'>
+                <Modal.Title className='fw-bold text-center w-100'>
                     {props.title || "Confirmation"}
                 </Modal.Title>
             </Modal.Header>
@@ -27,10 +27,10 @@ function Confirmation(props) {
                 {parse(props.message)}
             </Modal.Body>
             <Modal.Footer>
-                <Button variant="secondary" onClick={handleConfirm}>
-                    Yes
+                <Button variant="danger" onClick={handleClose}>Cancel</Button>
+                <Button variant="primary" onClick={handleConfirm}>
+                    Confirm
                 </Button>
-                <Button variant="primary" onClick={handleClose}>No</Button>
             </Modal.Footer>
         </Modal>
     )

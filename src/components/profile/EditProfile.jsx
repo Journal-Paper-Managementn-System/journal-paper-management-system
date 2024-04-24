@@ -67,8 +67,8 @@ function EditProfile(props) {
             size='lg'
         >
             <div style={{ backgroundColor: "transparent", borderRadius: "5px" }}>
-                <Modal.Header closeButton>
-                    <Modal.Title>Edit Profile</Modal.Title>
+                <Modal.Header>
+                    <Modal.Title className='text-center w-100 fw-bold fs-3'>Edit Profile</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <form className="row g-3" encType='multipart/form-data' onSubmit={handleSaveChanges} >
