@@ -1,40 +1,32 @@
-import React, { Suspense, lazy } from "react";
+import React from "react";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 
-// React.lazy() is used to dynamically import a component when it's rendered.
-lazy(() => import("../App.css"));
-const Loading = lazy(() => import("../utils/Loading"));
-const Layout = lazy(() => import("../Layout"));
-const DashBoard = lazy(() => import("./dashboard/DashBoard"));
-const ViewSubmission = lazy(() => import("./dashboard/ViewSubmission"));
-const AddSubmission = lazy(() => import("./dashboard/AddSubmission"));
-const AnalyticReport = lazy(() => import("./dashboard/AnalyticReport"));
-const Login = lazy(() => import("./login/Login"));
-const SignUp = lazy(() => import("./signup/SignUp"));
-const Preloader = lazy(() => import("./preloader/Preloader"));
-// const Logout = lazy(() => import("./logout/Logout"));
-const Profile = lazy(() => import("./profile/Profile"));
-const Verification = lazy(() => import("./signup/Verification"));
-const ForgotPassword = lazy(() => import("./login/ForgotPassword"));
-const AssignReviewer = lazy(() => import("./editor/AssignReviewer"));
-const ProtectedRoute = lazy(() => import("../utils/ProtectedRoute"));
-const Reviewer = lazy(() => import("./reviewer/ReviewArticles"));
-const AddReviewer = lazy(() => import("./editor/AddReviewer"));
-const ViewArticles = lazy(() => import("./editor/ViewArticles"));
-const AcceptedArticles = lazy(() => import("./editor/AcceptedArticles"));
-const PageNotFound = lazy(() => import("./PageNotFound"));
-const AddEditor = lazy(() => import("./admin/AddEditor"));
-const GuestRoute = lazy(() => import("../utils/GuestRoute"));
-// const DocViewer = lazy(() => import("./fileviewer/DOCViewer"));
+import "../App.css";
+import Layout from "../Layout";
+import DashBoard from "./dashboard/DashBoard";
+import Profile from "./profile/Profile";
+import AssignReviewer from "./editor/AssignReviewer";
+import AddSubmission from "./dashboard/AddSubmission";
+import AnalyticReport from "./dashboard/AnalyticReport";
+import ReviewArticles from "./reviewer/ReviewArticles";
+import ViewArticles from "./editor/ViewArticles";
+import AddReviewer from "./editor/AddReviewer";
+import AcceptedArticles from "./editor/AcceptedArticles";
+import ViewSubmission from "./dashboard/ViewSubmission";
+import AddEditor from "./admin/AddEditor";
+import Login from "./login/Login";
+import ForgotPassword from "./login/ForgotPassword";
+import Verification from "./signup/Verification";
+import SignUp from "./signup/SignUp";
+import PageNotFound from "./PageNotFound";
+import Preloader from "./preloader/Preloader";
+import ProtectedRoute from "../utils/ProtectedRoute";
+import GuestRoute from "../utils/GuestRoute";
 
 const router = createBrowserRouter([
     {
         path: "/",
-        element: (
-            <Suspense fallback={<Loading />}>
-                <Layout />
-            </Suspense>
-        ),
+        element: <Layout />,
         children: [
             {
                 path: '/',
@@ -45,93 +37,49 @@ const router = createBrowserRouter([
                 children: [
                     {
                         path: "dashboard",
-                        element: (
-                            <Suspense fallback={<Loading />}>
-                                <DashBoard />
-                            </Suspense>
-                        ),
+                        element: <DashBoard />,
                         children: [
                             {
                                 path: "profile",
-                                element: (
-                                    <Suspense fallback={<Loading />}>
-                                        <Profile />
-                                    </Suspense>
-                                ),
+                                element: <Profile />,
                             },
                             {
                                 path: "assign-reviewer",
-                                element: (
-                                    <Suspense fallback={<Loading />}>
-                                        <AssignReviewer />
-                                    </Suspense>
-                                ),
+                                element: <AssignReviewer />,
                             },
                             {
                                 path: "add-submission/:journalId?",
-                                element: (
-                                    <Suspense fallback={<Loading />}>
-                                        <AddSubmission />
-                                    </Suspense>
-                                ),
+                                element: <AddSubmission />,
                             },
                             {
                                 path: "analytical-report",
-                                element: (
-                                    <Suspense fallback={<Loading />}>
-                                        <AnalyticReport />
-                                    </Suspense>
-                                ),
+                                element: <AnalyticReport />,
                             },
                             {
                                 path: "review-article",
-                                element: (
-                                    <Suspense fallback={<Loading />}>
-                                        <Reviewer />
-                                    </Suspense>
-                                ),
+                                element: <ReviewArticles />,
                             },
                             {
                                 path: "view-articles",
-                                element: (
-                                    <Suspense fallback={<Loading />}>
-                                        <ViewArticles />
-                                    </Suspense>
-                                ),
+                                element: <ViewArticles />,
                             },
                             {
                                 path: "add-reviewer",
-                                element: (
-                                    <Suspense fallback={<Loading />}>
-                                        <AddReviewer />
-                                    </Suspense>
-                                ),
+                                element: <AddReviewer />,
                             },
                             {
                                 path: "accepted-articles",
-                                element: (
-                                    <Suspense fallback={<Loading />}>
-                                        <AcceptedArticles />
-                                    </Suspense>
-                                ),
+                                element: <AcceptedArticles />,
                             },
                             {
                                 path: "view-submission/:articleId?",
-                                element: (
-                                    <Suspense fallback={<Loading />}>
-                                        <ViewSubmission />
-                                    </Suspense>
-                                ),
+                                element: <ViewSubmission />,
                             },
                         ],
                     },
                     {
                         path: "add-editor",
-                        element: (
-                            <Suspense fallback={<Loading />}>
-                                <AddEditor />
-                            </Suspense>
-                        ),
+                        element: <AddEditor />,
                     },
                     
                 ],
@@ -143,45 +91,25 @@ const router = createBrowserRouter([
         children: [
             {
                 path: "/login",
-                element: (
-                    <Suspense fallback={<Loading />}>
-                        <Login />
-                    </Suspense>
-                ),
+                element: <Login />,
                 children: [
                     {
                         path: "forgot-password",
-                        element: (
-                            <Suspense fallback={<Loading />}>
-                                <ForgotPassword />
-                            </Suspense>
-                        ),
+                        element: <ForgotPassword />,
                     },
                     {
                         path: "verify-email",
-                        element: (
-                            <Suspense fallback={<Loading />}>
-                                <Verification />
-                            </Suspense>
-                        ),
+                        element: <Verification />,
                     }
                 ],
             },
             {
                 path: "/sign-up",
-                element: (
-                    <Suspense fallback={<Loading />}>
-                        <SignUp />
-                    </Suspense>
-                ),
+                element: <SignUp />,
                 children: [
                     {
                         path: "verify-email",
-                        element: (
-                            <Suspense fallback={<Loading />}>
-                                <Verification />
-                            </Suspense>
-                        ),
+                        element: <Verification />,
                     },
                 ],
             },
@@ -197,11 +125,7 @@ const router = createBrowserRouter([
     // },
     {
         path: "/*",
-        element: (
-            <Suspense fallback={<Loading />}>
-                <PageNotFound />
-            </Suspense>
-        ),
+        element: <PageNotFound />,
     },
 ]);
 

@@ -26,6 +26,16 @@
     --pink-mild: #cca2ba;
 }
 
+html {
+    height: 100%;
+}
+
+body div#root {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
 body {
     width: 100%;
     min-height: 100vh;
@@ -84,7 +94,7 @@ span.required-field {
 
 .footer {
     width: 100%;
-    margin-top: 25px;
+    margin-top: auto;
     padding: 0.85rem 0;
     padding-bottom: 0;
     background-color: var(--secondary-color);
