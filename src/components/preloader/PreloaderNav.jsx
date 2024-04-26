@@ -11,7 +11,7 @@ function PreloaderNav() {
                         <img src="./medal.png" alt="" width="180" />
                     </div> */}
                     <div className="nav-img">
-                        <img src="./vu_logo.png" alt="logo" width="75%" />
+                        <img src="./vu_logo.png" alt="logo" width="55%" />
                     </div>
                     <div className="bx-shadow">
                         <div className="clip-path"></div>

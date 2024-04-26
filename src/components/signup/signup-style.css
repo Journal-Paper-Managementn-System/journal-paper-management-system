@@ -2,18 +2,19 @@
     min-width: 50%;
     min-height: 100vh;
     background: transparent;
-    border-radius: 0;
 }
+
 .signup-wrapper {
     /* max-width: 650px; */
     width: 50%;
     padding: 24px;
     margin: .85rem 0;
-    /* border-radius: 20px; */
+    border-radius: 10px;
     box-shadow: var(--bx-shadow);
     border-top: .5rem solid rgb(229, 145, 28);
     background-image: linear-gradient(to top, #a18cd1 0%, #e9d2e2 100%);
 }
+
 .signup-wrapper h5.main_heading {
     font-size: 1.85rem;
     font-weight: 400 !important;
@@ -24,8 +25,9 @@
     margin-top: 0;
     border: .1px solid var(--navy-blue);
 }
+
 /* Main heading (Registration) */
-.signup-wrapper > form h5 {
+.signup-wrapper>form h5 {
     font-size: 26px;
     text-transform: capitalize;
     font-weight: 600;
@@ -74,16 +76,19 @@
     border: 1px solid var(--input-box-border);
     outline: none;
 }
+
 .is-account {
     color: var(--navy-blue);
     font-weight: 500;
 }
+
 .is-account>a {
     cursor: pointer;
     font-size: 1rem;
     color: #4f1ef3;
     text-decoration: underline;
 }
+
 .signup-wrapper .content .input-control input:is(:focus) {
     box-shadow: 0 3px 6px var(--input-box-shadow);
 }
@@ -112,6 +117,7 @@
     margin: 5px 0;
     padding: 5px;
 }
+
 .policy .policy-text {
     text-align: justify;
 }

@@ -12,7 +12,7 @@ function Preloader() {
         <>
             <PreloaderNav />
             <section className="preloader-section container">
-                <div className="container">
+                <div className="">
                     <h1 className="journal-title text-center p-lg-3 p-sm-2 p-md-3 fw-semibold">
                         Publication Lists
                     </h1>

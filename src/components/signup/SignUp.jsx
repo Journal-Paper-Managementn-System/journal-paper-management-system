@@ -52,7 +52,7 @@ function SignUp() {
                 mailTo: credentials.email,
                 mailSubject: "Verify Your Email Address",
                 // mailText: `Your OTP is ${emailOtp}. This passcode will only be valid for the next 2 minutes.`,
-                mailHtml: ReactDOMServer.renderToString(<EmailMessage otp={emailOtp} firstName={credentials.firstName} target="sign-up"/>),
+                mailHtml: ReactDOMServer.renderToString(<EmailMessage otp={emailOtp} firstName={credentials.firstName} target="sign-up" />),
             });
             if (resMailData.success) {
                 navigate("/sign-up/verify-email", { state: { email: credentials.email, emailOtp: emailOtp, redirectTo: location.state?.redirectTo } });
@@ -90,13 +90,15 @@ function SignUp() {
                 (location.pathname === "/sign-up/verify-email") ? <Outlet /> :
                     <section className="signup-section d-flex justify-content-center align-items-center">
                         <div className="signup-wrapper">
-                            <h5 className="main_heading text-center">REGISTRATION</h5>
+                            <h3 className="text-center fw-bold">Registration</h3>
                             <hr className="bottom-rule" />
                             {/* form elements */}
                             <form onSubmit={handleSubmit}>
                                 <div className="content">
                                     <div className="input-control">
-                                        <label htmlFor="first_name">First Name</label>
+                                        <label htmlFor="first_name">
+                                            First Name <span className="required-field">*</span>
+                                        </label>
                                         <input
                                             type="text"
                                             placeholder="Enter first name"
@@ -120,7 +122,9 @@ function SignUp() {
                                         />
                                     </div>
                                     <div className="input-control">
-                                        <label htmlFor="last_name">Last Name</label>
+                                        <label htmlFor="last_name">
+                                            Last Name <span className="required-field">*</span>
+                                        </label>
                                         <input
                                             type="text"
                                             placeholder="Enter Last name"
@@ -133,14 +137,14 @@ function SignUp() {
                                     </div>
                                     <div className="input-control">
                                         <label htmlFor="username">
-                                            Username &#40;<span>&nbsp;
+                                            Username {"("}<span>{" "}
                                                 <input
                                                     type="checkbox"
                                                     id="auto-username"
                                                     style={{ width: "auto", height: "auto" }}
                                                     onChange={autoGenerateUsername}
                                                 />
-                                                &nbsp;<label className="d-inline" htmlFor="auto-username">Auto generated</label> </span>&#41;
+                                                {" "}<label className="d-inline" htmlFor="auto-username">Auto generated</label> </span>{")"} <span className="required-field">*</span>
                                         </label>
                                         <input
                                             type="text"
@@ -154,7 +158,9 @@ function SignUp() {
                                         />
                                     </div>
                                     <div className="input-control">
-                                        <label htmlFor="email">Email</label>
+                                        <label htmlFor="email">
+                                            Email <span className="required-field">*</span>
+                                        </label>
                                         <input
                                             type="email"
                                             placeholder="Enter valid email address"
@@ -167,7 +173,9 @@ function SignUp() {
                                         />
                                     </div>
                                     <div className="input-control">
-                                        <label htmlFor="phone_number">Phone number</label>
+                                        <label htmlFor="phone_number">
+                                            Phone number <span className="required-field">*</span>
+                                        </label>
                                         <input
                                             type="tel"
                                             placeholder="Enter phone number"
@@ -180,7 +188,9 @@ function SignUp() {
                                         />
                                     </div>
                                     <div className="input-control">
-                                        <label htmlFor="institute-name">Institution</label>
+                                        <label htmlFor="institute-name">
+                                            Institution Name <span className="required-field">*</span>
+                                        </label>
                                         <input
                                             type="text"
                                             placeholder="Enter Institution Name"
@@ -192,7 +202,9 @@ function SignUp() {
                                         />
                                     </div>
                                     <div className="input-control">
-                                        <label htmlFor="password">Password</label>
+                                        <label htmlFor="password">
+                                            Password <span className="required-field">*</span>
+                                        </label>
                                         <input
                                             type="password"
                                             placeholder="Enter new password"
@@ -204,7 +216,9 @@ function SignUp() {
                                         />
                                     </div>
                                     <div className="input-control">
-                                        <label htmlFor="confPassword">Confirm Password</label>
+                                        <label htmlFor="confPassword">
+                                            Confirm Password <span className="required-field">*</span>
+                                        </label>
                                         <input
                                             type="password"
                                             placeholder="Confirm Password"
@@ -215,8 +229,8 @@ function SignUp() {
                                             required
                                         />
                                     </div>
-                                    
-                                    
+
+
                                 </div>
                                 {/* terms & condition */}
                                 <div className="policy">

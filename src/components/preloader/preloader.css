@@ -24,7 +24,7 @@
 .nav-title .nav-img {
     position: absolute;
     top: 10%;
-    left: 0.5%;
+    left: 0.3%;
     z-index: 999;
 }
 
@@ -40,8 +40,8 @@
     position: absolute;
     top: 5.1%;
     background-color: #eee;
-    width: 15rem;
-    height: 8rem;
+    width: 10rem;
+    height: 5rem;
     clip-path: polygon(50% 0%, 100% 0, 100% 0, 62% 100%, 0 100%, 0 0);
     z-index: 11;
 }

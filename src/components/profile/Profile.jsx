@@ -41,15 +41,15 @@ function Profile() {
                 </div>
             </div>
             <div className="others-info row justify-content-evenly">
-                <div className="col-md-6 user-personal-info">
-                    <div className='personal-data'>
+                <div className="col-12 user-personal-info mb-2">
+                    <div className='personal-data mb-2'>
                         <IoCalendarNumberOutline />
                         <div>
                             {new Date(user.dateOfBirth).toISOString().split('T')[0]}
 
                         </div>
                     </div>
-                    <div className='personal-data'>
+                    <div className='personal-data mb-2'>
                         <IoMdPhonePortrait />
                         <div>
                             {user.phoneNumber}
@@ -62,14 +62,14 @@ function Profile() {
                         </div>
                     </div>
                 </div>
-                <div className="col-md-6 user-submission-info">
-                    <div className="text-capitalize submission-data">
+                <div className="col-12 user-submission-info mb-2">
+                    <div className="text-capitalize submission-data mb-2">
                         <IoSchoolOutline />
                         <div>
                             {user.institution}
                         </div>
                     </div>
-                    <div className="text-capitalize submission-data">
+                    <div className="text-capitalize submission-data mb-2">
                         <MdOutlineNature />
                         <div>
                             {user.isEditor ? "Editor" : (user.isReviewer ? "Reviewer" : "User")}

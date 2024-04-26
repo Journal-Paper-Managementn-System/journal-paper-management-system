@@ -30,6 +30,11 @@ function AddSubmission() {
         const menuscript = event.target['menuscript'].files[0];
         const coverLetter = event.target['cover-letter'].files[0];
         const supplementaryFile = event.target['supplementary-file'].files[0];
+        // check the files if pdf or docx
+        if (menuscript.type !== 'application/pdf' || coverLetter.type !== 'application/pdf' || supplementaryFile.type !== 'application/pdf') {
+            return toast.warn("Please uplaod all files in pdf");
+        }
+
         // Check if the file type is supported
         if (!supportedFileTypes.includes(menuscript.name.split('.').pop())) {
             return toast.error('Please upload a valid file type for the menuscript');
