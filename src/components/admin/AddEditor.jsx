@@ -9,12 +9,14 @@ import Journal from '../../services/journalService';
 import { toast } from 'react-toastify';
 import DeleteJournal from './DeleteJournal';
 import Confirmation from '../../utils/Confirmation'
+import { useJournal } from '../../store/JournalContext';
 
 function AddEditor() {
     const [modalShow, setModalShow] = useState(false);
     const [show, setShow] = useState(false);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
-    const { journalData, getJournalData, token } = useAuth();
+    const { token } = useAuth();
+    const { journalData, getJournalData } = useJournal();
     const [cnfModalShow, setCnfModalShow] = useState({});
 
     const handleRemoveEditor = async (journalId) => {

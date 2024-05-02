@@ -1,10 +1,11 @@
 import { Link } from 'react-router-dom';
-import { useAuth } from '../../store/AuthContext';
 import { useParams } from 'react-router-dom';
 import ViewJournalArticle from '../journal/ViewJournalArticle';
+import { useArticle } from '../../store/ArticleContext';
+import parse from 'html-react-parser';
 
 function ViewSubmission() {
-    const { articleData, user } = useAuth();
+    const { articleData } = useArticle();
     const { articleId } = useParams();
 
     return (
@@ -28,19 +29,19 @@ function ViewSubmission() {
                                     <tr key={index}>
                                         <td>{index + 1}</td>
                                         <td>
-                                            <Link to={`/dashboard/view-submission/${journal._id}`} state={{ articlesData: articleData.data, user: user }} className="txt-container text-start" style={{ width: "20rem" }}>{journal.title}</Link>
+                                            <Link to={`/dashboard/view-submission/${journal._id}`} state={{ isEditor: false }} className="txt-container text-start" style={{ width: "20rem" }}>{journal.title}</Link>
                                         </td>
                                         <td>
                                             {new Date(journal.createdAt).toLocaleString()}
                                         </td>
                                         <td>
-                                            {/* {journal.reviewers.map((reviewer, index) => {
-                                                <p key={index}>{reviewer.comments}</p>
-                                            })} */}
+                                            {["accepted", "rejected"].includes(journal.finalStatus) ? journal.reviewers.map((reviewer, index) => (
+                                                <div key={index}>{parse(reviewer.comments)}</div>
+                                            )) : "N/A"}
                                         </td>
-                                        <td>{journal.editorComments}</td>
+                                        <td>{["accepted", "rejected"].includes(journal.finalStatus) ? journal.editorComments : "N/A"}</td>
                                         <td>
-                                            <p className={journal.status === "pending" ? "text-warning" + " fw-bold text-capitalize" : (journal.status === "rejected" ? "text-danger" : "text-info") + " fw-bold text-capitalize"}>
+                                            <p className={journal.status === "submitted" ? "text-warning" + " fw-bold text-capitalize" : (journal.status === "rejected" ? "text-danger" : "text-primary") + " fw-bold text-capitalize"}>
                                                 {journal.status}
                                             </p>
                                         </td>

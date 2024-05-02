@@ -2,16 +2,16 @@ import React from "react";
 import "./preloader.css";
 import { Link } from "react-router-dom";
 import Pagination from "./Pagination";
-import { useAuth } from "../../store/AuthContext";
 import PreloaderNav from "./PreloaderNav";
+import { useJournal } from "../../store/JournalContext";
 
 function Preloader() {
-    const { journalData } = useAuth();
+    const { journalData } = useJournal();
 
     return (
         <>
             <PreloaderNav />
-            <section className="preloader-section container">
+            <section className="preloader-section container mb-2">
                 <div className="">
                     <h1 className="journal-title text-center p-lg-3 p-sm-2 p-md-3 fw-semibold">
                         Publication Lists

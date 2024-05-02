@@ -11,9 +11,11 @@ import { ImListNumbered } from "react-icons/im";
 import { MdPendingActions } from "react-icons/md";
 import { FaCheckCircle } from "react-icons/fa";
 import { BASE_URL } from '../../services/helper';
+import { useArticle } from '../../store/ArticleContext';
 
 function Profile() {
-    const { user, getUser, articleData } = useAuth();
+    const { user, getUser } = useAuth();
+    const { articleData } = useArticle();
     const [show, setShow] = useState(false);
 
     const handleClose = () => setShow(false);

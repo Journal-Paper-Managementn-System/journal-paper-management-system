@@ -8,39 +8,18 @@ import { toast } from 'react-toastify';
 import { BASE_URL } from '../../services/helper';
 import { ColorRing } from 'react-loader-spinner';
 import zipService from '../../services/zipService';
+import { useJournal } from '../../store/JournalContext';
 
 function AcceptedArticles() {
-    const { user, journalData, getArticles, token } = useAuth();
-    const [articles, setArticles] = useState(false);
+    const { token } = useAuth();
+    const { acceptedArticles } = useJournal();
     const [modalShow, setModalShow] = useState(false);
     const [loader, setLoader] = useState(false);
 
-    /**
-     * Retrieves journal articles for the current user.
-     * @returns {Promise<void>} A Promise that resolves when the articles are retrieved.
-     */
-    const getJournalArticles = async () => {
-        /**
-         * Finds the journal ID based on the editor ID.
-         *
-         * @param {Object[]} journalData - The array of journals.
-         * @param {string} user._id - The editor ID.
-         * @returns {string} The journal ID.
-         */
-        if (journalData.length === 0) return;
-        const journal = journalData.find((journal) => journal.editorId === user._id);
-        if (journal !== undefined) {
-            const response = await getArticles(journal._id);
-            if (response.success) {
-                setArticles(response.data.filter(article => article.finalStatus === 'accepted'));
-            }
-        }
-    };
-
     const handleDownload = async () => {
-        // Download the articles
+        // Download the accepted articles
         setLoader(true);
-        const files = { files: articles.map(article => article.mergedScript) };
+        const files = { files: acceptedArticles.map(article => article.mergedScript) };
         const response = await zipService.createZip(files, token);
         if (response.success) {
             const link = document.createElement('a');
@@ -55,14 +34,9 @@ function AcceptedArticles() {
         setLoader(false);
     }
 
-    useEffect(() => {
-        // Call the function to get the articles
-        getJournalArticles();
-    }, []);
-
     return (
         <div className='p-4'>
-            {!articles || articles.length === 0 ? <h2 className='fw-bold'>There are no articles...</h2> :
+            {!acceptedArticles || acceptedArticles.length === 0 ? <h2 className='fw-bold'>There are no accepted articles...</h2> :
                 <>
                     <h2 className='text-center fw-bold'>Accepted Articles</h2>
                     <hr />
@@ -77,7 +51,7 @@ function AcceptedArticles() {
                                 </tr>
                             </thead>
                             <tbody>
-                                {articles.map((article, index) => (
+                                {acceptedArticles.map((article, index) => (
                                     <tr key={index}>
                                         <td>{index + 1}</td>
                                         <td className='text-start'>

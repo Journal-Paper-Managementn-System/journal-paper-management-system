@@ -7,6 +7,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 function EditorArticleView(props) {
     const article = props.article;
+    // console.log(article);
     const [modalShow, setModalShow] = useState(false);
 
     return (

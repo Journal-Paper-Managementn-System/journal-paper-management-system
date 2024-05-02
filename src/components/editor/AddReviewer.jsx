@@ -35,7 +35,7 @@ function AddReviewer() {
         }, token);
         if (responseData.success) {
             await mailService.sendMail({
-                mailFrom: "Journal Submission",
+                mailFrom: "Article Submission System",
                 mailTo: e.target.email.value,
                 mailSubject: "Reviewer Update",
                 mailHtml: `<div>
@@ -104,8 +104,36 @@ function AddReviewer() {
         if (file === undefined || file.type !== 'text/csv') {
             return toast.error('Please upload a valid CSV file');
         }
-        console.log(reviewers);
+        // Check if the file is empty
+        if (file.size === 0) {
+            return toast.error('The file is empty');
+        }
+        // Check if the file doesn't contain the required columns
+        if (!reviewers[0].hasOwnProperty('First Name') || !reviewers[0].hasOwnProperty('Last Name') || !reviewers[0].hasOwnProperty('Email') || !reviewers[0].hasOwnProperty('Affiliation')) {
+            return toast.error('The CSV file should contain the following columns: First Name, Last Name, Email, Affiliation');
+        }
+        setLoader2(true);
+        const reviewersData = reviewers.map(reviewer => {
+            return { firstName: reviewer['First Name'], lastName: reviewer['Last Name'], email: reviewer['Email'], affiliation: reviewer['Affiliation'] };
+        });
+        const response = await Reviewer.addBulkReviewer({ reviewers: reviewersData }, token);
+        if (response.success) {
+            await mailService.sendMail({
+                mailFrom: "Article Submission System",
+                mailTo: response.data.map(reviewer => reviewer.email),
+                mailSubject: "Reviewer Update",
+                mailHtml: `<div>
+                    <h4>Hello,</h4>
+                    <p>You have been added as a reviewer for reviewing articles. <a href=${window.location.origin + "/sign-up"}>Register</a> or <a href=${window.location.origin + "/login"}>login</a> to start reviewing articles.</p>
+                </div>`
+            });
+            toast.success(response.message);
+            getReviewerList();
+        } else {
+            toast.error(response.message);
+        }
         e.target.reset();
+        setLoader2(false);
     }
 
     useEffect(() => {
@@ -185,6 +213,9 @@ function AddReviewer() {
                 </div>
             </form>
             <form className="row mt-5 mx-3 border p-3 rounded-2" onSubmit={handleCSVSubmit}>
+                <div className="col-md-12 text-danger mb-3 fw-bold">
+                    The CSV file should contain the following columns: First Name, Last Name, Email, Affiliation
+                </div>
                 <label htmlFor="reviewer-file" className='col-md-2 col-form-label fs-5 fw-bold mb-2' style={{ width: "15rem" }}>Upload CSV File</label>
                 <div className="col-md-8 d-flex align-items-center mb-3">
                     {/* <input type="file" accept='.csv' id='reviewer-file' className='form-control' /> */}

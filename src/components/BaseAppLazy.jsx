@@ -3,7 +3,6 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 
 // React.lazy() is used to dynamically import a component when it's rendered.
 lazy(() => import("../App.css"));
-const Loading = lazy(() => import("../utils/Loading"));
 const Layout = lazy(() => import("../Layout"));
 const DashBoard = lazy(() => import("./dashboard/DashBoard"));
 const ViewSubmission = lazy(() => import("./dashboard/ViewSubmission"));
@@ -27,95 +26,185 @@ const AddEditor = lazy(() => import("./admin/AddEditor"));
 const GuestRoute = lazy(() => import("../utils/GuestRoute"));
 const ErrorElement = lazy(() => import("./ErrorElement"));
 // const DocViewer = lazy(() => import("./fileviewer/DOCViewer"));
+import Loading from "../utils/Loading";
+const ViewJournalArticle = lazy(() => import("./journal/ViewJournalArticle"));
 
 const router = createBrowserRouter([
     {
         path: "/",
-        element: <Layout />,
+        element: (
+            <Suspense fallback={<Loading />}>
+                <Layout />
+            </Suspense>
+        ),
         children: [
             {
                 path: '/',
-                element: <Preloader />,
+                element: (
+                    <Suspense fallback={<Loading />}>
+                        <Preloader />
+                    </Suspense>
+                ),
             },
             {
-                element: <ProtectedRoute />,
+                element: (
+                    <Suspense fallback={<Loading />}>
+                        <ProtectedRoute />
+                    </Suspense>
+                ),
                 children: [
                     {
                         path: "dashboard",
-                        element: <DashBoard />,
+                        element: (
+                            <Suspense fallback={<Loading />}>
+                                <DashBoard />
+                            </Suspense>
+                        ),
                         children: [
                             {
                                 path: "profile",
-                                element: <Profile />,
+                                element: (
+                                    <Suspense fallback={<Loading />}>
+                                        <Profile />
+                                    </Suspense>
+                                ),
                                 errorElement: <ErrorElement />,
                             },
                             {
                                 path: "assign-reviewer",
-                                element: <AssignReviewer />,
+                                element: (
+                                    <Suspense fallback={<Loading />}>
+                                        <AssignReviewer />
+                                    </Suspense>
+                                ),
                             },
                             {
                                 path: "add-submission/:journalId?",
-                                element: <AddSubmission />,
+                                element: (
+                                    <Suspense fallback={<Loading />}>
+                                        <AddSubmission />
+                                    </Suspense>
+                                ),
                             },
                             {
                                 path: "analytical-report",
-                                element: <AnalyticReport />,
+                                element: (
+                                    <Suspense fallback={<Loading />}>
+                                        <AnalyticReport />
+                                    </Suspense>
+                                ),
                             },
                             {
                                 path: "review-article",
-                                element: <ReviewArticles />,
+                                element: (
+                                    <Suspense fallback={<Loading />}>
+                                        <ReviewArticles />
+                                    </Suspense>
+                                ),
                             },
                             {
                                 path: "view-articles",
-                                element: <ViewArticles />,
+                                element: (
+                                    <Suspense fallback={<Loading />}>
+                                        <ViewArticles />
+                                    </Suspense>
+                                ),
                             },
                             {
                                 path: "add-reviewer",
-                                element: <AddReviewer />,
+                                element: (
+                                    <Suspense fallback={<Loading />}>
+                                        <AddReviewer />
+                                    </Suspense>
+                                ),
                             },
                             {
                                 path: "accepted-articles",
-                                element: <AcceptedArticles />,
+                                element: (
+                                    <Suspense fallback={<Loading />}>
+                                        <AcceptedArticles />
+                                    </Suspense>
+                                ),
                             },
                             {
                                 path: "view-submission/:articleId?",
-                                element: <ViewSubmission />,
+                                element: (
+                                    <Suspense fallback={<Loading />}>
+                                        <ViewSubmission />
+                                    </Suspense>
+                                ),
+                            },
+                            {
+                                path: "view-journal-article/:articleId?",
+                                element: (
+                                    <Suspense fallback={<Loading />}>
+                                        <ViewJournalArticle />
+                                    </Suspense>
+                                ),
                             },
                         ],
                     },
                     {
                         path: "add-editor",
-                        element: <AddEditor />,
+                        element: (
+                            <Suspense fallback={<Loading />}>
+                                <AddEditor />
+                            </Suspense>
+                        ),
                     },
-                    
+
                 ],
             },
         ],
     },
     {
-        element: <GuestRoute />,
+        element: (
+            <Suspense fallback={<Loading />}>
+                <GuestRoute />
+            </Suspense>
+        ),
         children: [
             {
                 path: "/login",
-                element: <Login />,
+                element: (
+                    <Suspense fallback={<Loading />}>
+                        <Login />
+                    </Suspense>
+                ),
                 children: [
                     {
                         path: "forgot-password",
-                        element: <ForgotPassword />,
+                        element: (
+                            <Suspense fallback={<Loading />}>
+                                <ForgotPassword />
+                            </Suspense>
+                        ),
                     },
                     {
                         path: "verify-email",
-                        element: <Verification />,
+                        element: (
+                            <Suspense fallback={<Loading />}>
+                                <Verification />
+                            </Suspense>
+                        ),
                     }
                 ],
             },
             {
                 path: "/sign-up",
-                element: <SignUp />,
+                element: (
+                    <Suspense fallback={<Loading />}>
+                        <SignUp />
+                    </Suspense>
+                ),
                 children: [
                     {
                         path: "verify-email",
-                        element: <Verification />,
+                        element: (
+                            <Suspense fallback={<Loading />}>
+                                <Verification />
+                            </Suspense>
+                        ),
                     },
                 ],
             },
@@ -123,15 +212,17 @@ const router = createBrowserRouter([
     },
     {
         path: "/*",
-        element: <PageNotFound />,
+        element: (
+            <Suspense fallback={<Loading />}>
+                <PageNotFound />
+            </Suspense>
+        ),
     },
 ]);
 
 function BaseAppLazy() {
     return (
-        <Suspense fallback={<Loading />}>
-            <RouterProvider router={router} />
-        </Suspense>
+        <RouterProvider router={router} />
     );
 }
 

@@ -6,28 +6,31 @@ import { useAuth } from "../../store/AuthContext";
 import Article from "../../services/articleService";
 import { toast } from "react-toastify";
 import Reviewer from "../../services/reviewerService";
-import EditorArticleView from "./EditorArticleView";
-import { Button } from "react-bootstrap";
+// import EditorArticleView from "./EditorArticleView";
+// import { Button } from "react-bootstrap";
 import Confirmation from "../../utils/Confirmation";
+import { useJournal } from "../../store/JournalContext";
+import { Link } from "react-router-dom";
 
 function AssignReviewer() {
-    const { getArticles, journalData, user, token } = useAuth();
-    const [articles, setArticles] = useState([]);
+    const { token } = useAuth();
+    const { articles, setArticles, getJournalArticles, journalData } = useJournal();
+    // const [articles, setArticles] = useState([]);
     const [article, setArticle] = useState(false);
     const [reviewers, setReviewers] = useState([]);
     const [tempReviewers, setTempReviewers] = useState([]);
     const [selectedReviewers, setSelectedReviewers] = useState([]);
-    const [modalShow, setModalShow] = useState(false);
+    // const [modalShow, setModalShow] = useState(false);
     const [search, setSearch] = useState("");
     const [cnfModalShow, setCnfModalShow] = useState(false);
+    const [rcnfModalShow, setRcnfModalShow] = useState(false);
 
     /**
      * Handles the submission of the selected reviewers.
      * @param {Event} e - The event object.
      * @returns {Promise<void>} - A promise that resolves when the reviewers are updated.
      */
-    const handleSubmitReviewer = async (e) => {
-        e.preventDefault();
+    const handleSubmitReviewer = async () => {
         // Assign the selected reviewers to the article
         if (selectedReviewers.length === 0) {
             toast.error("Please select at least one reviewer");
@@ -90,38 +93,16 @@ function AssignReviewer() {
         if (["accepted", "rejected"].includes(article.status)) {
             article.finalStatus = article.status;
         } else {
-            article.finalStatus = "pending";
+            article.finalStatus = "";
         }
         const response = await Article.updateArticle(article, token);
         if (response.success) {
             toast.success("Status updated successfully");
-            getJournalArticles();
+            getJournalArticles(journalData);
         } else {
             toast.error(response.message);
         }
     };
-
-    /**
-     * Retrieves journal articles for the current user.
-     * @returns {Promise<void>} A Promise that resolves when the articles are retrieved.
-     */
-    const getJournalArticles = async () => {
-        /**
-         * Finds the journal ID based on the editor ID.
-         *
-         * @param {Object[]} journalData - The array of journals.
-         * @param {string} user._id - The editor ID.
-         * @returns {string} The journal ID.
-         */
-        if (journalData.length === 0) return;
-        const journal = journalData.find((journal) => journal.editorId === user._id);
-        if (journal !== undefined) {
-            const response = await getArticles(journal._id);
-            if (response.success) {
-                setArticles(response.data);
-            }
-        }
-    }
 
     /**
      * Fetches the list of reviewers.
@@ -137,8 +118,6 @@ function AssignReviewer() {
     }
 
     useEffect(() => {
-        // Call the function to get the articles
-        getJournalArticles();
         // Call the function to get the list of reviewers
         getReviewers();
     }, [])
@@ -174,6 +153,8 @@ function AssignReviewer() {
 
         // Update the state with the modified articles array
         setArticles(updatedArticles);
+        const authorsInp = document.querySelectorAll('.check-author-inp');
+        authorsInp.forEach(inp => inp.checked = false);
     };
 
 
@@ -193,13 +174,6 @@ function AssignReviewer() {
     return (
         <section className="editor table-responsive">
             <div className="editor-container">
-                {/* <div className="editor-heading logo d-flex align-items-center bg-light rounded-1">
-                    <h5 className="py-1 mx-2 my-3 fs-2">
-                        <span className="text-danger">Welcome,</span> {user.firstName}
-                    </h5>
-                    <MdAdminPanelSettings size={40} color="#8B3DFF" />
-                </div>
-                <hr className="my-0" /> */}
                 <div className="editor-form">
                     <div className="row m-0 p-0">
                         {/* Editor journal-title */}
@@ -232,14 +206,17 @@ function AssignReviewer() {
                                                         {new Date(article.createdAt).toLocaleString()}
                                                     </td>
                                                     <td>
-                                                        <Button variant="outline-primary" onClick={() => setModalShow(prevState => ({ ...prevState, [index]: true }))}>
+                                                        {/* <Button variant="outline-primary" onClick={() => setModalShow(prevState => ({ ...prevState, [index]: true }))}>
                                                             <GrView />
                                                         </Button>
                                                         <EditorArticleView
                                                             show={modalShow[index]}
                                                             handleClose={() => setModalShow(prevState => ({ ...prevState, [index]: false }))}
                                                             article={article}
-                                                        />
+                                                        /> */}
+                                                        <Link to={`/dashboard/view-journal-article/${article._id}`} state={{ isEditor: true }} className="btn btn-outline-primary">
+                                                            <GrView />
+                                                        </Link>
                                                     </td>
                                                 </tr>
                                             ))}
@@ -323,12 +300,20 @@ function AssignReviewer() {
                                     </ul>
                                 </div>
                                 <input
-                                    type="submit"
+                                    type="button"
                                     value="Submit"
                                     className="btn btn-dark my-2 mx-2"
                                     id="submit"
                                     // name="add user"
-                                    onClick={handleSubmitReviewer}
+                                    onClick={() => selectedReviewers.length > 0 ? setRcnfModalShow(true) : toast.error("Please select at least one reviewer")}
+                                />
+
+                                <Confirmation
+                                    show={rcnfModalShow}
+                                    handleClose={() => setRcnfModalShow(false)}
+                                    onConfirm={handleSubmitReviewer}
+                                    title="Assign Reviewer"
+                                    message={`<p><strong class="text-capitalize d-block mb-2">Reviewers: ${selectedReviewers.length}</strong>Are you sure you want to assign the reviewers?</p>`}
                                 />
 
                             </form>}

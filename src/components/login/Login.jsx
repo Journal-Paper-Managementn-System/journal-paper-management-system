@@ -16,7 +16,7 @@ function Login() {
     const [checkbox, setCheckbox] = useState(false);
     const pswd = useRef();
     const navigate = useNavigate();
-    const { storeToken } = useAuth();
+    const { storeToken, getUser } = useAuth();
     const location = useLocation();
     const { state, pathname } = location;
     const [loader, setLoader] = useState(false);

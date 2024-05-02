@@ -6,9 +6,11 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { useAuth } from "../../store/AuthContext";
 import { ThreeDots } from 'react-loader-spinner';
-import MailService from '../../services/mailService';
 import './submission.css';
 import PDFMerger from 'pdf-merger-js';
+import { useJournal } from '../../store/JournalContext';
+import { useArticle } from '../../store/ArticleContext';
+import mailService from '../../services/mailService';
 
 // Component for adding a new submission
 function AddSubmission() {
@@ -20,7 +22,9 @@ function AddSubmission() {
     const [authors, setAuthors] = useState([{ firstName: '', lastName: '', email: '', affiliation: '', correspondingAuthor: false, firstAuthor: false, otherAuthor: false }]); // Authors of the submission
     const navigate = useNavigate(); // Navigation hook
     const totalLettersCount = 2000; // Maximum allowed letters in the abstract
-    const { user, getArticleData, journalData, token } = useAuth(); // Auth context
+    const { user, token } = useAuth(); // Auth context
+    const { journalData } = useJournal(); // Journal context
+    const { getArticleData } = useArticle(); // Article context
     const { journalId } = useParams(); // Journal ID from URL parameters
 
     // Function to handle form submission
@@ -32,7 +36,7 @@ function AddSubmission() {
         const supplementaryFile = event.target['supplementary-file'].files[0];
         // check the files if pdf or docx
         if (menuscript.type !== 'application/pdf' || coverLetter.type !== 'application/pdf' || supplementaryFile.type !== 'application/pdf') {
-            return toast.warn("Please uplaod all files in pdf");
+            return toast.warn("Please uplaod all files in pdf format");
         }
 
         // Check if the file type is supported
@@ -71,27 +75,41 @@ function AddSubmission() {
         emailReceivers.push(user.email);
         if (responseData.success) {
             // If successful, send a mail and navigate to the view submission page
-            await MailService.sendMail({
-                mailFrom: "Journal Submission",
+            await mailService.sendMail({
+                mailFrom: "Article Submission",
                 mailTo: emailReceivers,
-                mailSubject: "Journal Submitted Successfully",
-                mailText: "Your journal has been submitted successfully. You will be notified once it is reviewed.",
+                mailSubject: "Article Submitted Successfully",
                 mailHtml: `
                     <div>
-                        <p>Your journal <b>${event.target['journal-title'].value}</b> has been submitted successfully.</p>
+                        <p>Your article <b>${event.target['journal-title'].value}</b> has been submitted successfully.</p>
                         <br>
                         <p>You will be notified once it is reviewed.</p>
                     </div>
                 `
             });
+            if (responseData.editorMail) {
+                await mailService.sendMail({
+                    mailFrom: "Article Submission",
+                    mailTo: responseData.editorMail,
+                    mailSubject: "New Article Submission",
+                    mailHtml: `
+                        <div>
+                            <h4>Hello Editor,</h4>
+                            <p>A new article <b>${event.target['journal-title'].value}</b> has been submitted to your journal.</p>
+                            <br>
+                            <p>Check the articles dashboard for more details.</p>
+                        </div>
+                    `
+                });
+            }
             getArticleData();
             navigate('/dashboard/view-submission');
             toast.success(responseData.message);
-            setLoader(false);
         } else {
             // If not successful, show an error toast
             toast.error(responseData.message);
         }
+        setLoader(false);
     }
 
     // Function to handle changes in the abstract
