@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react';
 import { FaDownload } from 'react-icons/fa6';
 import { useAuth } from '../../store/AuthContext';
 import PDFViewer from '../fileviewer/PDFViewer';
@@ -38,6 +38,7 @@ function AcceptedArticles() {
         <div className='p-4'>
             {!acceptedArticles || acceptedArticles.length === 0 ? <h2 className='fw-bold'>There are no accepted articles...</h2> :
                 <>
+                    {/* Display the heading */}
                     <h2 className='text-center fw-bold'>Accepted Articles</h2>
                     <hr />
                     <div className="table-responsive">
@@ -59,9 +60,11 @@ function AcceptedArticles() {
                                         </td>
                                         <td>{new Date(article.createdAt).toLocaleDateString()}</td>
                                         <td>
+                                            {/* Button to view the article */}
                                             <Button variant="primary" onClick={() => setModalShow(prevState => ({ ...prevState, [index]: true }))}>
                                                 <GrDocumentPdf />
                                             </Button>
+                                            {/* PDFViewer component */}
                                             <PDFViewer
                                                 show={modalShow[index]}
                                                 onHide={() => setModalShow(prevState => ({ ...prevState, [index]: false }))}
@@ -75,9 +78,11 @@ function AcceptedArticles() {
                         </table>
                     </div>
                     <div className="d-flex justify-content-end">
+                        {/* Button to download articles */}
                         <button className="btn btn-primary d-flex align-items-center fw-semibold fs-5" onClick={handleDownload}>
                             {loader ?
                                 <>
+                                    {/* Loading spinner */}
                                     <ColorRing height={40} width={40} colors={['#fff', '#fff', '#fff', '#fff', '#fff']} />
                                     Generating Articles...
                                 </> :

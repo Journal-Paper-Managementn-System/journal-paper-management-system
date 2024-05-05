@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { FaRegSave } from "react-icons/fa";
-// import { RiDeleteBinLine } from "react-icons/ri";
 import { useAuth } from '../../store/AuthContext';
 import parse from 'html-react-parser';
 import Article from '../../services/articleService';

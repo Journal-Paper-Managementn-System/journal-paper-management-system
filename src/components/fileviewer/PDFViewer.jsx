@@ -1,24 +1,11 @@
-// import React, { useEffect, useState } from 'react';
 import { Viewer, Worker } from '@react-pdf-viewer/core';
 import { defaultLayoutPlugin } from '@react-pdf-viewer/default-layout';
 import '@react-pdf-viewer/default-layout/lib/styles/index.css';
-// import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { BASE_URL } from '../../services/helper';
 
 function PDFViewer(props) {
     const defaultLayoutPluginInstance = defaultLayoutPlugin();
-
-    // const [show, setShow] = useState(false);
-
-    // useEffect(() => {
-    //     setShow(props.show);
-    // }, [props.show]);
-
-    // const handleClose = () => {
-    //     setShow(false);
-    //     props.onHide();
-    // };
 
     return (
         <Modal

@@ -2,16 +2,19 @@ import React from 'react';
 
 const AuthorRow = ({ authors, setAuthors }) => {
 
+    // Function to add a new author row
     const addAuthorRow = () => {
         setAuthors([...authors, { firstName: '', lastName: '', email: '', affiliation: '', correspondingAuthor: false, firstAuthor: false, otherAuthor: false }]);
     };
 
+    // Function to remove an author row
     const removeAuthorRow = (index) => {
         const newAuthors = [...authors];
         newAuthors.splice(index, 1);
         setAuthors(newAuthors);
     };
 
+    // Function to handle input changes in the author row
     const handleInputChange = (event, index) => {
         const { name, value } = event.target;
         const newAuthors = [...authors];
@@ -19,6 +22,7 @@ const AuthorRow = ({ authors, setAuthors }) => {
         setAuthors(newAuthors);
     };
 
+    // Function to handle checkbox changes in the author row
     const handleCheckboxChange = (event, index) => {
         const { name, checked } = event.target;
         const newAuthors = [...authors];
