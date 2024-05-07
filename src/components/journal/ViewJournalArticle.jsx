@@ -11,7 +11,7 @@ import { MdPreview } from "react-icons/md";
 import { BASE_URL } from "../../services/helper";
 import { useJournal } from "../../store/JournalContext";
 import { useArticle } from "../../store/ArticleContext";
-import { useAuth } from "../../store/AuthContext";
+// import { useAuth } from "../../store/AuthContext";
 import Loading from "../../utils/Loading";
 
 function ViewJournalArticle() {
@@ -19,7 +19,7 @@ function ViewJournalArticle() {
     const { journalData, getJournalArticles } = useJournal();
     const { articleData } = useArticle();
     const [article, setArticle] = useState(false);
-    const { user } = useAuth();
+    // const { user } = useAuth();
     const { isEditor } = useLocation().state;
     const [modalShow, setModalShow] = useState(false);
     const [loading, setLoading] = useState(true);
@@ -42,7 +42,7 @@ function ViewJournalArticle() {
 
     return (
         <>
-            {!loading ?
+            {!loading  ?
                 <div className="p-3">
                     {articleId && article ?
                         <div className="row">

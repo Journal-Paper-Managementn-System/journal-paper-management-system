@@ -38,6 +38,7 @@ const AuthProvider = ({ children }) => {
         setIsLoggedIn(user.success);
         if (user.success) {
             setUser(user.data);
+            setLoading(false);
             return user;
         }
         setLoading(false);
@@ -66,7 +67,6 @@ const AuthProvider = ({ children }) => {
             isLoggedIn,
             user,
             getUser,
-            userList,
             token,
             setIsLoggedIn,
         }}>

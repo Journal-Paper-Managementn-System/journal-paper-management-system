@@ -91,7 +91,7 @@ function ViewArticles() {
     };
 
     return (
-        <div className="table-responsive">
+        <div className="table-responsive" style={{maxHeight: "75vh", overflow: "auto"}}>
             {
                 articles.length === 0 ? <h2 className='fw-bold p-3'>There are no articles...</h2>
                     :
