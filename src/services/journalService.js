@@ -74,14 +74,11 @@ class Journal {
         }
     }
 
+
     /**
      * Adds an editor to the journal.
      * @param {Object} editorData - The data of the editor to be added.
-<<<<<<< HEAD
      * @param {string} accessToken - The access token for authentication.
-=======
-     * @param {string} accessToken - The access token for authorization.
->>>>>>> f71df29f878c1a55b3059e09f436854f11c5d84a
      * @returns {Promise<Object>} - A promise that resolves to the response data.
      */
     async addEditor(editorData, accessToken) {

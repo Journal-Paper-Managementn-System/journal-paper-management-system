@@ -5,11 +5,7 @@ class Article {
     /**
      * Retrieves an article from the server.
      * @param {string} accessToken - The access token for authentication.
-<<<<<<< HEAD
-     * @returns {Promise<Object>} - A promise that resolves to the response data.
-=======
      * @returns {Promise<Object>} - A promise that resolves to the article data.
->>>>>>> f71df29f878c1a55b3059e09f436854f11c5d84a
      */
     async getArticle(accessToken) {
         try {
@@ -91,14 +87,11 @@ class Article {
         }
     }
 
+
     /**
      * Retrieves review articles from the server.
      * @param {string} accessToken - The access token for authentication.
-<<<<<<< HEAD
      * @returns {Promise<Object>} - A promise that resolves to the response data.
-=======
-     * @returns {Promise} A promise that resolves to the response data.
->>>>>>> f71df29f878c1a55b3059e09f436854f11c5d84a
      */
     async getReviewArticles(accessToken) {
         try {
