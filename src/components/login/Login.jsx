@@ -154,9 +154,9 @@ function Login() {
                                     {!loader ? "Login" : <div className="d-flex justify-content-center"><ThreeDots height={25} width={54} color="#fff" /></div>}
                                 </button>
                                 <div className="sign-up-link">
-                                    <p>
-                                        Don't have an account? Please <Link to="/sign-up" state={{ redirectTo: state?.redirectTo }} className="text-white fw-bold text-decoration-underline">Sign up or register</Link>
-                                    </p>
+                                    {/* <p> */}
+                                        Don't have an account?<Link to="/sign-up" state={{ redirectTo: state?.redirectTo }}>Sign up or register</Link>
+                                    {/* </p> */}
                                 </div>
                             </form>
                         </div>

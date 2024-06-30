@@ -17,7 +17,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background: url('./assets/peakpx.jpg');
+    background: url('./assets/bg-3d-gradient.jpg');
     background-repeat: no-repeat;
     background-size: cover;
     background-attachment: fixed;
@@ -37,6 +37,7 @@
 .wrapper h1 {
     font-size: 36px;
     text-align: center;
+    font-weight: 600;
 }
 
 .wrapper .input-box {
@@ -92,7 +93,8 @@
     justify-content: space-between;
     font-size: 14.5px;
     margin-bottom: 0.5rem;
-    color: var(--light-white);
+    padding-top: 1rem;
+    color: #000;
 }
 
 .remember-forgot label input {
@@ -101,7 +103,7 @@
 }
 
 .remember-forgot a {
-    color: #d7d8ea;
+    color: #000;
     text-decoration: none;
 }
 
@@ -140,12 +142,14 @@
     margin: 20px 0 15px;
 }
 
-.sign-up-link>p {
+/* .sign-up-link>p {
     color: #ccc;
-}
+} */
 
-.sign-up-link>p:hover a {
+.sign-up-link>a {
     text-decoration: underline;
+    font-weight: bold;
+    margin-left: 5px;
 }
 
 
