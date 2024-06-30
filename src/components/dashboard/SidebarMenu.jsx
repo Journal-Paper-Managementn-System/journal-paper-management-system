@@ -19,6 +19,8 @@ function SidebarMenu() {
                     Profile
                 </NavLink>
             </li>
+            
+            {/* Show this if user is an Editor */}
             {user.isEditor && (
                 <>
                     <li className="sidebar-link">
@@ -47,6 +49,8 @@ function SidebarMenu() {
                     </li>
                 </>
             )}
+
+            {/* Show this if user is not an Editor */}
             {!user.isEditor && (
                 <>
                     <li className="sidebar-link">

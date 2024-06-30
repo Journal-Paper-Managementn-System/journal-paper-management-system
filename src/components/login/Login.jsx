@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 import { GrView } from "react-icons/gr";
 import { FaUser } from "react-icons/fa";
@@ -90,6 +90,10 @@ function Login() {
         setCredentials({ ...credentials, [e.target.name]: e.target.value });
         setCheckbox(e.target.checked);
     }
+
+    useEffect(() => {
+        document.title = "Login - Article Submission System";
+    })
 
     return (
         <>

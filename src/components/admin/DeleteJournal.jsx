@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { ThreeDots } from 'react-loader-spinner';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
@@ -7,20 +7,22 @@ import { toast } from 'react-toastify';
 
 function DeleteJournal(props) {
     const { journalData, getJournalData, token } = props;
-    const [loader, setLoader] = React.useState(false);
+    const [loader, setLoader] = useState(false);
 
     const handleSaveChanges = async (e) => {
         e.preventDefault();
+        // Check if the confirm checkbox is checked
         if (!e.target.confirm.checked) {
             return toast.error('Please confirm that you want to delete the journal');
         }
         setLoader(true);
         const journalId = e.target.journal.value;
+        // Delete the journal
         const response = await Journal.deleteJournal(journalId, token);
         if (response.success) {
-            getJournalData();
+            getJournalData(); // Update the journal list
             toast.success(response.message);
-            props.handleClose();
+            props.handleClose(); // Close the modal
         } else {
             toast.error(response.message);
         }

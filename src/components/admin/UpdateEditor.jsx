@@ -12,10 +12,12 @@ function UpdateEditor(props) {
 
     const handleSaveChanges = async (e) => {
         e.preventDefault();
+        // Check if the confirm checkbox is checked
         if (!e.target.confirm.checked) {
             return toast.error('Please confirm that you want to assign this editor');
         }
-        setLoader(true);
+        setLoader(true); // Show the loader
+        // Add an editor
         const response = await Journal.addEditor({
             firstName: e.target.firstName.value,
             middleName: e.target.middleName.value,
@@ -25,8 +27,8 @@ function UpdateEditor(props) {
             journalId: journal._id
         }, token);
         if (response.success) {
-            getJournalData();
-            
+            getJournalData(); // Update the journal list
+            // Send an email to the editor
             await mailService.sendMail({
                 mailFrom: "Journal Submission",
                 mailTo: e.target.email.value,

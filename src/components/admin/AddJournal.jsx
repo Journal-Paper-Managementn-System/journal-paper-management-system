@@ -8,9 +8,15 @@ import { toast } from 'react-toastify';
 function AddJournal(props) {
     const [loader, setLoader] = useState(false);
 
+    /**
+     * Handles the save changes action when submitting the form and add a journal.
+     * @param {Event} e - The event object.
+     * @returns {Promise<void>} - A promise that resolves when the save changes action is completed.
+     */
     const handleSaveChanges = async (e) => {
         e.preventDefault();
         setLoader(true);
+        // Add a journal
         const response = await Journal.addJournal({
             title: e.target.title.value,
             description: e.target.description.value

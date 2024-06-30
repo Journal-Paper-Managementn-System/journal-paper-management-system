@@ -1,6 +1,12 @@
 import { BASE_URL } from "./helper";
 
 class ZipService {
+    /**
+     * Creates a zip file containing the specified files.
+     * @param {Array} files - The files to include in the zip.
+     * @param {string} accessToken - The access token for authentication.
+     * @returns {Promise<Object>} - A promise that resolves to the response data from the server.
+     */
     async createZip(files, accessToken) {
         try {
             const response = await fetch(BASE_URL + '/zip/create-zip', {
@@ -18,6 +24,12 @@ class ZipService {
         }
     }
 
+    /**
+     * Downloads a zip file from the server.
+     * @param {string} filename - The name of the zip file to download.
+     * @param {string} accessToken - The access token for authentication.
+     * @returns {Promise<Blob>} - A promise that resolves to the downloaded zip file as a Blob object.
+     */
     async downloadZip(filename, accessToken) {
         try {
             const response = await fetch(BASE_URL + `/zip/download-zip/${filename}`, {
