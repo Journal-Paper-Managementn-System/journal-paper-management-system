@@ -7,7 +7,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 function EditorArticleView(props) {
     const article = props.article;
-    // console.log(article);
     const [modalShow, setModalShow] = useState(false);
 
     return (
@@ -36,11 +35,13 @@ function EditorArticleView(props) {
                         <tbody>
                             <tr key={1}>
                                 <td>
+                                    {/* Display the article abstract */}
                                     <div style={{ minWidth: "30rem" }}>
                                         {article.abstract}
                                     </div>
                                 </td>
                                 <td>
+                                    {/* Display the article keywords */}
                                     {article.keywords.map((keyword, index) =>
                                         <div key={index} className='btn btn-success mx-1 my-1'>
                                             {keyword}
@@ -48,6 +49,7 @@ function EditorArticleView(props) {
                                     )}
                                 </td>
                                 <td>
+                                    {/* Display the article authors */}
                                     {article.authors.map((author, index) =>
                                         <div key={index}>
                                             {author.firstName} {author.lastName}
@@ -55,9 +57,11 @@ function EditorArticleView(props) {
                                     )}
                                 </td>
                                 <td className='text-center'>
+                                    {/* Button to open the PDF viewer */}
                                     <Button variant="primary" onClick={() => setModalShow(true)}>
                                         <GrDocumentPdf />
                                     </Button>
+                                    {/* PDFViewer component */}
                                     <PDFViewer
                                         show={modalShow}
                                         onHide={() => setModalShow(false)}
@@ -71,6 +75,7 @@ function EditorArticleView(props) {
                 </div>
             </Modal.Body>
             <Modal.Footer>
+                {/* Close button */}
                 <Button onClick={props.handleClose}>Close</Button>
             </Modal.Footer>
         </Modal>

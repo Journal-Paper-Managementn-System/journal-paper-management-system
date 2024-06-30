@@ -24,11 +24,14 @@ function ViewJournalArticle() {
     const [modalShow, setModalShow] = useState(false);
     const [loading, setLoading] = useState(true);
 
+    // Fetch article data based on user role
     const getData = async () => {
         if (!isEditor) {
+            // If user is not an editor, find the article by articleId from articleData
             const article = articleData.data.find(article => article._id === articleId);
             setArticle(article);
         } else {
+            // If user is an editor, get journal articles and find the article by articleId
             const data = await getJournalArticles(journalData);
             const article = data.find(article => article._id === articleId);
             setArticle(article);
@@ -37,6 +40,7 @@ function ViewJournalArticle() {
     }
 
     useEffect(() => {
+        // Fetch article data when component mounts
         getData();
     }, []);
 

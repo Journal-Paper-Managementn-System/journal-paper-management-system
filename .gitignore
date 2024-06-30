@@ -26,3 +26,9 @@ dist-ssr
 # Personal inputs
 access_token.txt
 **.bak
+
+.env
+.firebaserc
+.firebase/*
+package-lock.json
+dist

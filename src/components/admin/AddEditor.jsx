@@ -19,12 +19,6 @@ function AddEditor() {
     const { journalData, getJournalData } = useJournal();
     const [cnfModalShow, setCnfModalShow] = useState({});
 
-    /**
-     * Handles the removal of an editor from a journal.
-     *
-     * @param {string} journalId - The ID of the journal.
-     * @returns {Promise<void>} - A promise that resolves when the editor is removed successfully.
-     */
     const handleRemoveEditor = async (journalId) => {
         const response = await Journal.removeEditor(journalId, token);
         if (response.success) {

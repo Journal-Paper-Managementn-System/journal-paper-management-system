@@ -4,7 +4,11 @@ class Journal {
 
     /**
      * Retrieves the list of journals from the server.
+<<<<<<< HEAD
      * @returns {Promise<Array>} A promise that resolves to an array of journal data.
+=======
+     * @returns {Promise<Array>} A promise that resolves to an array of journal objects.
+>>>>>>> f71df29f878c1a55b3059e09f436854f11c5d84a
      */
     async getJournalList() {
         try {
@@ -24,7 +28,11 @@ class Journal {
     /**
      * Adds a journal to the server.
      * @param {Object} journalData - The data of the journal to be added.
+<<<<<<< HEAD
      * @param {string} accessToken - The access token for authentication.
+=======
+     * @param {string} accessToken - The access token for authorization.
+>>>>>>> f71df29f878c1a55b3059e09f436854f11c5d84a
      * @returns {Promise<Object>} - A promise that resolves to the response data from the server.
      */
     async addJournal(journalData, accessToken) {
@@ -69,7 +77,11 @@ class Journal {
     /**
      * Adds an editor to the journal.
      * @param {Object} editorData - The data of the editor to be added.
+<<<<<<< HEAD
      * @param {string} accessToken - The access token for authentication.
+=======
+     * @param {string} accessToken - The access token for authorization.
+>>>>>>> f71df29f878c1a55b3059e09f436854f11c5d84a
      * @returns {Promise<Object>} - A promise that resolves to the response data.
      */
     async addEditor(editorData, accessToken) {

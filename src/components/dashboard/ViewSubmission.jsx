@@ -29,18 +29,25 @@ function ViewSubmission() {
                                     <tr key={index}>
                                         <td>{index + 1}</td>
                                         <td>
+                                            {/* Link to view the journal article */}
                                             <Link to={`/dashboard/view-submission/${journal._id}`} state={{ isEditor: false }} className="txt-container text-start" style={{ width: "20rem" }}>{journal.title}</Link>
                                         </td>
                                         <td>
+                                            {/* Display the submission date */}
                                             {new Date(journal.createdAt).toLocaleString()}
                                         </td>
                                         <td>
+                                            {/* Display review comments if the journal has been accepted or rejected */}
                                             {["accepted", "rejected"].includes(journal.finalStatus) ? journal.reviewers.map((reviewer, index) => (
                                                 <div key={index}>{parse(reviewer.comments)}</div>
                                             )) : "N/A"}
                                         </td>
-                                        <td>{["accepted", "rejected"].includes(journal.finalStatus) ? journal.editorComments : "N/A"}</td>
                                         <td>
+                                            {/* Display editor comments if the journal has been accepted or rejected */}
+                                            {["accepted", "rejected"].includes(journal.finalStatus) ? journal.editorComments : "N/A"}
+                                        </td>
+                                        <td>
+                                            {/* Display the status of the journal */}
                                             <p className={journal.status === "submitted" ? "text-warning" + " fw-bold text-capitalize" : (journal.status === "rejected" ? "text-danger" : "text-primary") + " fw-bold text-capitalize"}>
                                                 {journal.status}
                                             </p>

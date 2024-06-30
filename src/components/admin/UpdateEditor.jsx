@@ -10,6 +10,11 @@ function UpdateEditor(props) {
     const [loader, setLoader] = useState(false);
     const { journal, getJournalData, token } = props;
 
+    /**
+     * Handles the save changes event when the user submits the form.
+     * @param {Event} e - The event object.
+     * @returns {Promise<void>} - A promise that resolves when the save changes process is complete.
+     */
     const handleSaveChanges = async (e) => {
         e.preventDefault();
         // Check if the confirm checkbox is checked
@@ -27,8 +32,8 @@ function UpdateEditor(props) {
             journalId: journal._id
         }, token);
         if (response.success) {
-            getJournalData(); // Update the journal list
-            // Send an email to the editor
+            getJournalData();
+            
             await mailService.sendMail({
                 mailFrom: "Journal Submission",
                 mailTo: e.target.email.value,

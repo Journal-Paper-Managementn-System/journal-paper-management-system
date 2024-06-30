@@ -9,6 +9,11 @@ function DeleteJournal(props) {
     const { journalData, getJournalData, token } = props;
     const [loader, setLoader] = useState(false);
 
+    /**
+     * Handles the save changes event when deleting a journal.
+     * @param {Event} e - The event object.
+     * @returns {Promise<void>} - A promise that resolves when the function is complete.
+     */
     const handleSaveChanges = async (e) => {
         e.preventDefault();
         // Check if the confirm checkbox is checked
