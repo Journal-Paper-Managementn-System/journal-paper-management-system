@@ -10,7 +10,8 @@ import Reviewer from "../../services/reviewerService";
 // import { Button } from "react-bootstrap";
 import Confirmation from "../../utils/Confirmation";
 import { useJournal } from "../../store/JournalContext";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
+import ViewJournalArticle from "../journal/ViewJournalArticle";
 
 function AssignReviewer() {
     const { token } = useAuth();
@@ -24,6 +25,7 @@ function AssignReviewer() {
     const [search, setSearch] = useState("");
     const [cnfModalShow, setCnfModalShow] = useState(false);
     const [rcnfModalShow, setRcnfModalShow] = useState(false);
+    const { articleId } = useParams();
 
     /**
      * Handles the submission of the selected reviewers.
@@ -172,40 +174,42 @@ function AssignReviewer() {
     }
 
     return (
-        <div className="editor">
-            <div className="editor-container">
-                <div className="row m-0 p-0 py-4">
-                    {/* Editor journal-title */}
-                    <div className="col-md-12">
-                        <h2 className="text-center fw-bold">Assign Reviewer</h2>
-                        <hr />
-                    </div>
-                    {
-                        articles.length === 0 ? <h2 className='fw-bold'>There are no articles...</h2> :
-                            <div className={`col-md-9 table-responsive ${!article && 'col-md-12'}`} style={{ maxHeight: "65vh", overflow: "auto" }}>
-                                <table className="table table-striped table-bordered text-center">
-                                    <thead className="table-dark">
-                                        <tr>
-                                            <th>#</th>
-                                            <th style={{ width: "45rem" }}>Title</th>
-                                            <th>Submission Date</th>
-                                            <th>View details</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {articles.map((article, index) => (
-                                            <tr key={index} onClick={handleClick} id={article._id} className={article.isSelected ? "table-primary" : ""}>
-                                                <th>{index + 1}</th>
-                                                <td>
-                                                    <div className="txt-container text-start" style={{ width: "30rem" }}>
-                                                        {article.title}
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    {new Date(article.createdAt).toLocaleString()}
-                                                </td>
-                                                <td>
-                                                    {/* <Button variant="outline-primary" onClick={() => setModalShow(prevState => ({ ...prevState, [index]: true }))}>
+        <>
+        { !articleId ?
+            <div className="editor">
+                <div className="editor-container">
+                    <div className="row m-0 p-0 py-4">
+                        {/* Editor journal-title */}
+                        <div className="col-md-12">
+                            <h2 className="text-center fw-bold">Assign Reviewer</h2>
+                            <hr />
+                        </div>
+                        {
+                            articles.length === 0 ? <h2 className='fw-bold'>There are no articles...</h2> :
+                                <div className={`col-md-9 table-responsive ${!article && 'col-md-12'}`} style={{ maxHeight: "65vh", overflow: "auto" }}>
+                                    <table className="table table-striped table-bordered text-center">
+                                        <thead className="table-dark">
+                                            <tr>
+                                                <th>#</th>
+                                                <th style={{ width: "45rem" }}>Title</th>
+                                                <th>Submission Date</th>
+                                                <th>View details</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {articles.map((article, index) => (
+                                                <tr key={index} onClick={handleClick} id={article._id} className={article.isSelected ? "table-primary" : ""}>
+                                                    <th>{index + 1}</th>
+                                                    <td>
+                                                        <div className="txt-container text-start" style={{ width: "30rem" }}>
+                                                            {article.title}
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        {new Date(article.createdAt).toLocaleString()}
+                                                    </td>
+                                                    <td>
+                                                        {/* <Button variant="outline-primary" onClick={() => setModalShow(prevState => ({ ...prevState, [index]: true }))}>
                                                             <GrView />
                                                         </Button>
                                                         <EditorArticleView
@@ -213,114 +217,116 @@ function AssignReviewer() {
                                                             handleClose={() => setModalShow(prevState => ({ ...prevState, [index]: false }))}
                                                             article={article}
                                                         /> */}
-                                                    <Link to={`/dashboard/view-journal-article/${article._id}`} state={{ isEditor: true }} className="btn btn-outline-primary">
-                                                        <GrView />
-                                                    </Link>
-                                                </td>
-                                            </tr>
-                                        ))}
-                                    </tbody>
-                                </table>
-                            </div>
-                    }
+                                                        <Link to={`/dashboard/assign-reviewer/${article._id}`} state={{ isEditor: true }} className="btn btn-outline-primary">
+                                                            <GrView />
+                                                        </Link>
+                                                    </td>
+                                                </tr>
+                                            ))}
+                                        </tbody>
+                                    </table>
+                                </div>
+                        }
 
-                    {article && <div className='col-md-3'>
-                        {/* Status*/}
-                        <div className="card status">
-                            <div className="card-title">
-                                <h5>Status</h5>
-                            </div>
-                            <div className="card-body d-flex flex-column justify-content-around">
-                                <select
-                                    name="status"
-                                    id="status"
-                                    className="form-select"
-                                    value={["accepted", "rejected", "under review"].includes(article.status) ? article.status : "select-status"} onChange={statusChange}
-                                >
-                                    <option value="select-status" disabled>Select Status</option>
-                                    <option value="accepted">Accepted</option>
-                                    <option value="rejected">Rejected</option>
-                                    <option value="under review">Under Review</option>
-                                </select>
-                                <button
-                                    type="button"
-                                    onClick={() => setCnfModalShow(true)}
-                                    className="btn btn-dark btn-lg w-100 mt-3"
-                                >Update</button>
+                        {article && <div className='col-md-3'>
+                            {/* Status*/}
+                            <div className="card status">
+                                <div className="card-title">
+                                    <h5>Status</h5>
+                                </div>
+                                <div className="card-body d-flex flex-column justify-content-around">
+                                    <select
+                                        name="status"
+                                        id="status"
+                                        className="form-select"
+                                        value={["accepted", "rejected", "under review"].includes(article.status) ? article.status : "select-status"} onChange={statusChange}
+                                    >
+                                        <option value="select-status" disabled>Select Status</option>
+                                        <option value="accepted">Accepted</option>
+                                        <option value="rejected">Rejected</option>
+                                        <option value="under review">Under Review</option>
+                                    </select>
+                                    <button
+                                        type="button"
+                                        onClick={() => setCnfModalShow(true)}
+                                        className="btn btn-dark btn-lg w-100 mt-3"
+                                    >Update</button>
 
-                                <Confirmation
-                                    show={cnfModalShow}
-                                    handleClose={() => setCnfModalShow(false)}
-                                    onConfirm={handleSubmitStatus}
-                                    title="Update Status"
-                                    message={`<p><strong class="text-capitalize d-block mb-2">Status: ${article.status}</strong>Are you sure you want to update the status?</p>`}
-                                />
-                            </div>
-                        </div>
-
-                        {/* Reviewer list */}
-                        {article.reviewers.length < 3 && <form className="card reviewer-list mt-2" id="submit">
-                            <div className="card-title">
-                                <h5>Reviewers</h5>
-                            </div>
-                            <div className="card-body p-0">
-                                <div
-                                    className="search-author"
-                                    style={{ marginBottom: ".2rem" }}
-                                >
-                                    <input
-                                        type="search"
-                                        name="author-search"
-                                        id="author-search"
-                                        placeholder="Search Reviewer..."
-                                        className="form-control"
-                                        aria-label="Search"
-                                        value={search}
-                                        onChange={handleSearch}
+                                    <Confirmation
+                                        show={cnfModalShow}
+                                        handleClose={() => setCnfModalShow(false)}
+                                        onConfirm={handleSubmitStatus}
+                                        title="Update Status"
+                                        message={`<p><strong class="text-capitalize d-block mb-2">Status: ${article.status}</strong>Are you sure you want to update the status?</p>`}
                                     />
                                 </div>
-                                <ul className="p-2 ">
-                                    {reviewers.map((reviewer, index) => (
-                                        <label htmlFor={reviewer._id} className="w-100" key={index}>
-                                            <li className="m-0 d-flex justify-content-between align-items-center author-items">
-                                                <label htmlFor={reviewer._id}>
-                                                    {reviewer.firstName} {reviewer.lastName} ({reviewer.affiliation})
-                                                </label>
-                                                <input
-                                                    type="checkbox"
-                                                    name="check-author"
-                                                    id={reviewer._id}
-                                                    className="bg-none check-author-inp"
-                                                    onChange={handleSelectReviewer}
-                                                />
-                                            </li>
-                                        </label>
-                                    ))}
-                                </ul>
                             </div>
-                            <input
-                                type="button"
-                                value="Submit"
-                                className="btn btn-dark my-2 mx-2"
-                                id="submit"
-                                // name="add user"
-                                onClick={() => selectedReviewers.length > 0 ? setRcnfModalShow(true) : toast.error("Please select at least one reviewer")}
-                            />
 
-                            <Confirmation
-                                show={rcnfModalShow}
-                                handleClose={() => setRcnfModalShow(false)}
-                                onConfirm={handleSubmitReviewer}
-                                title="Assign Reviewer"
-                                message={`<p><strong class="text-capitalize d-block mb-2">Reviewers: ${selectedReviewers.length}</strong>Are you sure you want to assign the reviewers?</p>`}
-                            />
+                            {/* Reviewer list */}
+                            {article.reviewers.length < 3 && <form className="card reviewer-list mt-2" id="submit">
+                                <div className="card-title">
+                                    <h5>Reviewers</h5>
+                                </div>
+                                <div className="card-body p-0">
+                                    <div
+                                        className="search-author"
+                                        style={{ marginBottom: ".2rem" }}
+                                    >
+                                        <input
+                                            type="search"
+                                            name="author-search"
+                                            id="author-search"
+                                            placeholder="Search Reviewer..."
+                                            className="form-control"
+                                            aria-label="Search"
+                                            value={search}
+                                            onChange={handleSearch}
+                                        />
+                                    </div>
+                                    <ul className="p-2 ">
+                                        {reviewers.map((reviewer, index) => (
+                                            <label htmlFor={reviewer._id} className="w-100" key={index}>
+                                                <li className="m-0 d-flex justify-content-between align-items-center author-items">
+                                                    <label htmlFor={reviewer._id}>
+                                                        {reviewer.firstName} {reviewer.lastName} ({reviewer.affiliation})
+                                                    </label>
+                                                    <input
+                                                        type="checkbox"
+                                                        name="check-author"
+                                                        id={reviewer._id}
+                                                        className="bg-none check-author-inp"
+                                                        onChange={handleSelectReviewer}
+                                                    />
+                                                </li>
+                                            </label>
+                                        ))}
+                                    </ul>
+                                </div>
+                                <input
+                                    type="button"
+                                    value="Submit"
+                                    className="btn btn-dark my-2 mx-2"
+                                    id="submit"
+                                    // name="add user"
+                                    onClick={() => selectedReviewers.length > 0 ? setRcnfModalShow(true) : toast.error("Please select at least one reviewer")}
+                                />
 
-                        </form>}
-                    </div>}
+                                <Confirmation
+                                    show={rcnfModalShow}
+                                    handleClose={() => setRcnfModalShow(false)}
+                                    onConfirm={handleSubmitReviewer}
+                                    title="Assign Reviewer"
+                                    message={`<p><strong class="text-capitalize d-block mb-2">Reviewers: ${selectedReviewers.length}</strong>Are you sure you want to assign the reviewers?</p>`}
+                                />
+
+                            </form>}
+                        </div>}
+                    </div>
                 </div>
+                {/* end container here */}
             </div>
-            {/* end container here */}
-        </div>
+            : <ViewJournalArticle articleId={articleId}/>}
+        </>
     );
 }
 

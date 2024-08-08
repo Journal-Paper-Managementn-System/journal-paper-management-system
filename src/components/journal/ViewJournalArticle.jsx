@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import PDFViewer from "../fileviewer/PDFViewer";
 import { Navigate } from "react-router-dom";
 import { GrDocumentPdf } from "react-icons/gr";
@@ -14,14 +14,15 @@ import { useArticle } from "../../store/ArticleContext";
 // import { useAuth } from "../../store/AuthContext";
 import Loading from "../../utils/Loading";
 
-function ViewJournalArticle() {
-    const { articleId } = useParams();
+function ViewJournalArticle({ articleId }) {
+    // const { articleId } = useParams();
     const { journalData, getJournalArticles } = useJournal();
     const { articleData } = useArticle();
     const [article, setArticle] = useState(false);
     // const { user } = useAuth();
     const { isEditor } = useLocation().state;
-    const [modalShow, setModalShow] = useState(false);
+    const [modalShowMS, setModalShowMS] = useState(false);
+    const [modalShowSF, setModalShowSF] = useState(false);
     const [loading, setLoading] = useState(true);
 
     // Fetch article data based on user role
@@ -115,24 +116,24 @@ function ViewJournalArticle() {
                                 </div>
                                 <hr />
                                 <h5 className="fw-bold d-flex align-items-center"><MdPreview className="me-2" />View Menuscript</h5>
-                                <button className="btn btn-primary ms-4 mt-1" onClick={() => setModalShow(true)}>
+                                <button className="btn btn-primary ms-4 mt-1" onClick={() => setModalShowMS(true)}>
                                     <GrDocumentPdf />
                                 </button>
                                 <PDFViewer
-                                    show={modalShow}
-                                    onHide={() => setModalShow(false)}
-                                    fileurl={article.mergedScript}
+                                    show={modalShowMS}
+                                    onHide={() => setModalShowMS(false)}
+                                    fileurl={`merged-script/${article.mergedScript}`}
                                     title={article.title}
                                 />
                                 <hr />
                                 <h5 className="fw-bold d-flex align-items-center"><MdPreview className="me-2" />View Supplementary File</h5>
-                                <button className="btn btn-primary ms-4 mt-1" onClick={() => setModalShow(true)}>
+                                <button className="btn btn-primary ms-4 mt-1" onClick={() => setModalShowSF(true)}>
                                     <GrDocumentPdf />
                                 </button>
                                 <PDFViewer
-                                    show={modalShow}
-                                    onHide={() => setModalShow(false)}
-                                    fileurl={article.mergedScript}
+                                    show={modalShowSF}
+                                    onHide={() => setModalShowSF(false)}
+                                    fileurl={`supplementary-file/${article.supplementaryFile}`}
                                     title={article.title}
                                 />
                             </div>

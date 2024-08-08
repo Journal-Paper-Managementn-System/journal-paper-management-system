@@ -68,7 +68,7 @@ function AcceptedArticles() {
                                             <PDFViewer
                                                 show={modalShow[index]}
                                                 onHide={() => setModalShow(prevState => ({ ...prevState, [index]: false }))}
-                                                fileurl={article.mergedScript}
+                                                fileurl={`merged-script/${article.mergedScript}`}
                                                 title={article.title}
                                             />
                                         </td>

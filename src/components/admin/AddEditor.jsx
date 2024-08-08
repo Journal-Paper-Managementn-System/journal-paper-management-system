@@ -65,7 +65,7 @@ function AddEditor() {
                     {journalData.map((journal, index) => (
                         <tr key={index}>
                             <th>{index + 1}</th>
-                            <td style={{ width: "50rem" }}>{journal.title}</td>
+                            <td style={{ width: "50rem" }} className='text-start'>{journal.title}</td>
                             <td>{journal.editor ? journal.editor.firstName + " " + journal.editor.lastName : "Not Assigned"}</td>
                             <td>
                                 <div className="d-flex justify-content-center flex-wrap">

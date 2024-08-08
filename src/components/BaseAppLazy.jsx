@@ -27,7 +27,7 @@ const GuestRoute = lazy(() => import("../utils/GuestRoute"));
 const ErrorElement = lazy(() => import("./ErrorElement"));
 // const DocViewer = lazy(() => import("./fileviewer/DOCViewer"));
 import Loading from "../utils/Loading";
-const ViewJournalArticle = lazy(() => import("./journal/ViewJournalArticle"));
+// const ViewJournalArticle = lazy(() => import("./journal/ViewJournalArticle"));
 
 const router = createBrowserRouter([
     {
@@ -71,7 +71,7 @@ const router = createBrowserRouter([
                                 errorElement: <ErrorElement />,
                             },
                             {
-                                path: "assign-reviewer",
+                                path: "assign-reviewer/:articleId?",
                                 element: (
                                     <Suspense fallback={<Loading />}>
                                         <AssignReviewer />
@@ -134,14 +134,14 @@ const router = createBrowserRouter([
                                     </Suspense>
                                 ),
                             },
-                            {
-                                path: "view-journal-article/:articleId?",
-                                element: (
-                                    <Suspense fallback={<Loading />}>
-                                        <ViewJournalArticle />
-                                    </Suspense>
-                                ),
-                            },
+                            // {
+                            //     path: "view-journal-article/:articleId?",
+                            //     element: (
+                            //         <Suspense fallback={<Loading />}>
+                            //             <ViewJournalArticle />
+                            //         </Suspense>
+                            //     ),
+                            // },
                         ],
                     },
                     {

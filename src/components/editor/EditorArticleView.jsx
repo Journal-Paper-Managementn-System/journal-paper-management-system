@@ -65,7 +65,7 @@ function EditorArticleView(props) {
                                     <PDFViewer
                                         show={modalShow}
                                         onHide={() => setModalShow(false)}
-                                        fileurl={article.mergedScript}
+                                        fileurl={`merged-script/${article.mergedScript}`}
                                         title={article.title}
                                     />
                                 </td>

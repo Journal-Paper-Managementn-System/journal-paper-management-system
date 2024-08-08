@@ -91,9 +91,9 @@ function Login() {
         setCheckbox(e.target.checked);
     }
 
-    useEffect(() => {
-        document.title = "Login - Article Submission System";
-    })
+    // useEffect(() => {
+    //     document.title = "Login - Article Submission System";
+    // })
 
     return (
         <>

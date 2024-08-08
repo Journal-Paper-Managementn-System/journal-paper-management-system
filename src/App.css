@@ -172,6 +172,14 @@
     /* Set a max-height for the transition */
 }
 
+.sidebar-links > a.active, .sidebar-links > a:hover {
+    background-color: var(--primary-color);
+    border-radius: 5px;
+    /* padding: 10px; */
+    color: var(--light-white);
+    /* border: none !important; */
+}
+
 @media screen and (max-width: 486px) {
     .center-wrapper {
         min-width: 100%;

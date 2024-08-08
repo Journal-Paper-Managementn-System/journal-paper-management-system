@@ -14,7 +14,7 @@ const ProtectedRoute = () => {
 
     if (user.isEditor) {
         // Editors can only access these pages
-        if (!['/dashboard/profile', '/dashboard/assign-reviewer', '/dashboard', '/dashboard/view-articles', '/dashboard/add-reviewer', '/dashboard/accepted-articles', `/dashboard/view-journal-article/${articleId}`].includes(pathname)) {
+        if (!['/dashboard/profile', '/dashboard/assign-reviewer', '/dashboard', '/dashboard/view-articles', '/dashboard/add-reviewer', '/dashboard/accepted-articles', `/dashboard/assign-reviewer/${articleId}`].includes(pathname)) {
             return <Navigate to="/" replace />;
         }
     } else if (user.isSuperAdmin) {
@@ -24,7 +24,7 @@ const ProtectedRoute = () => {
         }
     } else {
         // Simple users can't access these pages
-        if (['/dashboard/assign-reviewer', '/dashboard/view-articles', '/dashboard/add-reviewer', '/dashboard/accepted-articles', '/add-editor', `/dashboard/view-journal-article/${articleId}`].includes(pathname)) {
+        if (['/dashboard/assign-reviewer', '/dashboard/view-articles', '/dashboard/add-reviewer', '/dashboard/accepted-articles', '/add-editor', `/dashboard/assign-reviewer/${articleId}`].includes(pathname)) {
             return <Navigate to="/" replace />;
         }
     }

@@ -15,6 +15,7 @@ function ReviewArticles() {
 
     const getArticles = async () => {
         const responseData = await Article.getReviewArticles(token);
+        // console.log(responseData);
         setArticles(responseData);
     }
 
@@ -31,6 +32,10 @@ function ReviewArticles() {
         e.preventDefault();
         // Find the article based on the ID
         const article = articles.data.find((article) => article._id === e.target.id);
+        // Check if the status and comments are provided
+        if (article.reviewers[0].status === "Null" || article.reviewers[0].comments.trim() === "") {
+            return toast.error("Please select a status and provide comments");
+        }
         article.reviewers[0].reviewed = true;
         article.reviewers[0].reviewDate = new Date();
         const response = await Article.updateReview(article, token);
@@ -87,7 +92,7 @@ function ReviewArticles() {
                                             <>
                                                 <th>{index + 1}</th>
                                                 <td>
-                                                    <div className='txt-container text-start' onClick={(e) => e.target.classList.toggle("txt-expanded")} style={{ width: "20rem" }}>
+                                                    <div className='text-start' style={{ width: "20rem" }}>
                                                         {article.title}
                                                     </div>
                                                 </td>
@@ -99,7 +104,7 @@ function ReviewArticles() {
                                                     <PDFViewer
                                                         show={modalShow[index]}
                                                         onHide={() => setModalShow(prevState => ({ ...prevState, [index]: false }))}
-                                                        fileurl={article.mergedScript}
+                                                        fileurl={`merged-script/${article.mergedScript}`}
                                                         title={article.title}
                                                     />
                                                 </td>
@@ -109,7 +114,7 @@ function ReviewArticles() {
                                                         id={article._id}
                                                         className="form-select"
                                                         style={{ minWidth: "12rem" }}
-                                                        value={article.reviewers[0].status || "select status"}
+                                                        value={article.reviewers[0].status === "Null" ? "select status" : article.reviewers[0].status}
                                                         onChange={handleStatus}
                                                     >
                                                         <option value="select status" disabled>Select Status</option>

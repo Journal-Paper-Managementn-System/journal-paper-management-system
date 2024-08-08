@@ -4,9 +4,11 @@ import { Link } from "react-router-dom";
 import Pagination from "./Pagination";
 import PreloaderNav from "./PreloaderNav";
 import { useJournal } from "../../store/JournalContext";
+import { useAuth } from "../../store/AuthContext";
 
 function Preloader() {
     const { journalData } = useJournal();
+    const { user, isLoggedIn } = useAuth();
 
     return (
         <>
@@ -27,7 +29,7 @@ function Preloader() {
                                     <th>#</th>
                                     <th>Journals</th>
                                     <th>Description</th>
-                                    <th>Template</th>
+                                    <th>Date</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -35,14 +37,17 @@ function Preloader() {
                                     <tr key={index}>
                                         <td>{index + 1}</td>
                                         <td>
-                                            <p style={{minWidth: "10rem"}}>
-                                                <Link to={`/dashboard/add-submission/${journal._id}`}>{journal.title}</Link>
+                                            <p style={{ minWidth: "10rem" }}>
+                                                {isLoggedIn && (user.isEditor || user.isSuperAdmin) ?
+                                                    journal.title :
+                                                    <Link to={`/dashboard/add-submission/${journal._id}`} className="text-start">{journal.title}</Link>
+                                                }
                                             </p>
                                         </td>
                                         <td>
                                             <p>{journal.description}</p>
                                         </td>
-                                        <td style={{minWidth: "20rem"}}></td>
+                                        <td style={{ minWidth: "20rem" }}>{new Date(journal.createdAt).toLocaleString()}</td>
                                     </tr>
                                 ))}
                             </tbody>
