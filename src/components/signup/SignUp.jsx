@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./signup-style.css";
 import { Link, Outlet, useLocation } from "react-router-dom";
 import Auth from "../../services/authService";
@@ -8,6 +8,8 @@ import { toast } from "react-toastify";
 import { ThreeDots } from "react-loader-spinner";
 import EmailMessage from "../../utils/emailMessages/Message";
 import ReactDOMServer from "react-dom/server";
+import { AiOutlineEyeInvisible } from "react-icons/ai";
+import { GrView } from "react-icons/gr";
 
 function SignUp() {
     const location = useLocation();
@@ -25,6 +27,8 @@ function SignUp() {
         confPassword: "",
     });
     const navigate = useNavigate();
+    const [visibleIcon, setVisibleIcon] = useState(true);
+    const pswd = useRef();
 
     useEffect(() => {
         setEmailOtp(Math.floor(1000 + Math.random() * 900000));
@@ -81,6 +85,22 @@ function SignUp() {
         }
         else {
             setCredentials({ ...credentials, userName: "" });
+        }
+    }
+
+    /**
+     * Toggles the visibility of the password input field.
+     * If the password input field is not empty, it toggles between showing the password as plain text and hiding it.
+     * If the password input field is empty, it displays a warning toast message.
+     */
+    const handleOnVisible = () => {
+        if (pswd.current.type !== 'password') {
+            pswd.current.type = 'password';
+            setVisibleIcon(true);
+        }
+        else {
+            pswd.current.type = 'text';
+            setVisibleIcon(!visibleIcon);
         }
     }
 
@@ -215,7 +235,7 @@ function SignUp() {
                                             required
                                         />
                                     </div>
-                                    <div className="input-control">
+                                    <div className="input-control position-relative">
                                         <label htmlFor="confPassword">
                                             Confirm Password <span className="required-field">*</span>
                                         </label>
@@ -226,8 +246,17 @@ function SignUp() {
                                             id="confPassword"
                                             value={credentials.confPassword}
                                             onChange={onChange}
+                                            ref={pswd}
                                             required
                                         />
+                                        <span className="input-icon">
+                                            {
+                                                !visibleIcon ?
+                                                    <GrView onClick={handleOnVisible} className="pswd-icon" />
+                                                    : <AiOutlineEyeInvisible
+                                                        onClick={handleOnVisible} className="pswd-icon" fontSize={24} />
+                                            }
+                                        </span>
                                     </div>
 
 
@@ -237,8 +266,8 @@ function SignUp() {
                                     <label className="policy-text" htmlFor="policy-btn">
                                         <input type="checkbox" name="alert-policy" id="policy-btn" /> By
                                         clicking sign up, you agree to our{" "}
-                                        <Link to="/sign-up">Terms,</Link>{" "}
-                                        <Link to="/sign-up">Privacy & Policy</Link>. You may receive sms
+                                        {/* <Link to="/sign-up">Terms,</Link>{" "} */}
+                                        <Link to="/sign-up">Terms, Privacy & Policy</Link>. You may receive sms
                                         notifications from us and can opt out at any time.
                                     </label>
                                 </div>

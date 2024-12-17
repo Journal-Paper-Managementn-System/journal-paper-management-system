@@ -180,6 +180,11 @@
     /* border: none !important; */
 }
 
+.btn-check:checked+.btn, .btn.active, .btn.show, .btn:first-child:active, :not(.btn-check)+.btn:active {
+    color: var(--light-white);
+    border: var(--primary-color);
+}
+
 @media screen and (max-width: 486px) {
     .center-wrapper {
         min-width: 100%;

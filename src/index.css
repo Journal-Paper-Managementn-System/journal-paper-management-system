@@ -89,7 +89,7 @@ main section {
 }
 
 span.required-field {
-    color: var(--btn-primary-color);
+    color: var(--btn-secondary-color);
 }
 
 .footer {

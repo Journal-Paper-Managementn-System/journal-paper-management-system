@@ -6,6 +6,7 @@ import Article from '../../services/articleService';
 import { toast } from 'react-toastify';
 import Confirmation from '../../utils/Confirmation';
 import { useJournal } from '../../store/JournalContext';
+import { Link } from 'react-router-dom';
 
 function ReviewerRow({ article, index }) {
     return (
@@ -113,9 +114,9 @@ function ViewArticles() {
                                     <tr key={index}>
                                         <th rowSpan={3}>{index + 1}</th>
                                         <td rowSpan={3}>
-                                            <div className="text-start" style={{ minWidth: "20rem" }}>
+                                            <Link to={`/dashboard/assign-reviewer/${article._id}`} state={{ isEditor: true }} className="text-start" style={{ minWidth: "20rem" }}>
                                                 {article.title}
-                                            </div>
+                                            </Link>
                                         </td>
                                         <ReviewerRow article={article} index={0} />
                                         <td rowSpan={3} >

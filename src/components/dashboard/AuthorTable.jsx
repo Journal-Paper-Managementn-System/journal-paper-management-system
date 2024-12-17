@@ -45,7 +45,7 @@ const AuthorRow = ({ authors, setAuthors }) => {
                             <th scope="col">Corresponding Author</th>
                             <th scope="col">First Author</th>
                             <th scope="col">Other Author</th>
-                            <th scope="col"><button type="button" className="btn btn-warning fw-bold px-3" onClick={addAuthorRow}>+</button></th>
+                            <th scope="col"><button type="button" className="btn btn-primary fw-bold px-3" onClick={addAuthorRow}>+</button></th>
                         </tr>
                     </thead>
                     <tbody id="author-body">

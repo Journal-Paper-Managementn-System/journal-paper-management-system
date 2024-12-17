@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Navigate, useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import Auth from "../../services/authService";
@@ -10,11 +10,12 @@ function Verification() {
     const navigate = useNavigate();
     const [otp, setOtp] = useState('');
     const [loader, setLoader] = useState(false);
+    const [timeLeft, setTimeLeft] = useState(300);
     let userEmail = null;
     if (location.state) {
         userEmail = location.state.email.split('@');
         userEmail[0] = userEmail[0].slice(0, 3) + '***';
-        userEmail = userEmail.join('@');    
+        userEmail = userEmail.join('@');
     }
 
     async function verifyOTP(e) {
@@ -34,6 +35,23 @@ function Verification() {
         }
     }
 
+    useEffect(() => {
+        const timer = setInterval(() => {
+            setTimeLeft(prevTime => {
+                if (prevTime <= 1) {
+                    clearInterval(timer);
+                    navigate('/login', { state: { redirectTo: location.state?.redirectTo } });
+                    return 0;
+                }
+                return prevTime - 1;
+            });
+        }, 1000);
+
+        return () => {
+            clearInterval(timer);
+        };
+    }, []);
+
     function handleOtpInput(e) {
         setOtp(e.target.value);
     }
@@ -48,9 +66,15 @@ function Verification() {
                         fontSize: "1.1rem",
                         fontWeight: "500"
                     }}>{userEmail}</span></p>
-                    <input type="tel" placeholder="Enter OTP" value={otp} onChange={handleOtpInput} />
+                    <input
+                        type="tel"
+                        placeholder="Enter OTP"
+                        value={otp}
+                        onChange={handleOtpInput}
+                    />
+                    <p className="my-2"><b>Time left:</b> 0{Math.floor(timeLeft / 60)}:{timeLeft % 60 < 10 ? '0' : ''}{timeLeft % 60}</p>
                     {loader ?
-                        <button type="button" className="d-flex justify-content-center">
+                        <button type="button" className="d-flex justify-content-center" disabled>
                             <ThreeDots height={25} width={54} color="#fff" />
                         </button>
                         : <button type="submit" onClick={verifyOTP} className="fw-bold">Verify OTP</button>

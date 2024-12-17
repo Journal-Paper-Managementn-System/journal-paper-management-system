@@ -187,6 +187,17 @@ function AddSubmission() {
 
                 {/* Keywords of the Journal Article */}
                 <KeyWords keywords={keywords} setKeywords={setKeywords} />
+                
+                {/* Upload Cover Letter */}
+                <div className="row mb-3">
+                    <label htmlFor="cover-letter" className="col-sm-2 col-form-label">Cover Letter
+                        <span>{" ("}.pdf,
+                            .docx{")"}</span><span className="required-field">*</span></label>
+                    <div className="col-sm-10">
+                        <input type="file" name="cover-letter" className="form-control" id="cover-letter"
+                            accept=".pdf, .docx" required />
+                    </div>
+                </div>
 
                 {/* Upload MenuScript */}
                 <div className="row mb-3">
@@ -195,17 +206,6 @@ function AddSubmission() {
                             .docx{")"}</span><span className="required-field">*</span></label>
                     <div className="col-sm-10">
                         <input type="file" name="menuscript" className="form-control" id="menuscript"
-                            accept=".pdf, .docx" required />
-                    </div>
-                </div>
-
-                {/* Upload Cover Letter */}
-                <div className="row mb-3">
-                    <label htmlFor="cover-letter" className="col-sm-2 col-form-label">Cover Letter
-                        <span>{" ("}.pdf,
-                            .docx{")"}</span><span className="required-field">*</span></label>
-                    <div className="col-sm-10">
-                        <input type="file" name="cover-letter" className="form-control" id="cover-letter"
                             accept=".pdf, .docx" required />
                     </div>
                 </div>
@@ -225,7 +225,7 @@ function AddSubmission() {
 
                 {/* Submit button */}
                 <div className="d-flex justify-content-end">
-                    <button type="submit" className="btn btn-warning pe-5 ps-5 fw-bold">
+                    <button type="submit" className="btn btn-primary pe-5 ps-5 fw-bold">
                         {/* Show a loader while the form is being submitted */}
                         {loader ? <ThreeDots
                             color="#fff"
